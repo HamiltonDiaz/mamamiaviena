@@ -7,14 +7,12 @@ import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { ThemeProvider, makeStyles } from "@mui/styles";
-import { createTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
 import { BotonPrimario } from "../../utils/ButtonsCustom";
 import { convertNumber } from "../../utils/Functions";
 
 const img1 = "/picture/sois_toi_meme.jpeg";
 
-const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
