@@ -6,22 +6,34 @@ import Typography from "@mui/material/Typography";
 import CssBaseline from "@mui/material/CssBaseline";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Zoom from "@mui/material/Zoom";
-
-import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
+import HomeIcon from "@mui/icons-material/Home";
+import HelpIcon from "@mui/icons-material/Help";
+import PaletteIcon from "@mui/icons-material/Palette";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import StoreIcon from "@mui/icons-material/Store";
 import { makeStyles } from "@mui/styles";
 import { Button } from "@mui/material";
 
-const useStyles = makeStyles((theme) => ({
+const LogoHome = "/picture/LogoHome.png";
 
+const useStyles = makeStyles((theme) => ({
+    colorTexto:{
+        color:"#a9cf55 !important",
+        fontWeight:"bold !important",
+        "&:hover": { color: "#FFFFFF !important", backgroundColor: "#a9cf55 !important"}
+    },
+    imgLogo:{
+        maxWidth:150
+    }
 }));
 
 const ElevationScroll = (props) => {
@@ -34,7 +46,9 @@ const ElevationScroll = (props) => {
     return React.cloneElement(children, {
         elevation: trigger ? 2 : 0,
         color: trigger ? "primary" : "transparent",
-        
+        sx: trigger
+            ? { color: "#00000", backgroundColor: "#a9cf55" }
+            : { color: "#a9cf55", fontWeight: "bold" },
     });
 };
 
@@ -71,160 +85,223 @@ const ScrollTop = (props) => {
     );
 };
 
+const pages = [
+    "Inicio",
+    "¿Quienes somos?",
+    "Nuestros Diseños",
+    "Muro de la fama",
+    "Zona Outlet",
+];
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppFrame = (props) => {
     const { children } = props;
     const classes = useStyles();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
-    const [anchorElUser, setAnchorElUser] = useState(null);
-  
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+
     const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
+        setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
+
     const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
+        setAnchorElNav(null);
     };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
+
+    const botonMenu = (namebtn) => {
+        let icon = null;
+        switch (namebtn) {
+            case "Inicio":
+                icon = <HomeIcon />;
+                break;
+            case "¿Quienes somos?":
+                icon = <HelpIcon />;
+                return (
+                    <div key={namebtn}>
+                        <Button
+                            
+                            sx={{
+                                color: "inherit",
+                                fontWeight: "bold",
+                                ":hover": { borderBottom: 5 },
+                            }}
+                            startIcon={icon}
+                            id="fade-button"
+                            aria-controls={open ? "fade-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
+                            onMouseOver={handleClick}                            
+                        >
+                            {namebtn}
+                        </Button>
+                        <Menu
+                            id="fade-menu"
+                            MenuListProps={{
+                                "aria-labelledby": "fade-button",
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            TransitionComponent={Fade}
+                            sx={{marginLeft:2}}
+                            
+                        >
+                            <MenuItem onClick={handleClose} className={classes.colorTexto}>Nuestra historia</MenuItem>
+                            <MenuItem onClick={handleClose} className={classes.colorTexto}>La creadora</MenuItem>
+                        </Menu>
+                    </div>
+                );
+
+                break;
+            case "Nuestros Diseños":
+                icon = <PaletteIcon />;
+                break;
+            case "Muro de la fama":
+                icon = <StarRateIcon />;
+                break;
+            case "Zona Outlet":
+                icon = <StoreIcon />;
+                break;
+            default:
+                icon = <HomeIcon />;
+                break;
+        }
+        return (
+            <Button
+                key={namebtn}
+                sx={{
+                    color: "inherit",
+                    fontWeight: "bold",
+                    ":hover": { borderBottom: 5 },
+                }}
+                startIcon={icon}
+            >
+                {namebtn}
+            </Button>
+        );
     };
-  
 
     return (
         <React.Fragment>
             <CssBaseline />
-            <ElevationScroll {...props}   >
-            <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
+            <ElevationScroll {...props}>
+                <AppBar>
+                    <Container maxWidth="xl">
+                        <Toolbar disableGutters>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="a"
+                                href="/"
+                                sx={{
+                                    mr: 2,
+                                    display: { xs: "none", md: "flex" },
+                                    fontFamily: "monospace",
+                                    fontWeight: 700,
+                                    letterSpacing: ".3rem",
+                                    color: "inherit",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                <img src={LogoHome} className={classes.imgLogo} />
+                            </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}  >
-                  <Typography textAlign="center" sx={{color:"inherit"}} >{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'inherit', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+                            <Box
+                                sx={{
+                                    flexGrow: 1,
+                                    display: { xs: "flex", md: "none" },
+                                }}
+                            >
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleOpenNavMenu}
+                                    color="inherit"
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorElNav}
+                                    anchorOrigin={{
+                                        vertical: "bottom",
+                                        horizontal: "left",
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "left",
+                                    }}
+                                    open={Boolean(anchorElNav)}
+                                    onClose={handleCloseNavMenu}
+                                    sx={{
+                                        display: { xs: "block", md: "none" },
+                                    }}
+                                >
+                                    {pages.map((page) => (
+                                        <MenuItem
+                                            key={page}
+                                            onClick={handleCloseNavMenu}
+                                        >
+                                            <Typography
+                                                textAlign="center"
+                                                sx={{ color: "inherit" }}
+                                            >
+                                                {page}
+                                            </Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+                            {/* Toda la pantalla */}
+                            <Box sx={{ flexGrow: 1 }}>
+                                <Typography
+                                    variant="h5"
+                                    noWrap
+                                    component="a"
+                                    href=""
+                                    sx={{
+                                        mr: 2,
+                                        display: { xs: "flex", md: "none" },
+                                        flexGrow: 1,
+                                        fontFamily: "monospace",
+                                        fontWeight: 700,
+                                        letterSpacing: ".3rem",
+                                        color: "inherit",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    <img src={LogoHome} className={classes.imgLogo} />
+                                </Typography>
+                            </Box>
+                            <Box
+                                sx={{
+                                    flexGrow: 0,
+                                    display: { xs: "none", md: "flex" },
+                                }}
+                            >
+                                {pages.map((page) => botonMenu(page))}
+                            </Box>
+                        </Toolbar>
+                    </Container>
+                </AppBar>
             </ElevationScroll>
             <Toolbar id="irinicio" />
 
+            {/* contenido */}
             <Container>
                 <Box sx={{ my: 2 }}>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -287,6 +364,8 @@ const AppFrame = (props) => {
                     {children}
                 </Box>
             </Container>
+
+            {/* boton subir */}
             <ScrollTop {...props}>
                 <Fab
                     sx={{ backgroundColor: "#a9cf55" }}
