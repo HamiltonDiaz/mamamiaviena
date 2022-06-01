@@ -14,26 +14,35 @@ import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Zoom from "@mui/material/Zoom";
-import Fade from '@mui/material/Fade';
 import HomeIcon from "@mui/icons-material/Home";
 import HelpIcon from "@mui/icons-material/Help";
 import PaletteIcon from "@mui/icons-material/Palette";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import StoreIcon from "@mui/icons-material/Store";
 import { makeStyles } from "@mui/styles";
-import { Button } from "@mui/material";
-
-const LogoHome = "/picture/LogoHome.png";
+import Button from "@mui/material/Button";
+import LogoHome from "../../assets/LogoHome.png";
 
 const useStyles = makeStyles((theme) => ({
-    colorTexto:{
-        color:"#a9cf55 !important",
-        fontWeight:"bold !important",
-        "&:hover": { color: "#FFFFFF !important", backgroundColor: "#a9cf55 !important"}
+    colorTexto: {
+        color: "#a9cf55 !important",
+        fontWeight: "bold !important",
+        backgroundColor: "transparent !important",
+        "&:hover": {
+            color: "#FFFFFF !important",
+            backgroundColor: "#a9cf55 !important",
+        },
     },
-    imgLogo:{
-        maxWidth:150
-    }
+    colorTextoQS: {
+        color: "#a9cf55 !important",
+        fontWeight: "bold !important",
+        backgroundColor: "transparent !important",
+        borderBottom:1,
+    },
+
+    imgLogo: {
+        maxWidth: 150,
+    },
 }));
 
 const ElevationScroll = (props) => {
@@ -93,22 +102,19 @@ const pages = [
     "Zona Outlet",
 ];
 
-
 const AppFrame = (props) => {
     const { children } = props;
     const classes = useStyles();
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-      setAnchorEl(null);
+        setAnchorEl(null);
     };
-
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -127,42 +133,24 @@ const AppFrame = (props) => {
             case "¿Quienes somos?":
                 icon = <HelpIcon />;
                 return (
-                    <div key={namebtn}>
-                        <Button
-                            
-                            sx={{
-                                color: "inherit",
-                                fontWeight: "bold",
-                                ":hover": { borderBottom: 5 },
-                            }}
-                            startIcon={icon}
-                            id="fade-button"
-                            aria-controls={open ? "fade-menu" : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? "true" : undefined}
-                            onMouseOver={handleClick}                            
-                        >
-                            {namebtn}
-                        </Button>
-                        <Menu
-                            id="fade-menu"
-                            MenuListProps={{
-                                "aria-labelledby": "fade-button",
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            TransitionComponent={Fade}
-                            sx={{marginLeft:2}}
-                            
-                        >
-                            <MenuItem onClick={handleClose} className={classes.colorTexto}>Nuestra historia</MenuItem>
-                            <MenuItem onClick={handleClose} className={classes.colorTexto}>La creadora</MenuItem>
-                        </Menu>
-                    </div>
+                    <Button
+                        key={namebtn}
+                        sx={{
+                            color: "inherit",
+                            fontWeight: "bold",
+                            // ":hover": { borderBottom: 5 },
+                        }}
+                        startIcon={icon}
+                        id="demo-positioned-button"
+                        aria-controls={open ? 'demo-positioned-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                        onMouseEnter={handleClick}
+                    >
+                        {namebtn}
+                    </Button>
                 );
-
-                break;
             case "Nuestros Diseños":
                 icon = <PaletteIcon />;
                 break;
@@ -213,7 +201,11 @@ const AppFrame = (props) => {
                                     textDecoration: "none",
                                 }}
                             >
-                                <img src={LogoHome} className={classes.imgLogo} />
+                                <img
+                                    src={LogoHome}
+                                    className={classes.imgLogo}
+                                    alt="LogoHome"
+                                />
                             </Typography>
 
                             <Box
@@ -284,7 +276,11 @@ const AppFrame = (props) => {
                                         textDecoration: "none",
                                     }}
                                 >
-                                    <img src={LogoHome} className={classes.imgLogo} />
+                                    <img
+                                        src={LogoHome}
+                                        className={classes.imgLogo}
+                                        alt="LogoHome"
+                                    />
                                 </Typography>
                             </Box>
                             <Box
@@ -293,7 +289,40 @@ const AppFrame = (props) => {
                                     display: { xs: "none", md: "flex" },
                                 }}
                             >
-                                {pages.map((page) => botonMenu(page))}
+                                <div onClose={handleClose}>
+                                    {pages.map((page) => botonMenu(page))}
+                                    <Menu
+                                        id="demo-positioned-menu"
+                                        aria-labelledby="demo-positioned-button"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        anchorOrigin={{
+                                            vertical: "top",
+                                            horizontal: "left",
+                                        }}
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "left",
+                                        }}
+                                        sx={{
+                                            marginLeft:1,
+                                            marginTop:-1,
+                                        }}
+                                    >
+                                        <Box onMouseLeave={handleClose}>
+                                            <MenuItem className={classes.colorTextoQS}>
+                                                <HelpIcon /> ¿Quienes Somos?
+                                            </MenuItem>
+                                            <MenuItem className={classes.colorTexto}>
+                                                Nuestra historia
+                                            </MenuItem>
+                                            <MenuItem className={classes.colorTexto}>
+                                                La creadora
+                                            </MenuItem>
+                                        </Box>
+                                    </Menu>
+                                </div>
                             </Box>
                         </Toolbar>
                     </Container>

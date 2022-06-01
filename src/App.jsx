@@ -5,7 +5,7 @@ import Product from "./components/Product";
 import AppFrame from "./pages/AppFrame";
 import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
-import NavRedes from "./pages/NavRedes/NavRedes";
+import SplitButton from "./pages/NavRedes/NavRedes";
 
 
 const App = () => {
@@ -23,8 +23,10 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <AppFrame>
             {/* <NavRedes/> */}
+                <SplitButton/>
                 <Product />
             </AppFrame>
+
         </ThemeProvider>
     );
 };

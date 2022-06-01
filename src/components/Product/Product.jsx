@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { BotonPrimario } from "../../utils/ButtonsCustom";
 import { convertNumber } from "../../utils/Functions";
+import img1 from "../../assets/picture/sois_toi_meme.jpeg"
 
-const img1 = "/picture/sois_toi_meme.jpeg";
 
 const useStyles = makeStyles((theme) => ({
     root: {
