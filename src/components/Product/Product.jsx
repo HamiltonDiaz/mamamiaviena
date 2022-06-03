@@ -4,14 +4,11 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { BotonPrimario } from "../../utils/ButtonsCustom";
 import { convertNumber } from "../../utils/Functions";
 import img1 from "../../assets/picture/sois_toi_meme.jpeg"
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
     //     maxHeight: 200,
     //     height: "auto",
     // },
-    // contenido: {
-    //     padding: 0,
-    //     marginBottom: 0,
-    //     maxHeight: 100,
-    // },
+    contenido: {
+        padding: 0,
+        marginBottom: 0,
+        maxHeight: 130,
+    },
     btnvermas: {
         alignContent: "center",
         justifyContent: "center",
@@ -35,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Product = () => {
+const Product = ({product}) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
@@ -43,19 +40,21 @@ const Product = () => {
                 className={classes.img}
                 component="img"
                 image={img1}
-                alt="img camiseta"
+                alt="img camiseta"                
             />
 
             <CardContent className={classes.contenido}>
-                <Typography variant="h5" color="text.secondary">
-                    Camiseta "Sois toi-même"
+                
+                <Typography variant="subtitle2">
+                    {product.name}
                 </Typography>
-                <Typography variant="h6" color="textSecondary">
-                    {convertNumber(50000)}
+            
+                <Typography variant="subtitle2" color="textSecondary" >
+                    {convertNumber(product.price)}
                 </Typography>
                 <CardActions className={classes.btnvermas}>
                     <BotonPrimario variant="outlined" size="small">
-                        Ver más
+                        Ver más {product.id}
                     </BotonPrimario>
                 </CardActions>
             </CardContent>

@@ -1,11 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Grid } from "@mui/material";
-import Product from "./components/Product";
+import ListProducts from "./components/Product";
 import AppFrame from "./pages/AppFrame";
 import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
-import SplitButton from "./pages/NavRedes/NavRedes";
+
 
 
 const App = () => {
@@ -22,9 +21,8 @@ const App = () => {
 
         <ThemeProvider theme={theme}>
             <AppFrame>
-            {/* <NavRedes/> */}
-                <SplitButton/>
-                <Product />
+
+                <ListProducts />
             </AppFrame>
 
         </ThemeProvider>

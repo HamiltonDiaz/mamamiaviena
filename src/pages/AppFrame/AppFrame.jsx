@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -22,27 +23,39 @@ import StoreIcon from "@mui/icons-material/Store";
 import { makeStyles } from "@mui/styles";
 import Button from "@mui/material/Button";
 import LogoHome from "../../assets/LogoHome.png";
+import { Badge, Grid } from "@mui/material";
+
+const fuente = "Caveat"// "Indie Flower"
+
 
 const useStyles = makeStyles((theme) => ({
     colorTexto: {
         color: "#a9cf55 !important",
         fontWeight: "bold !important",
         backgroundColor: "transparent !important",
+        fontFamily: fuente + "!important",
         "&:hover": {
             color: "#FFFFFF !important",
             backgroundColor: "#a9cf55 !important",
+
+
         },
     },
     colorTextoQS: {
         color: "#a9cf55 !important",
         fontWeight: "bold !important",
         backgroundColor: "transparent !important",
-        borderBottom:1,
+        borderBottom: 1,
+        fontFamily: fuente + "!important",
     },
 
     imgLogo: {
         maxWidth: 150,
     },
+    imgLogoSX: {
+        maxWidth: 100,
+    },
+
 }));
 
 const ElevationScroll = (props) => {
@@ -86,7 +99,7 @@ const ScrollTop = (props) => {
             <Box
                 onClick={handleClick}
                 role="presentation"
-                sx={{ position: "fixed", bottom: 16, right: 16 }}
+                sx={{ position: "fixed", bottom: 90, right: 16 }}
             >
                 {children}
             </Box>
@@ -106,6 +119,7 @@ const AppFrame = (props) => {
     const { children } = props;
     const classes = useStyles();
 
+
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -115,7 +129,6 @@ const AppFrame = (props) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -139,6 +152,7 @@ const AppFrame = (props) => {
                             color: "inherit",
                             fontWeight: "bold",
                             // ":hover": { borderBottom: 5 },
+                            fontFamily: fuente
                         }}
                         startIcon={icon}
                         id="demo-positioned-button"
@@ -146,7 +160,7 @@ const AppFrame = (props) => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}
-                        onMouseEnter={handleClick}
+                        onMouseOver={handleClick}
                     >
                         {namebtn}
                     </Button>
@@ -170,7 +184,8 @@ const AppFrame = (props) => {
                 sx={{
                     color: "inherit",
                     fontWeight: "bold",
-                    ":hover": { borderBottom: 5 },
+                    ":hover": { borderBottom: 3 },
+                    fontFamily: fuente
                 }}
                 startIcon={icon}
             >
@@ -186,94 +201,89 @@ const AppFrame = (props) => {
                 <AppBar>
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="a"
-                                href="/"
-                                sx={{
-                                    mr: 2,
-                                    display: { xs: "none", md: "flex" },
-                                    fontFamily: "monospace",
-                                    fontWeight: 700,
-                                    letterSpacing: ".3rem",
-                                    color: "inherit",
-                                    textDecoration: "none",
-                                }}
-                            >
-                                <img
-                                    src={LogoHome}
-                                    className={classes.imgLogo}
-                                    alt="LogoHome"
-                                />
-                            </Typography>
+                            
+                            {/* Menu movil */}
+                            <Grid container sx={{ display: { xs: "flex", md: "none" } }} >
+                                <Grid item xs={4} >
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleOpenNavMenu}
+                                        color="inherit"
+                                    >
+                                        <MenuIcon />
+                                    </IconButton>
 
-                            <Box
-                                sx={{
-                                    flexGrow: 1,
-                                    display: { xs: "flex", md: "none" },
-                                }}
-                            >
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit"
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorElNav}
-                                    anchorOrigin={{
-                                        vertical: "bottom",
-                                        horizontal: "left",
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: "top",
-                                        horizontal: "left",
-                                    }}
-                                    open={Boolean(anchorElNav)}
-                                    onClose={handleCloseNavMenu}
-                                    sx={{
-                                        display: { xs: "block", md: "none" },
-                                    }}
-                                >
-                                    {pages.map((page) => (
-                                        <MenuItem
-                                            key={page}
-                                            onClick={handleCloseNavMenu}
-                                        >
-                                            <Typography
-                                                textAlign="center"
-                                                sx={{ color: "inherit" }}
+
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorElNav}
+                                        anchorOrigin={{
+                                            vertical: "bottom",
+                                            horizontal: "left",
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "left",
+                                        }}
+                                        open={Boolean(anchorElNav)}
+                                        onClose={handleCloseNavMenu}
+                                        sx={{
+                                            display: { xs: "block", md: "none" },
+                                        }}
+                                    >
+                                        {pages.map((page) => (
+                                            <MenuItem
+                                                key={page}
+                                                onClick={handleCloseNavMenu}
                                             >
-                                                {page}
-                                            </Typography>
-                                        </MenuItem>
-                                    ))}
-                                </Menu>
-                            </Box>
+                                                <Typography
+                                                    textAlign="center"
+                                                    sx={{ color: "primary", fontFamily: fuente, }}
+                                                >
+                                                    {page}
+                                                </Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </Grid>
+
+                                <Grid item xs={6} >
+                                    <Typography component="a" href="" align="center" >
+                                        <img
+                                            src={LogoHome}
+                                            className={classes.imgLogoSX}
+                                            alt="LogoHome"
+                                        />
+                                    </Typography>
+                                </Grid>
+
+                                <Grid item xs={2} >
+                                    <IconButton color="inherit" aria-label="carrito" size="large" >
+                                        <Badge badgeContent={0} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 }}} >
+                                            <ShoppingCartIcon />
+                                        </Badge>
+                                    </IconButton>
+                                </Grid>
+
+                            </Grid>
+                            {/* fin menu movil */}
+
 
                             {/* Toda la pantalla */}
                             <Box sx={{ flexGrow: 1 }}>
+
                                 <Typography
-                                    variant="h5"
+                                    variant="h6"
                                     noWrap
                                     component="a"
-                                    href=""
+                                    href="/"
                                     sx={{
                                         mr: 2,
-                                        display: { xs: "flex", md: "none" },
-                                        flexGrow: 1,
-                                        fontFamily: "monospace",
-                                        fontWeight: 700,
-                                        letterSpacing: ".3rem",
-                                        color: "inherit",
-                                        textDecoration: "none",
+                                        display: { xs: "none", md: "flex" },
                                     }}
                                 >
                                     <img
@@ -291,6 +301,12 @@ const AppFrame = (props) => {
                             >
                                 <div onClose={handleClose}>
                                     {pages.map((page) => botonMenu(page))}
+
+                                    <IconButton color="inherit" aria-label="carrito" size="large">
+                                        <Badge badgeContent={12} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 } }}>
+                                            <ShoppingCartIcon />
+                                        </Badge>
+                                    </IconButton>
                                     <Menu
                                         id="demo-positioned-menu"
                                         aria-labelledby="demo-positioned-button"
@@ -306,13 +322,13 @@ const AppFrame = (props) => {
                                             horizontal: "left",
                                         }}
                                         sx={{
-                                            marginLeft:1,
-                                            marginTop:-1,
+                                            marginLeft: 1,
+                                            marginTop: -1,
                                         }}
                                     >
                                         <Box onMouseLeave={handleClose}>
                                             <MenuItem className={classes.colorTextoQS}>
-                                                <HelpIcon /> ¿Quienes Somos?
+                                                <HelpIcon />¿Quienes Somos?
                                             </MenuItem>
                                             <MenuItem className={classes.colorTexto}>
                                                 Nuestra historia
@@ -324,6 +340,8 @@ const AppFrame = (props) => {
                                     </Menu>
                                 </div>
                             </Box>
+                            {/* fin toda la pantalla */}
+
                         </Toolbar>
                     </Container>
                 </AppBar>
@@ -333,63 +351,6 @@ const AppFrame = (props) => {
             {/* contenido */}
             <Container>
                 <Box sx={{ my: 2 }}>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Aperiam facere sunt quo, dignissimos cumque deserunt,
-                    aliquid quam, officia illum iure eum possimus quae non id
-                    amet necessitatibus sed. Quaerat, enim. Lorem ipsum dolor
-                    sit amet consectetur adipisicing elit. Natus assumenda quam
-                    itaque minus animi delectus veniam facere, maiores, enim
-                    iure velit. Quae pariatur voluptate aspernatur blanditiis
-                    laboriosam vitae, sunt facere. Lorem ipsum dolor, sit amet
-                    consectetur adipisicing elit. Explicabo tenetur omnis
-                    debitis. Expedita dignissimos ut nesciunt, aperiam eum enim
-                    consequuntur minus consequatur nostrum a explicabo soluta
-                    repellat, rerum facere consectetur! Lorem ipsum dolor sit
-                    amet consectetur adipisicing elit. Sapiente est tempore
-                    dolor, nam quia odit ipsa molestiae illo consectetur,
-                    aspernatur provident minima beatae fugit nihil assumenda
-                    velit qui recusandae illum? Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Ratione alias autem molestias,
-                    doloremque repellendus quaerat tempore officiis dolore odio,
-                    accusantium perferendis. Architecto recusandae error
-                    suscipit autem enim quibusdam perferendis consequuntur.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Perspiciatis corporis sunt numquam, enim eveniet dolor
-                    ducimus sapiente illum id suscipit, ex, magnam tenetur
-                    cumque vel consequatur eaque. Unde, eligendi doloribus!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptates, laudantium suscipit perspiciatis ipsam
-                    necessitatibus aspernatur dolorum commodi quam repellendus
-                    laboriosam, deleniti nisi maxime, quis perferendis
-                    cupiditate totam fugit facilis eveniet! Lorem, ipsum dolor
-                    sit amet consectetur adipisicing elit. Ullam quaerat
-                    accusamus debitis voluptatibus sed repudiandae alias quidem,
-                    blanditiis nemo error mollitia iure necessitatibus animi
-                    molestias modi ipsa expedita nisi tempora. Lorem ipsum dolor
-                    sit amet, consectetur adipisicing elit. Error, doloribus,
-                    fugit assumenda officia odit sunt, quam eaque atque ad dicta
-                    suscipit soluta recusandae ullam libero asperiores labore et
-                    nam optio! Deserunt, id voluptatum ipsum aliquid repudiandae
-                    iste vel fugit dolorem, tenetur voluptatibus rerum pariatur
-                    explicabo soluta. Ex molestiae voluptas, reprehenderit,
-                    quidem quod illo, praesentium libero accusantium unde labore
-                    aspernatur amet? Recusandae, dolores placeat. Ullam libero
-                    excepturi, optio adipisci sit temporibus et alias dolores
-                    inventore neque. Architecto, debitis tenetur hic laborum
-                    reprehenderit quidem quo at, a, ad mollitia ipsa
-                    consequuntur labore. Pariatur ipsum ullam rerum quos
-                    quisquam aut perspiciatis dolorum atque repellendus ratione
-                    possimus, voluptatem tempore animi qui minima minus
-                    distinctio ipsam! Quas voluptatibus libero laboriosam
-                    veritatis molestiae. Dolorem, accusantium voluptatem! Vitae
-                    deleniti in obcaecati maxime omnis, id dolores, perspiciatis
-                    expedita dolorum esse odit commodi, quas quod nobis beatae.
-                    Cum in quis fugit ipsa fuga delectus expedita saepe
-                    consectetur officiis eligendi? Praesentium consectetur
-                    architecto nesciunt consequatur, magni laboriosam laudantium
-                    tempora, distinctio fugiat quis ipsa quod ad explicabo hic
-                    officia iure corporis fugit autem cumque sequi, delectus
-                    ducimus. Odio placeat quas suscipit?
                     {children}
                 </Box>
             </Container>
