@@ -4,6 +4,7 @@ import ListProducts from "./components/Product";
 import AppFrame from "./pages/AppFrame";
 import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
+import CheckOutPage from "./pages/CheckOutPage";
 
 
 
@@ -22,7 +23,9 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <AppFrame>
 
-                <ListProducts />
+                {/* <ListProducts /> */}
+                <CheckOutPage/>
+
             </AppFrame>
 
         </ThemeProvider>

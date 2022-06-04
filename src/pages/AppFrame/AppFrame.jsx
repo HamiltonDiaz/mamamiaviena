@@ -203,7 +203,7 @@ const AppFrame = (props) => {
                         <Toolbar disableGutters>
                             
                             {/* Menu movil */}
-                            <Grid container sx={{ display: { xs: "flex", md: "none" } }} >
+                            <Grid container spacing={{sm: 12 }} sx={{ display: { xs: "flex", md: "none" } }} >
                                 <Grid item xs={4} >
                                     <IconButton
                                         size="large"
@@ -215,8 +215,6 @@ const AppFrame = (props) => {
                                     >
                                         <MenuIcon />
                                     </IconButton>
-
-
                                     <Menu
                                         id="menu-appbar"
                                         anchorEl={anchorElNav}
@@ -252,8 +250,9 @@ const AppFrame = (props) => {
                                 </Grid>
 
                                 <Grid item xs={6} >
-                                    <Typography component="a" href="" align="center" >
+                                    <Typography component="a" href="/" align="center" >
                                         <img
+                                            
                                             src={LogoHome}
                                             className={classes.imgLogoSX}
                                             alt="LogoHome"
@@ -263,7 +262,7 @@ const AppFrame = (props) => {
 
                                 <Grid item xs={2} >
                                     <IconButton color="inherit" aria-label="carrito" size="large" >
-                                        <Badge badgeContent={0} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 }}} >
+                                        <Badge badgeContent={12} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 }}} >
                                             <ShoppingCartIcon />
                                         </Badge>
                                     </IconButton>
