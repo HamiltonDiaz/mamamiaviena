@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ListProducts from "./components/Product";
+import CheckOutCard from "./components/Checkout/CheckOutCard";
 import AppFrame from "./pages/AppFrame";
 import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
 import CheckOutPage from "./pages/CheckOutPage";
+
 
 
 
@@ -25,7 +27,7 @@ const App = () => {
 
                 {/* <ListProducts /> */}
                 <CheckOutPage/>
-
+                
             </AppFrame>
 
         </ThemeProvider>
