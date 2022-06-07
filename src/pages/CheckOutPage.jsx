@@ -22,10 +22,10 @@ const CheckOutPage = () => {
             <React.Fragment>
                 {products.map((item, index) => (
                     <>
-                        <Grid item sm={7}>
+                        <Grid item xs={12} sm={7}>
                             <ChekoutCard />
                         </Grid>
-                        <Grid item sm={1}>
+                        <Grid item xs={4} sm={2} md={1}>
                             <TextField
                                 id="standard-number"
                                 label=""
@@ -40,7 +40,7 @@ const CheckOutPage = () => {
                                 
                             />
                         </Grid>
-                        <Grid item sm={4}>
+                        <Grid item  xs={8} sm={3} md={4}>
                             <Typography variant="h5" align="right">
                                 Subtotal
                             </Typography>
@@ -61,18 +61,18 @@ const CheckOutPage = () => {
                 </Grid>
 
                 {/* Encabezados */}
-                <Grid container item xs={12} sx={{ margin: 2 }}>
-                    <Grid item sm={7}>
+                <Grid container item sm={12} sx={{ margin: 2, display:{xs:"none"} }}>
+                    <Grid item sm={7} >
                         <Typography variant="h5" align="center">
                             Producto
                         </Typography>
                     </Grid>
-                    <Grid item sm={1}>
+                    <Grid item sm={2} md={1}>
                         <Typography variant="h5" align="center">
                             Cantidad
                         </Typography>
                     </Grid>
-                    <Grid item sm={4}>
+                    <Grid item sm={3} md={4}>
                         <Typography variant="h5" align="center">
                             Subtotal
                         </Typography>

@@ -7,7 +7,7 @@ import img from "../../assets/picture/sois_toi_meme.jpeg";
 const CheckOutCard = ({ product }) => {
     return (
         <Grid container direction="row" justifyContent="flex-start" >
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={4} sm={3}>
                 <Avatar
                     alt="camiseta"
                     src={img}
@@ -15,10 +15,10 @@ const CheckOutCard = ({ product }) => {
                     variant="square"
                 />
             </Grid>
-            <Grid item xs={9} sm={9}>
+            <Grid item xs={8} sm={9}>
                 <Typography variant="p" >
                     <Typography variant="h5">{"camiseta nombre"}</Typography>
-                    <Typography variant="h6">{" $50.000"}</Typography>
+                    <Typography variant="h6">{"$50.000"}</Typography>
                 </Typography>
             </Grid>
         </Grid>

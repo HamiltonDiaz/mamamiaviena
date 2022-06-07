@@ -1,36 +1,29 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ListProducts from "./components/Product";
-import CheckOutCard from "./components/Checkout/CheckOutCard";
-import AppFrame from "./pages/AppFrame";
 import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
-import CheckOutPage from "./pages/CheckOutPage";
-
-
+import WelcomePage from "./pages/WelcomePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 const App = () => {
     return (
-        // <Router>
-        //     <Routes>
-        //         <Route path="/" element={<WelcomePage />} />
-        //         <Route path="/main" element={<MainPage />} />
-        //         <Route path="/city/:countryCode/:city" element={<CiudadPage />}/>
-        //         {/* <Route path="/city" element={<CiudadPage />} /> */}
-        //         <Route path='*' element={<NotFoundPage />} />
-        //     </Routes>
-        // </Router>
-
-        <ThemeProvider theme={theme}>
-            <AppFrame>
-
-                {/* <ListProducts /> */}
-                <CheckOutPage/>
-                
-            </AppFrame>
-
-        </ThemeProvider>
+        
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<WelcomePage/>} />
+                        {/* <Route path="/main" element={<MainPage />} /> */}
+                        {/* <Route
+                            path="/city/:countryCode/:city"
+                            element={<CiudadPage />}
+                        />
+                        {/* <Route path="/city" element={<CiudadPage />} /> */}
+                        <Route path="*" element={<NotFoundPage />} /> 
+                    </Routes>
+                </Router>
+            </ThemeProvider>
+        
     );
 };
 

@@ -9,9 +9,16 @@
 // )
 
 //React 18 e adelante
-import { createRoot} from "react-dom/client"
-import App from './App'
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import reducer, { initialState } from "./reducer";
+import { StateProvider } from "./StateProvider";
 
-const contenedor= document.getElementById("root")
-const root = createRoot(contenedor)
-root.render(<App/>);
+const contenedor = document.getElementById("root");
+const root = createRoot(contenedor);
+root.render(
+    <StateProvider initialState={initialState} reducer={reducer}>
+        <App/>
+    </StateProvider>
+);

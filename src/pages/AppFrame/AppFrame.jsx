@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -21,12 +21,12 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import StoreIcon from "@mui/icons-material/Store";
 import { makeStyles } from "@mui/styles";
-import Button from "@mui/material/Button";
 import LogoHome from "../../assets/LogoHome.png";
 import { Badge, Grid } from "@mui/material";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import Button from "@mui/material/Button";
 
-const fuente = "Caveat"// "Indie Flower"
-
+const fuente = "Caveat"; // "Indie Flower"
 
 const useStyles = makeStyles((theme) => ({
     colorTexto: {
@@ -37,8 +37,6 @@ const useStyles = makeStyles((theme) => ({
         "&:hover": {
             color: "#FFFFFF !important",
             backgroundColor: "#a9cf55 !important",
-
-
         },
     },
     colorTextoQS: {
@@ -55,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     imgLogoSX: {
         maxWidth: 100,
     },
-
 }));
 
 const ElevationScroll = (props) => {
@@ -119,7 +116,6 @@ const AppFrame = (props) => {
     const { children } = props;
     const classes = useStyles();
 
-
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -152,13 +148,15 @@ const AppFrame = (props) => {
                             color: "inherit",
                             fontWeight: "bold",
                             // ":hover": { borderBottom: 5 },
-                            fontFamily: fuente
+                            fontFamily: fuente,
                         }}
                         startIcon={icon}
                         id="demo-positioned-button"
-                        aria-controls={open ? 'demo-positioned-menu' : undefined}
+                        aria-controls={
+                            open ? "demo-positioned-menu" : undefined
+                        }
                         aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
+                        aria-expanded={open ? "true" : undefined}
                         onClick={handleClick}
                         onMouseOver={handleClick}
                     >
@@ -185,7 +183,7 @@ const AppFrame = (props) => {
                     color: "inherit",
                     fontWeight: "bold",
                     ":hover": { borderBottom: 3 },
-                    fontFamily: fuente
+                    fontFamily: fuente,
                 }}
                 startIcon={icon}
             >
@@ -201,10 +199,13 @@ const AppFrame = (props) => {
                 <AppBar>
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
-                            
                             {/* Menu movil */}
-                            <Grid container spacing={{sm: 12 }} sx={{ display: { xs: "flex", md: "none" } }} >
-                                <Grid item xs={4} >
+                            <Grid
+                                container
+                                spacing={{ sm: 12 }}
+                                sx={{ display: { xs: "flex", md: "none" } }}
+                            >
+                                <Grid item xs={4}>
                                     <IconButton
                                         size="large"
                                         aria-label="account of current user"
@@ -230,7 +231,10 @@ const AppFrame = (props) => {
                                         open={Boolean(anchorElNav)}
                                         onClose={handleCloseNavMenu}
                                         sx={{
-                                            display: { xs: "block", md: "none" },
+                                            display: {
+                                                xs: "block",
+                                                md: "none",
+                                            },
                                         }}
                                     >
                                         {pages.map((page) => (
@@ -240,7 +244,10 @@ const AppFrame = (props) => {
                                             >
                                                 <Typography
                                                     textAlign="center"
-                                                    sx={{ color: "primary", fontFamily: fuente, }}
+                                                    sx={{
+                                                        color: "primary",
+                                                        fontFamily: fuente,
+                                                    }}
                                                 >
                                                     {page}
                                                 </Typography>
@@ -249,10 +256,13 @@ const AppFrame = (props) => {
                                     </Menu>
                                 </Grid>
 
-                                <Grid item xs={6} >
-                                    <Typography component="a" href="/" align="center" >
+                                <Grid item xs={6}>
+                                    <Typography
+                                        component="a"
+                                        href="/"
+                                        align="center"
+                                    >
                                         <img
-                                            
                                             src={LogoHome}
                                             className={classes.imgLogoSX}
                                             alt="LogoHome"
@@ -260,21 +270,32 @@ const AppFrame = (props) => {
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={2} >
-                                    <IconButton color="inherit" aria-label="carrito" size="large" >
-                                        <Badge badgeContent={12} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 }}} >
+                                <Grid item xs={2}>
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="carrito"
+                                        size="large"
+                                    >
+                                        <Badge
+                                            badgeContent={12}
+                                            color="error"
+                                            sx={{
+                                                "& .MuiBadge-badge": {
+                                                    fontSize: 9,
+                                                    height: 15,
+                                                    minWidth: 10,
+                                                },
+                                            }}
+                                        >
                                             <ShoppingCartIcon />
                                         </Badge>
                                     </IconButton>
                                 </Grid>
-
                             </Grid>
                             {/* fin menu movil */}
 
-
                             {/* Toda la pantalla */}
                             <Box sx={{ flexGrow: 1 }}>
-
                                 <Typography
                                     variant="h6"
                                     noWrap
@@ -301,11 +322,25 @@ const AppFrame = (props) => {
                                 <div onClose={handleClose}>
                                     {pages.map((page) => botonMenu(page))}
 
-                                    <IconButton color="inherit" aria-label="carrito" size="large">
-                                        <Badge badgeContent={12} color="error" sx={{ "& .MuiBadge-badge": { fontSize: 9, height: 15, minWidth: 10 } }}>
+                                    {/* <IconButton
+                                        color="inherit"
+                                        aria-label="carrito"
+                                        size="large"
+                                    >
+                                        <Badge
+                                            badgeContent={12}
+                                            color="error"
+                                            sx={{
+                                                "& .MuiBadge-badge": {
+                                                    fontSize: 9,
+                                                    height: 15,
+                                                    minWidth: 10,
+                                                },
+                                            }}
+                                        >
                                             <ShoppingCartIcon />
                                         </Badge>
-                                    </IconButton>
+                                    </IconButton> */}
                                     <Menu
                                         id="demo-positioned-menu"
                                         aria-labelledby="demo-positioned-button"
@@ -326,13 +361,20 @@ const AppFrame = (props) => {
                                         }}
                                     >
                                         <Box onMouseLeave={handleClose}>
-                                            <MenuItem className={classes.colorTextoQS}>
-                                                <HelpIcon />¿Quienes Somos?
+                                            <MenuItem
+                                                className={classes.colorTextoQS}
+                                            >
+                                                <HelpIcon />
+                                                ¿Quienes Somos?
                                             </MenuItem>
-                                            <MenuItem className={classes.colorTexto}>
+                                            <MenuItem
+                                                className={classes.colorTexto}
+                                            >
                                                 Nuestra historia
                                             </MenuItem>
-                                            <MenuItem className={classes.colorTexto}>
+                                            <MenuItem
+                                                className={classes.colorTexto}
+                                            >
                                                 La creadora
                                             </MenuItem>
                                         </Box>
@@ -340,7 +382,6 @@ const AppFrame = (props) => {
                                 </div>
                             </Box>
                             {/* fin toda la pantalla */}
-
                         </Toolbar>
                     </Container>
                 </AppBar>
@@ -349,9 +390,7 @@ const AppFrame = (props) => {
 
             {/* contenido */}
             <Container>
-                <Box sx={{ my: 2 }}>
-                    {children}
-                </Box>
+                <Box sx={{ my: 2 }}>{children}</Box>
             </Container>
 
             {/* boton subir */}
@@ -364,6 +403,33 @@ const AppFrame = (props) => {
                     <KeyboardArrowUpIcon />
                 </Fab>
             </ScrollTop>
+
+            {/* boton whatsapp */}
+            <Box
+                sx={{
+                    position: "fixed",
+                    bottom: 20,
+                    right: 16,
+                    backgroundColor: "#fffff",
+                }}
+            >
+                <Fab
+                    sx={{
+                        backgroundColor: "#47c758",
+                        color: "#ffffff",
+                        "&:hover": {
+                            backgroundColor: "#25D366",
+                    
+                        },
+                    }}
+                    aria-label="whatsapp"
+                >
+                    <Badge badgeContent={1} color="error">
+                        <WhatsAppIcon fontSize="large" />
+                    </Badge>
+                </Fab>
+            </Box>
+            {/* fin boton whatsapp */}
         </React.Fragment>
     );
 };

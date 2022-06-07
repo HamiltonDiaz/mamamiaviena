@@ -20,8 +20,8 @@ export const BotonSecundario = styled(Button)(({ theme }) => ({
   fontWeight: "bold",
   
   "&:hover": {
-    backgroundColor:"#7b55cf"  ,
-    borderColor:"#7b55cf",
+    backgroundColor:"#55cfb8",
+    borderColor:"#55cfb8",
     color:"#FFFF",
   },
 }));
