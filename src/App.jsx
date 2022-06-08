@@ -4,6 +4,7 @@ import { ThemeProvider } from "@mui/styles";
 import theme from "./utils/temaConfig";
 import WelcomePage from "./pages/WelcomePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import DesingPage from "./pages/DesingPage"
 
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
                 <Router>
                     <Routes>
                         <Route path="/" element={<WelcomePage/>} />
+                        <Route path="/nuestros-disenios" element={<DesingPage/>} />
                         {/* <Route path="/main" element={<MainPage />} /> */}
                         {/* <Route
                             path="/city/:countryCode/:city"

@@ -21,10 +21,12 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import StoreIcon from "@mui/icons-material/Store";
 import { makeStyles } from "@mui/styles";
-import LogoHome from "../../assets/LogoHome.png";
-import { Badge, Grid } from "@mui/material";
+import { Badge, Grid, Link } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
+import { Link as RouterLink } from "react-router-dom";
+import {msgWhatsapp} from "../../utils/Functions"
+import LogoHome from "../../assets/LogoHome.png";
 
 const fuente = "Caveat"; // "Indie Flower"
 
@@ -35,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "transparent !important",
         fontFamily: fuente + "!important",
         "&:hover": {
-            color: "#FFFFFF !important",
-            backgroundColor: "#a9cf55 !important",
+            backgroundColor: "#F2AD9F !important", color:"#FFFFFF !important"
+            // color: "#FFFFFF !important",
+            // backgroundColor: "#a9cf55 !important",
         },
     },
     colorTextoQS: {
@@ -182,7 +185,7 @@ const AppFrame = (props) => {
                 sx={{
                     color: "inherit",
                     fontWeight: "bold",
-                    ":hover": { borderBottom: 3 },
+                    ":hover": {backgroundColor: "#F2AD9F", color:"#FFFFFF !important"},
                     fontFamily: fuente,
                 }}
                 startIcon={icon}
@@ -413,22 +416,26 @@ const AppFrame = (props) => {
                     backgroundColor: "#fffff",
                 }}
             >
-                <Fab
-                    sx={{
-                        backgroundColor: "#47c758",
-                        color: "#ffffff",
-                        "&:hover": {
-                            backgroundColor: "#25D366",
-                    
-                        },
-                    }}
-                    aria-label="whatsapp"
-                >
-                    <Badge badgeContent={1} color="error">
-                        <WhatsAppIcon fontSize="large" />
-                    </Badge>
-                </Fab>
+                <Link target="_blank" href={msgWhatsapp("Hola, ¡me encantaría conocer tus productos!")}>
+
+                    <Fab
+                        sx={{
+                            backgroundColor: "#47c758",
+                            color: "#ffffff",
+                            "&:hover": {
+                                backgroundColor: "#25D366",
+                            },
+                        }}
+                        aria-label="whatsapp"
+                    >
+                        <Badge badgeContent={1} color="error">
+                            <WhatsAppIcon fontSize="large" sx={{margin:0.3}} />
+                        </Badge>
+                    </Fab>
+                </Link>
             </Box>
+
+            
             {/* fin boton whatsapp */}
         </React.Fragment>
     );
