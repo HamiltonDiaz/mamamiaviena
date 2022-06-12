@@ -392,7 +392,7 @@ const AppFrame = (props) => {
             <Toolbar id="irinicio" />
 
             {/* contenido */}
-            <Container>
+            <Container >
                 <Box sx={{ my: 2 }}>{children}</Box>
             </Container>
 

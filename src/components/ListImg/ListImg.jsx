@@ -1,14 +1,66 @@
 import React from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
-import ZoomOutMapIcon from "@mui/icons-material/ZoomOutMap";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
-import { Grid } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import { Typography } from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+export default function ListImg() {
+    const matches = useMediaQuery('(min-width:811px)');
+    return (
+        <React.Fragment>
+            <Typography
+                variant="h5"
+                align="center"
+                sx={{ display: { md: "none" } }}
+            >
+                Nuestros Diseños
+            </Typography>
+            <Typography
+                variant="h3"
+                align="center"
+                sx={{ display: { xs: "none", md: "block" } }}
+            >
+                Nuestros Diseños
+            </Typography>
+            <ImageList sx={{ width: "100%", height: "100%" }} cols={matches ? 5 : 2} >
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img} >
+                        <img
+                            src={item.img} //{`${item.img}?w=248&fit=crop&auto=format`}
+                            //srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={item.title}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={item.title}
+                            subtitle={item.author}
+                            actionIcon={
+                                <IconButton
+                                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                                    aria-label={`info about ${item.title}`}
+                                >
+                                    <InfoIcon />
+                                </IconButton>
+                            }
+                        />
+                    </ImageListItem>
+                ))}
+            </ImageList>
+        </React.Fragment>
+    );
+}
 
 const itemData = [
     {
         img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
         title: "Breakfast",
         author: "@bkristastucchio",
+        rows: 2,
+        cols: 2,
+        featured: true,
     },
     {
         img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
@@ -24,16 +76,21 @@ const itemData = [
         img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
         title: "Coffee",
         author: "@nolanissac",
+        cols: 2,
     },
     {
         img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
         title: "Hats",
         author: "@hjrc33",
+        cols: 2,
     },
     {
         img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
         title: "Honey",
         author: "@arwinneil",
+        rows: 2,
+        cols: 2,
+        featured: true,
     },
     {
         img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
@@ -49,6 +106,8 @@ const itemData = [
         img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
         title: "Mushrooms",
         author: "@silverdalex",
+        rows: 2,
+        cols: 2,
     },
     {
         img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
@@ -61,37 +120,9 @@ const itemData = [
         author: "@peterlaster",
     },
     {
-        img: "http://localhost:3000/static/media/sois_toi_meme.7b036e4291ce39a437df.jpeg",
+        img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
         title: "Bike",
         author: "@southside_customs",
+        cols: 2,
     },
 ];
-
-const ListImg = () => {
-    return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-        >
-            {itemData.map((item) => (
-                <Grid item key={item.img} xs={12} sm={6} md={3}>
-                    <img
-                        src={item.img}
-                        alt={item.title}
-                        width={280}
-                        height={300}
-                    />
-                    <Grid         sx={{
-                background:
-                  'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                  'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-              }}/>
-                </Grid>
-            ))}
-        </Grid>
-    );
-};
-
-export default ListImg;
