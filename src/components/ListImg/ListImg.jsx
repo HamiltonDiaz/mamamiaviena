@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
-import { Typography } from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import ImageSearchIcon from '@mui/icons-material/ImageSearch';
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import ModalImg from "./ModalImg";
 
-export default function ListImg() {
-    const matches = useMediaQuery('(min-width:811px)');
+const ListImg = () => {
+    const matches = useMediaQuery("(min-width:811px)");
+    const [imgModal,setImgModal]=  useState("")
+    const [titleModal,setTitleModal]=  useState("")
+
+    //Values for modal
+    const [open, setOpen] = useState(false)
+    const handleOpen = (imgModal,titlemodal) => {
+        setImgModal(imgModal)
+        setTitleModal(titlemodal)
+        setOpen(true)
+    }
+    const handleClose = () => setOpen(false)
+
     return (
         <React.Fragment>
+            <ModalImg handleClose={handleClose} open={open} imgModal={imgModal} titleModal={titleModal} />
+
             <Typography
                 variant="h5"
                 align="center"
@@ -25,24 +40,24 @@ export default function ListImg() {
             >
                 Nuestros Diseños
             </Typography>
-            <ImageList sx={{ width: "100%", height: "100%" }} cols={matches ? 5 : 2} >
+            <ImageList
+                sx={{ width: "100%", height: "100%" }}
+                cols={matches ? 5 : 2}
+            >
                 {itemData.map((item) => (
-                    <ImageListItem key={item.img} >
-                        <img
-                            src={item.img} //{`${item.img}?w=248&fit=crop&auto=format`}
-                            //srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
+                    <ImageListItem key={item.img}>
+                        <img src={item.img} alt={item.title} loading="lazy" />
                         <ImageListItemBar
                             title={item.title}
                             subtitle={item.author}
                             actionIcon={
                                 <IconButton
-                                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                                    // sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                                    sx={{ color: "rgba(242, 105, 104, 0.8)" }}
                                     aria-label={`info about ${item.title}`}
+                                    onClick={()=>handleOpen(item.img,item.title)}
                                 >
-                                    <InfoIcon />
+                                    <ImageSearchIcon fontSize="medium" />
                                 </IconButton>
                             }
                         />
@@ -51,7 +66,9 @@ export default function ListImg() {
             </ImageList>
         </React.Fragment>
     );
-}
+};
+
+export default ListImg;
 
 const itemData = [
     {
