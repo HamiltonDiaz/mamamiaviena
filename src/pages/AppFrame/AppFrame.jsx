@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+//import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -25,7 +25,7 @@ import { Badge, Grid, Link } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
-import {msgWhatsapp} from "../../utils/Functions"
+import { msgWhatsapp } from "../../utils/Functions";
 import LogoHome from "../../assets/LogoHome.png";
 
 const fuente = "Caveat"; // "Indie Flower"
@@ -37,7 +37,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "transparent !important",
         fontFamily: fuente + "!important",
         "&:hover": {
-            backgroundColor: "#F2AD9F !important", color:"#FFFFFF !important"
+            backgroundColor: "#F2AD9F !important",
+            color: "#FFFFFF !important",
             // color: "#FFFFFF !important",
             // backgroundColor: "#a9cf55 !important",
         },
@@ -108,12 +109,22 @@ const ScrollTop = (props) => {
 };
 
 const pages = [
-    "Inicio",
-    "¿Quienes somos?",
-    "Nuestros Diseños",
-    "Muro de la fama",
-    "Zona Outlet",
+    ["Inicio", "/"],
+    ["¿Quienes somos?", ""],
+    ["Nuestros Diseños", "/nuestros-disenios"],
+    ["Muro de la fama", "/muro-fama"],
+    ["Zona Outlet", "/zona-outlet"],
 ];
+
+const pagesCelu = [
+    ["Inicio", "/"],
+    ["Nuestra Historia", "/nuestra-historia"],
+    ["La Creadora", "/nuestra-creadora"],
+    ["Nuestros Diseños", "/nuestros-disenios"],
+    ["Muro de la fama", "/muro-fama"],
+    ["Zona Outlet", "/zona-outlet"],
+];
+
 
 const AppFrame = (props) => {
     const { children } = props;
@@ -138,7 +149,7 @@ const AppFrame = (props) => {
 
     const botonMenu = (namebtn) => {
         let icon = null;
-        switch (namebtn) {
+        switch (namebtn[0]) {
             case "Inicio":
                 icon = <HomeIcon />;
                 break;
@@ -146,7 +157,7 @@ const AppFrame = (props) => {
                 icon = <HelpIcon />;
                 return (
                     <Button
-                        key={namebtn}
+                        key={namebtn[0]}
                         sx={{
                             color: "inherit",
                             fontWeight: "bold",
@@ -163,7 +174,7 @@ const AppFrame = (props) => {
                         onClick={handleClick}
                         onMouseOver={handleClick}
                     >
-                        {namebtn}
+                        {namebtn[0]}
                     </Button>
                 );
             case "Nuestros Diseños":
@@ -180,18 +191,23 @@ const AppFrame = (props) => {
                 break;
         }
         return (
-            <Button
-                key={namebtn}
-                sx={{
-                    color: "inherit",
-                    fontWeight: "bold",
-                    ":hover": {backgroundColor: "#F2AD9F", color:"#FFFFFF !important"},
-                    fontFamily: fuente,
-                }}
-                startIcon={icon}
-            >
-                {namebtn}
-            </Button>
+            <RouterLink to={namebtn[1]} style={{ textDecoration: 'none', color:'inherit'}}>
+                <Button
+                    key={namebtn[0]}
+                    sx={{
+                        color: "inherit",
+                        fontWeight: "bold",
+                        ":hover": {
+                            backgroundColor: "#F2AD9F",
+                            color: "#FFFFFF !important",
+                        },
+                        fontFamily: fuente,
+                    }}
+                    startIcon={icon}
+                >
+                    {namebtn[0]}
+                </Button>
+            </RouterLink>
         );
     };
 
@@ -240,21 +256,29 @@ const AppFrame = (props) => {
                                             },
                                         }}
                                     >
-                                        {pages.map((page) => (
-                                            <MenuItem
-                                                key={page}
-                                                onClick={handleCloseNavMenu}
+                                        {pagesCelu.map((page) => (
+                                            <RouterLink
+                                                to={page[1]}
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "inherit",
+                                                }}
                                             >
-                                                <Typography
-                                                    textAlign="center"
-                                                    sx={{
-                                                        color: "primary",
-                                                        fontFamily: fuente,
-                                                    }}
+                                                <MenuItem
+                                                    key={page[0]}
+                                                    onClick={handleCloseNavMenu}
                                                 >
-                                                    {page}
-                                                </Typography>
-                                            </MenuItem>
+                                                    <Typography
+                                                        textAlign="center"
+                                                        sx={{
+                                                            color: "primary",
+                                                            fontFamily: fuente,
+                                                        }}
+                                                    >
+                                                        {page[0]}
+                                                    </Typography>
+                                                </MenuItem>
+                                            </RouterLink>
                                         ))}
                                     </Menu>
                                 </Grid>
@@ -274,7 +298,7 @@ const AppFrame = (props) => {
                                 </Grid>
 
                                 <Grid item xs={2}>
-                                    <IconButton
+                                    {/* <IconButton
                                         color="inherit"
                                         aria-label="carrito"
                                         size="large"
@@ -292,7 +316,7 @@ const AppFrame = (props) => {
                                         >
                                             <ShoppingCartIcon />
                                         </Badge>
-                                    </IconButton>
+                                    </IconButton> */}
                                 </Grid>
                             </Grid>
                             {/* fin menu movil */}
@@ -370,16 +394,36 @@ const AppFrame = (props) => {
                                                 <HelpIcon />
                                                 ¿Quienes Somos?
                                             </MenuItem>
-                                            <MenuItem
-                                                className={classes.colorTexto}
+                                            <RouterLink
+                                                to="/nuestra-historia"
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "inherit",
+                                                }}
                                             >
-                                                Nuestra historia
-                                            </MenuItem>
-                                            <MenuItem
-                                                className={classes.colorTexto}
+                                                <MenuItem
+                                                    className={
+                                                        classes.colorTexto
+                                                    }
+                                                >
+                                                    Nuestra historia
+                                                </MenuItem>
+                                            </RouterLink>
+                                            <RouterLink
+                                                to="/nuestra-creadora"
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "inherit",
+                                                }}
                                             >
-                                                La creadora
-                                            </MenuItem>
+                                                <MenuItem
+                                                    className={
+                                                        classes.colorTexto
+                                                    }
+                                                >
+                                                    La creadora
+                                                </MenuItem>
+                                            </RouterLink>
                                         </Box>
                                     </Menu>
                                 </div>
@@ -392,7 +436,7 @@ const AppFrame = (props) => {
             <Toolbar id="irinicio" />
 
             {/* contenido */}
-            <Container >
+            <Container>
                 <Box sx={{ my: 2 }}>{children}</Box>
             </Container>
 
@@ -416,8 +460,12 @@ const AppFrame = (props) => {
                     backgroundColor: "#fffff",
                 }}
             >
-                <Link target="_blank" href={msgWhatsapp("Hola, ¡me encantaría conocer tus productos!")}>
-
+                <Link
+                    target="_blank"
+                    href={msgWhatsapp(
+                        "Hola, ¡me encantaría conocer tus productos!"
+                    )}
+                >
                     <Fab
                         sx={{
                             backgroundColor: "#47c758",
@@ -429,13 +477,15 @@ const AppFrame = (props) => {
                         aria-label="whatsapp"
                     >
                         <Badge badgeContent={1} color="error">
-                            <WhatsAppIcon fontSize="large" sx={{margin:0.3}} />
+                            <WhatsAppIcon
+                                fontSize="large"
+                                sx={{ margin: 0.3 }}
+                            />
                         </Badge>
                     </Fab>
                 </Link>
             </Box>
 
-            
             {/* fin boton whatsapp */}
         </React.Fragment>
     );
