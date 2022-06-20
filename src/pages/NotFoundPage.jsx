@@ -6,7 +6,6 @@ import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 import LogoHome from "../assets/LogoHome.png";
 import { makeStyles } from "@mui/styles";
 import { BotonSecundario } from "../utils/ButtonsCustom";
-import Button from '@mui/material/Button'
 
 const useStyles = makeStyles((theme) => ({
     root:{

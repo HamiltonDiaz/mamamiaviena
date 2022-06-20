@@ -191,9 +191,9 @@ const AppFrame = (props) => {
                 break;
         }
         return (
-            <RouterLink to={namebtn[1]} style={{ textDecoration: 'none', color:'inherit'}}>
+            <RouterLink key={namebtn[0]} to={namebtn[1]} style={{ textDecoration: 'none', color:'inherit'}}>
                 <Button
-                    key={namebtn[0]}
+                    
                     sx={{
                         color: "inherit",
                         fontWeight: "bold",
@@ -258,6 +258,7 @@ const AppFrame = (props) => {
                                     >
                                         {pagesCelu.map((page) => (
                                             <RouterLink
+                                                key={page[0]}
                                                 to={page[1]}
                                                 style={{
                                                     textDecoration: "none",
@@ -265,7 +266,7 @@ const AppFrame = (props) => {
                                                 }}
                                             >
                                                 <MenuItem
-                                                    key={page[0]}
+                                                    
                                                     onClick={handleCloseNavMenu}
                                                 >
                                                     <Typography
@@ -436,9 +437,10 @@ const AppFrame = (props) => {
             <Toolbar id="irinicio" />
 
             {/* contenido */}
-            <Container>
-                <Box sx={{ my: 2 }}>{children}</Box>
-            </Container>
+            <Grid>
+                {children}
+                {/* <Box sx={{ my: 2 }}></Box> */}
+            </Grid>
 
             {/* boton subir */}
             <ScrollTop {...props}>

@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
+import { padding } from "@mui/system";
 
 const style = {
     position: "absolute",
@@ -61,6 +64,21 @@ const ModalImg = ({ handleClose, open, imgModal, titleModal }) => {
                             Duis mollis, est non commodo luctus, nisi erat
                             porttitor ligula.
                         </Typography>
+                    </Grid>
+                    <Grid item xs={12}  container justifyContent="flex-end">
+                        <Button
+                            onClick={handleClose}
+                            variant="contained"
+                            color="error"
+                            size="small"
+                            startIcon={<CloseIcon  />}
+                            sx={{"& .MuiButton-startIcon":{
+                                margin:0,
+                                padding:0
+                            }}}
+                        >
+                            Cerrar
+                        </Button>
                     </Grid>
                 </Grid>
             </Box>

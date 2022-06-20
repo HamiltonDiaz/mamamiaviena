@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/styles";
+import "bootstrap/dist/css/bootstrap.min.css"
 import theme from "./utils/temaConfig";
 import WelcomePage from "./pages/WelcomePage";
 import NotFoundPage from "./pages/NotFoundPage";

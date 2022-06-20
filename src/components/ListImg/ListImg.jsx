@@ -6,7 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Container from "@mui/material/Container";
 import ModalImg from "./ModalImg";
+
 
 const ListImg = () => {
     const matches = useMediaQuery("(min-width:811px)");
@@ -23,8 +25,8 @@ const ListImg = () => {
     const handleClose = () => setOpen(false)
 
     return (
-        <React.Fragment>
-            <ModalImg handleClose={handleClose} open={open} imgModal={imgModal} titleModal={titleModal} />
+        <Container>
+            <ModalImg handleClose={handleClose} open={open} imgModal={imgModal} titleModal={titleModal} handleOpen={handleOpen} />
 
             <Typography
                 variant="h5"
@@ -64,7 +66,7 @@ const ListImg = () => {
                     </ImageListItem>
                 ))}
             </ImageList>
-        </React.Fragment>
+        </Container>
     );
 };
 
