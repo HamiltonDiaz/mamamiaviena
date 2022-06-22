@@ -14,6 +14,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reducer, { initialState } from "./reducer";
 import { StateProvider } from "./StateProvider";
+import "swiper/css/bundle";
 
 const contenedor = document.getElementById("root");
 const root = createRoot(contenedor);

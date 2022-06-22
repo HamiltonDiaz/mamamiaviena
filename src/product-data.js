@@ -4,7 +4,7 @@ const products =[
         name:"Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -12,7 +12,7 @@ const products =[
         name:"2-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/hope.jpeg",
         description:""
     },
     {
@@ -20,7 +20,7 @@ const products =[
         name:"3-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -28,7 +28,7 @@ const products =[
         name:"4-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -36,7 +36,7 @@ const products =[
         name:"5-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -44,7 +44,7 @@ const products =[
         name:"6-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -52,7 +52,7 @@ const products =[
         name:"7-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -60,7 +60,7 @@ const products =[
         name:"8-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -68,7 +68,7 @@ const products =[
         name:"9-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -76,7 +76,7 @@ const products =[
         name:"10-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -84,7 +84,7 @@ const products =[
         name:"11-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     {
@@ -92,7 +92,7 @@ const products =[
         name:"12-Sois toi-même",
         price:50000,
         line:"camisetas",
-        routeimg:"assets/picture/sois_toi_meme.jpeg",
+        routeimg:"/image/sois_toi_meme.jpeg",
         description:""
     },
     
