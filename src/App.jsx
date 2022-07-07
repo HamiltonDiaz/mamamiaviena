@@ -11,6 +11,9 @@ import HistoryPage from "./pages/HistoryPage";
 import OutletPage from "./pages/OutletPage";
 import WallPage from "./pages/WallPage";
 import CreatorPage from "./pages/CreatorPage";
+import DrawerMenu from "./pages/DrawerMenu/DrawerMenu";
+import HomeAdmin from "./components/HomeAdmin/HomeAdmin";
+
 
 
 const App = () => {
@@ -25,6 +28,7 @@ const App = () => {
                         <Route path="/nuestra-creadora" element={<CreatorPage/>} />
                         <Route path="/zona-outlet" element={<OutletPage/>} />
                         <Route path="/muro-fama" element={<WallPage/>} />
+                        <Route path="/drawer" element={<HomeAdmin/>} />
                         {/* <Route path="/main" element={<MainPage />} /> */}
                         {/* <Route
                             path="/city/:countryCode/:city"
