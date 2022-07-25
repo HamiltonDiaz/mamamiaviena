@@ -3,10 +3,10 @@ import { global } from "./utils";
 //import axios from "axios"
 
 async function request(endPoint, header, callback) {
-    console.log("url api: " + global.api + endPoint);
+    //console.log("url api: " + global.api + endPoint);
     try {
-        const token2 = await getCookie("TOKEN");
-        //header.headers.Authorization = `{Baerer ${token}`;
+        const token = await getCookie("TOKENAUTH");
+        header.headers.Authorization = `{Baerer ${token}`;
         const response = await fetch(global.api + endPoint, header);
         const responseJson = await response.json();
         await callback(responseJson);

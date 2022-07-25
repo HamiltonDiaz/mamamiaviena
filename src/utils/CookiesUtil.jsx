@@ -6,11 +6,18 @@
 
 //link https://medium.com/angular-chile/cookies-con-javascript-9160655d4160
 
-export const setCookie = (name, value, days) => {
+export const setCookie = (name, value, hours) => {
     let expires = "";
-    if (days) {
+    if (hours) {
         let date = new Date();
-        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); //convierte los días en milisegundos
+        
+        console.log(hours,hours * 60 * 60 * 1000)
+        date.setTime(date.getTime() + hours * 60 * 60 * 1000); //convierte los días en milisegundos
+        let date2= new Date()
+        date2.setTime(date.getTime())
+        console.log("fecha inicial:" + date2.toUTCString())
+        console.log("fecha final:" + date.toUTCString())
+
         expires = "; expires=" + date.toUTCString(); // para dar formato "Wed, 14 Jun 2017 07:00:00 GMT"
         //expires queda así "; expires=Fri, 22 Jul 2022 13:58:00 GMT"
         //console.log(expires)

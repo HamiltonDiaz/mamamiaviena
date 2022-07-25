@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -12,73 +12,55 @@ import {
     Typography,
     Container,
 } from "@mui/material";
+import {useNavigate} from "react-router-dom"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { postRequest, postLogin, postData } from "../../utils/api";
-import { setCookie } from "../../utils/CookiesUtil";
-import { global } from "../../utils/utils";
+import Copyright from "../Copyright/Copyright";
+import { postRequest } from "../../utils/api";
+import { setCookie, getCookie } from "../../utils/CookiesUtil";
 import ToastType from "../../utils/ToastType";
-import axios from "axios"
 
-function Copyright(props) {
-    return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            {...props}
-        >
-            {"Copyright © "}
-            <Link color="inherit" href="https://www.mamamiaviena.com/">
-                MamamíaViena.com
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
+
 
 const Login = () => {
     const [data, setData] = useState({ name: "", email: "", password: "" });
-    const [dataError, setDataerror] = useState({
-        name: false,
-        email: false,
-        password: false,
-    });
-    const [dataErrorMsg, setDataerrormsg] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
+    // const [errorName, setErrorname] = useState(false);
+    const [errorEmail, setErroremail] = useState(false);
+    const [errorPassword, setErrorpassword] = useState(false);
+    // const [msgName, setMsgname] = useState("");
+    const [msgEmail, setMsgemail] = useState("");
+    const [msgPassword, setMsgpassword] = useState("");
 
-    const handleError = (type, msg) => {
-        setDataerror({
-            ...dataError,
-            [type]: !dataError[type],
-        });
-        setDataerrormsg({
-            ...dataErrorMsg,
-            [type]: msg,
-        });
-    };
+    const navigate = useNavigate()
+    const isLogin= getCookie("TOKENAUTH")
+    useEffect(() => {
+        console.log(isLogin)
+        if (isLogin!=null) {
+            navigate("/admin/home",{replace:true})
+        }
+    }, [isLogin])
 
     const handleSubmit = (event) => {
         event.preventDefault();
         let typeToast = "error";
         let msg = "";
-        if (data.name == "") {
-            msg = "Nombre es requerido.";
-            handleError("name", msg);
-            ToastType(typeToast, msg);
-        }
+
+        // if (data.name == "") {
+        //     msg = "Nombre es requerido.";
+        //     setErrorname(true)
+        //     setMsgname(msg)
+        //     ToastType(typeToast, msg);
+        // }
         if (data.email == "") {
             msg = "Email es requerido.";
-            handleError("email", msg);
+            setErroremail(true)
+            setMsgemail(msg)
             ToastType(typeToast, msg);
         } else if (
             !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(data.email)
         ) {
             msg = "Email incorrecto.";
-            handleError("email", msg);
+            setErroremail(true)
+            setMsgemail(msg)
             ToastType(typeToast, msg);
 
             /* 
@@ -101,18 +83,26 @@ const Login = () => {
         }
         if (data.password == "") {
             msg = "Contraseña es requerida.";
-            handleError("password", msg);
+            setErrorpassword(true)
+            setMsgpassword(msg)
             ToastType(typeToast, msg);
         }
 
         if (msg == "") {
             //axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie")
             postRequest("/login", data, async (result) => {
-                ToastType("success", "Ingreso exitoso");
-                setCookie("TOKEN", "tokenservidor");
-                console.log(result);
+                if(result.success){
+                    ToastType("success", "Bienvenid@");
+                    setCookie("TOKENAUTH", result.access_token, 24);
+                    setTimeout(function(){
+                        navigate("/admin/home")
+                    }, 2000);
+                    //window.location.replace(`${global.urlHome}/admin/home`);
+                }else{
+                    ToastType("error", result.message);
+                }
+                
 
-                //window.location.replace(`${global.urlHome}/admin/home`);
             });
 
         }
@@ -126,6 +116,9 @@ const Login = () => {
         });
     };
 
+
+
+    
     return (
         <>
             <Container component="main" maxWidth="xs">
@@ -151,34 +144,34 @@ const Login = () => {
                         noValidate
                         sx={{ mt: 1 }}
                     >
-                        <TextField
-                            error={dataError.name}
-                            helperText={dataErrorMsg.name}
+                        {/* <TextField
+                            error={errorName}
+                            helperText={msgName}
                             margin="normal"
                             required
                             fullWidth
-                            id="name"
                             name="name"
                             label="Nombre Usuario"
-                            autoFocus
+                            id="name"
+                            type="text"                            
                             onChange={handleChange}
-                        />
+                        /> */}
 
                         <TextField
-                            error={dataError.email}
-                            helperText={dataErrorMsg.email}
-                            type="email"
+                            error={errorEmail}
+                            helperText={msgEmail}
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email"
                             name="email"
+                            label="Email"
+                            type="email"
+                            id="email"
                             onChange={handleChange}
                         />
                         <TextField
-                            error={dataError.password}
-                            helperText={dataErrorMsg.password}
+                            error={errorPassword}
+                            helperText={msgPassword}
                             margin="normal"
                             required
                             fullWidth
