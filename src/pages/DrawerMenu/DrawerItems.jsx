@@ -15,6 +15,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Link as RouterLink } from "react-router-dom";
+import { admin, adminLines, adminProducts, adminUser } from "../../utils/Routes";
 
 const DrawerItems = () => {
     const [openList, setOpenList] = useState(false);
@@ -24,7 +25,7 @@ const DrawerItems = () => {
     return (
         <List>
             <RouterLink
-                to="/admin/home"
+                to={admin}
                 style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -40,7 +41,7 @@ const DrawerItems = () => {
                 </ListItem>
             </RouterLink>
             <RouterLink
-                to="/admin/users"
+                to={adminUser}
                 style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -66,7 +67,7 @@ const DrawerItems = () => {
             <Collapse in={openList} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     <RouterLink
-                        to="/admin/lines"
+                        to={adminLines}
                         style={{
                             textDecoration: "none",
                             color: "inherit",
@@ -80,7 +81,7 @@ const DrawerItems = () => {
                         </ListItemButton>
                     </RouterLink>
                     <RouterLink
-                        to="/admin/products"
+                        to={adminProducts}
                         style={{
                             textDecoration: "none",
                             color: "inherit",

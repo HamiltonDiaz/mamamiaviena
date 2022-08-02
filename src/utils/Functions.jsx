@@ -1,4 +1,6 @@
 import NumberFormat from 'react-number-format'
+import { getCookie } from './CookiesUtil'
+import { admin } from './Routes'
 
 export const convertNumber =(num)=>{
     return (
@@ -31,4 +33,14 @@ const replaceWhatsApp=(msg, number)=>{
 
 export const msgWhatsapp = (msg)=>{    
     return replaceWhatsApp(msg,"573132055928")
+}
+
+
+const isLogin= getCookie("TOKENAUTH")
+export const protectAdmin=(routeName)=>{
+    //console.log("ruta:"+routeName)
+    if (isLogin){
+        return routeName=="" ? admin : `${admin}/${routeName}`
+    }
+    return "/protectedRoute"
 }

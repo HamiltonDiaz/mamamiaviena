@@ -29,7 +29,11 @@ export async function getRequest(endPoint, callback) {
     const header = {
         method: "GET",
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
+            'Accept': "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "User-agent": "*",
         },
     };
     await request(endPoint, header, callback);
@@ -46,11 +50,27 @@ export async function postRequest(endPoint, data, callback) {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
             "User-agent": "*",
-            // 'X-CSRF-Token':?????,
         },
     };
     await request(endPoint, header, callback);
 }
+
+export async function postRequestFile(endPoint, data, callback) {
+    const header = {
+        method: "POST",
+        mode: "cors",
+        body: data,
+        headers: {
+            'Accept': "multipart/form-data",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Access-Control-Allow-Origin": "*",
+            "User-agent": "*",
+        },
+    };
+    await request(endPoint, header, callback);
+}
+
+
 
 export async function putRequest(endPoint, data, callback) {
     const header = {

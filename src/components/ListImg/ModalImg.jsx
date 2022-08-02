@@ -1,11 +1,7 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import {Box, Typography, Modal, Grid,Button} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { padding } from "@mui/system";
+
 
 const style = {
     position: "absolute",

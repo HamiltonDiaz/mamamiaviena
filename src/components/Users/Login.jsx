@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -18,7 +18,8 @@ import Copyright from "../Copyright/Copyright";
 import { postRequest } from "../../utils/api";
 import { setCookie, getCookie } from "../../utils/CookiesUtil";
 import ToastType from "../../utils/ToastType";
-
+import {admin} from "../../utils/Routes"
+import { WindowSharp } from "@mui/icons-material";
 
 
 const Login = () => {
@@ -31,13 +32,8 @@ const Login = () => {
     const [msgPassword, setMsgpassword] = useState("");
 
     const navigate = useNavigate()
-    const isLogin= getCookie("TOKENAUTH")
-    useEffect(() => {
-        console.log(isLogin)
-        if (isLogin!=null) {
-            navigate("/admin/home",{replace:true})
-        }
-    }, [isLogin])
+    
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -89,20 +85,19 @@ const Login = () => {
         }
 
         if (msg == "") {
-            //axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie")
             postRequest("/login", data, async (result) => {
                 if(result.success){
                     ToastType("success", "Bienvenid@");
                     setCookie("TOKENAUTH", result.access_token, 24);
                     setTimeout(function(){
-                        navigate("/admin/home")
+                        navigate(admin,{replace:true})
+                        window.location.reload();
+                        console.log(admin)
                     }, 2000);
                     //window.location.replace(`${global.urlHome}/admin/home`);
                 }else{
                     ToastType("error", result.message);
                 }
-                
-
             });
 
         }
@@ -116,9 +111,6 @@ const Login = () => {
         });
     };
 
-
-
-    
     return (
         <>
             <Container component="main" maxWidth="xs">
