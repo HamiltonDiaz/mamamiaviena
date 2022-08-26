@@ -124,16 +124,6 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             ToastType(typeToast, msg);
         }
         if (msg == "") {
-            
-            if (data.stateitem == true || data.stateitem == 1) {
-                console.log("verdadero sta")
-                setData({...data,["stateitem"]: 1});
-            } else {
-                console.log("false sta")
-                setData({...data,["stateitem"]: 2});
-            }
-            // console.log(data)
-            
             const dataFinal = new FormData();
             dataFinal.append("id", id);
             dataFinal.append("name", data.name);
