@@ -28,7 +28,7 @@ const style = {
     p: 4,
 };
 
-const ModalLine = ({ open, setOpen, titleModal }) => {
+const ModalCreate = ({ open, setOpen, titleModal }) => {
     const [data, setData] = useState({
         name: "",
         descrip: "",
@@ -119,7 +119,7 @@ const ModalLine = ({ open, setOpen, titleModal }) => {
             // console.log(dataFinal)
             // console.log(data.imageView)
             postRequestFile("/line/create", dataFinal, async (result) => {
-                console.log(result)
+                //console.log(result)
                 if (result.success) {
                     ToastType("success", "Creado Exitosamente");
                 } else {
@@ -261,4 +261,4 @@ const ModalLine = ({ open, setOpen, titleModal }) => {
     );
 };
 
-export default ModalLine;
+export default ModalCreate;

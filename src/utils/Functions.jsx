@@ -1,6 +1,7 @@
 import NumberFormat from 'react-number-format'
 import { getCookie } from './CookiesUtil'
 import { admin } from './Routes'
+import { global } from "./utils";
 
 export const convertNumber =(num)=>{
     return (
@@ -43,4 +44,8 @@ export const protectAdmin=(routeName)=>{
         return routeName=="" ? admin : `${admin}/${routeName}`
     }
     return "/protectedRoute"
+}
+
+export const routeImg=(nameImg)=>{
+    return global.routeserver + "/storage/img/" + nameImg
 }

@@ -39,21 +39,6 @@ export async function getRequest(endPoint, callback) {
     await request(endPoint, header, callback);
 }
 
-export async function postRequest(endPoint, data, callback) {
-    const header = {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify(data),
-        headers: {
-            'Accept': "application/json",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "User-agent": "*",
-        },
-    };
-    await request(endPoint, header, callback);
-}
 
 export async function postRequestFile(endPoint, data, callback) {
     const header = {
@@ -70,6 +55,46 @@ export async function postRequestFile(endPoint, data, callback) {
     await request(endPoint, header, callback);
 }
 
+
+export async function deleteRequest(endPoint, callback) {
+    const header = {
+        method: "DELETE",
+        headers: {
+            'Accept': "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "User-agent": "*",
+        },
+    };
+    await request(endPoint, header, callback);
+}
+
+
+
+
+
+
+
+
+
+
+
+export async function postRequest(endPoint, data, callback) {
+    const header = {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "User-agent": "*",
+        },
+    };
+    await request(endPoint, header, callback);
+}
 
 
 export async function putRequest(endPoint, data, callback) {
