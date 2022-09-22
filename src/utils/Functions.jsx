@@ -10,10 +10,7 @@ export const convertNumber =(num)=>{
         </>
     )
 }
-
-
-const replaceWhatsApp=(msg, number)=>{
-   
+const replaceWhatsApp=(msg, number)=>{   
     let textFinal= msg.replace(/á/g, "%C3%A1")
     textFinal = textFinal.replace(/é/g, "%C3%A9")
     textFinal = textFinal.replace(/í/g, "%C3%AD")
@@ -29,21 +26,15 @@ const replaceWhatsApp=(msg, number)=>{
     textFinal = textFinal.replace(/Ñ/g, "%C3%91")
     const apiWhatsApp = "https://api.whatsapp.com/send?phone=+" + number + "&text=" + textFinal
     return apiWhatsApp
-
 }
 
 export const msgWhatsapp = (msg)=>{    
     return replaceWhatsApp(msg,"573132055928")
 }
-
-
 const isLogin= getCookie("TOKENAUTH")
 export const protectAdmin=(routeName)=>{
-    //console.log("ruta:"+routeName)
-    if (isLogin){
-        return routeName=="" ? admin : `${admin}/${routeName}`
-    }
-    return "/protectedRoute"
+    // console.log("ruta:"+routeName)
+    return isLogin? routeName :"/protectedRoute"
 }
 
 export const routeImg=(nameImg)=>{

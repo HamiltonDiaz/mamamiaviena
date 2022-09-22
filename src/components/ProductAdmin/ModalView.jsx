@@ -65,17 +65,17 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
-                                <Typography variant="h6" >
+                                <Typography variant="h6">
                                     Nombre:
                                 </Typography>
-                                <Typography variant="h5" >
+                                <Typography variant="h5">
                                     {name}
                                 </Typography>
                                 
                                 <Typography variant="h6">
                                     Descripción:
                                 </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >
+                                <Typography variant="h5">
                                     {descrip}
                                 </Typography>                                
                             

@@ -22,7 +22,20 @@ import Login from "./components/Users/Login";
 import LineAdminPage from "./pages/Admin/LineAdminPage";
 import { getCookie } from "./utils/CookiesUtil";
 import { protectAdmin } from "./utils/Functions";
-import { muroFama, nuestraCreadora, nuestraHistoria, nuestrosDisenios, zonaOutlet } from "./utils/Routes";
+import {
+    muroFama,
+    nuestraCreadora,
+    nuestraHistoria,
+    nuestrosDisenios,
+    zonaOutlet,
+    admin,
+    adminUser,
+    adminLines,
+    adminSublines,
+    adminProducts,
+    adminItemProduct
+} from "./utils/Routes";
+import SubLineAdminPage from "./pages/Admin/SubLineAdminPage";
 
 const App = () => {
     let isLogin= getCookie("TOKENAUTH")
@@ -38,19 +51,23 @@ const App = () => {
                     <Route path={muroFama} element={<WallPage />} />
 
                     <Route
-                        path={protectAdmin("")}
+                        path={protectAdmin(admin)}
                         element={<HomeAdminPage />}
                     />
                     <Route
-                        path={protectAdmin("users")}
+                        path={protectAdmin(adminUser)}
                         element={<UserAdminPage />}
                     />
                     <Route
-                        path={protectAdmin("lines")}
+                        path={protectAdmin(adminLines)}
                         element={<LineAdminPage />}
                     />
                     <Route
-                        path={protectAdmin("products")}
+                        path={protectAdmin(adminSublines)}
+                        element={<SubLineAdminPage />}
+                    />                    
+                    <Route
+                        path={protectAdmin(adminProducts)}
                         element={<UserAdminPage />}
                     />
 
