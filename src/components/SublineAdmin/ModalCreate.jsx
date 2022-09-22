@@ -30,6 +30,7 @@ const style = {
 };
 
 const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
+    
     const [data, setData] = useState({
         name: "",
         descrip: "",
@@ -53,6 +54,8 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
+        setErrorline(false);
+        setMsgLine("");
         setMsgname("");
         setMsgdescrip("");
         setMsgimg("");
@@ -60,7 +63,8 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             name: "",
             descrip: "",
             imageView: null,
-            nameline:""
+            nameline:"",
+            lineid:""
         });
     };
 
@@ -92,24 +96,30 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             [e.target.name]: e.target.value,
         });
     };
+
+    const handleChangeList = (nameLine) => {
+        //console.log(nameLine.target.innerText)
+        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        // console.log("idfinal",idfinal)
+        setData({
+            ...data,
+            ["lineid"]: idfinal,
+            ["nameline"]: nameLine,
+        });
+    };
+    
     const handleCreate = (data) => {
+        // console.log("datainicio",data)
         let typeToast = "error";
         let msg = "";
-
 
         if (data.nameline == "") {
             msg = "Linea es requerida.";
             setErrorline(true);
             setMsgLine(msg);
             ToastType(typeToast, msg);
-        }else{
-            setData({
-                ...data,
-                ["lineid"]: lines.filter((ln) =>
-                    ln.name == data.nameline ? ln.id : null
-                )[0].id,
-            });
         }
+
         if (data.name == "") {
             msg = "Nombre es requerido.";
             setErrorname(true);
@@ -139,8 +149,8 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             dataFinal.append("stateitem", 1);
             dataFinal.append("lineid", data.lineid);
 
-            console.log(dataFinal)
-            console.log(data)
+            //console.log(dataFinal)
+            // console.log("dataenvio:",data)
             postRequestFile("/sublines/create", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
@@ -195,10 +205,9 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                                     id="nameline"
                                     name="nameline"
                                     // value={data.nameline}
-                                    // onChange={handleChange}
                                     onChange={(event, newValue) => {
-                                        setData({...data, ["nameline"]:newValue});
-                                      }}
+                                        handleChangeList(newValue)
+                                        }}
                                     options={
                                         lines && lines.map((ln) => ln.name)
                                     }

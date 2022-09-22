@@ -9,6 +9,7 @@ import {
     CircularProgress,
     FormControlLabel,
     Switch,
+    Autocomplete,
 } from "@mui/material";
 import { postRequestFile } from "../../utils/api";
 import ToastType from "../../utils/ToastType";
@@ -25,22 +26,26 @@ const style = {
     p: 4,
 };
 
-const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
-    const { imageView, imgold, namePrev, descripPrev, id,statePrev } = prevData;
+const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
+    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline } = prevData;
     const [data, setData] = useState({
         name: "",
         descrip: "",
         image: "",
         stateitem: null,
         imageView:null,
+        nameline:"",
+        lineid:""
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
+    const [errorLine, setErrorline] = useState(false);
     const [msgName, setMsgname] = useState("");
     const [msgDescrip, setMsgdescrip] = useState("");
     const [msgImg, setMsgimg] = useState("");
+    const [msgLine, setMsgLine] = useState("");
 
     const handleClose = () => {
         setOpen(false);
@@ -48,6 +53,8 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
+        setErrorline(false);
+        setMsgLine("");
         setMsgname("");
         setMsgdescrip("");
         setMsgimg("");
@@ -57,6 +64,8 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             image: "",
             stateitem: null,
             imageView:null,
+            nameline:"",
+            lineid:""
         });
     };
 
@@ -100,6 +109,17 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             [e.target.name]: valEnd
         });
     };
+    const handleChangeList = (nameLine) => {
+        //console.log(nameLine.target.innerText)
+        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        // console.log("idfinal",idfinal)
+        setData({
+            ...data,
+            ["lineid"]: idfinal,
+            ["nameline"]: nameLine,
+        });
+    };
+
     const handleEdit = (data) => {
         // console.log(data)
         let typeToast = "error";
@@ -152,12 +172,10 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             image: imgold,
             stateitem: statePrev,
             imageView: imageView,
+            nameline:nameline
         })
         setLineimg(imgold)
     }, [])
-
-
-
 
     return (
         <Modal
@@ -208,6 +226,33 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
                                     }
                                     label="Estado"
                                 />
+
+                                <Autocomplete
+                                    disablePortal
+                                    id="nameline"
+                                    name="nameline"
+                                    value={data.nameline}
+                                    onChange={(event, newValue) => {
+                                        handleChangeList(newValue)
+                                        }}
+                                    options={
+                                        lines && lines.map((ln) => ln.name)
+                                    }
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => (
+                                        // console.log(params),
+                                        <TextField
+                                            
+                                            error={errorLine}
+                                            helperText={msgLine}
+                                            {...params}
+                                            label="Seleccione"
+                                            
+                                        />
+                                    )}
+                                    
+                                />
+
                                 <TextField
                                     error={errorName}
                                     helperText={msgName}

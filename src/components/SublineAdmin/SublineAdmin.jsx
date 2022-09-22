@@ -73,7 +73,9 @@ const SublineAdmin = () => {
                 descripPrev: item.descrip,
                 id: item.id,
                 statePrev:item.stateitem,
+                nameline:item.nameline
             }}
+            lines={lines}
         />
         )
     }
@@ -96,7 +98,7 @@ const SublineAdmin = () => {
                 titleModal={"Nueva SubLinea"}
                 lines={lines}
             />
-            <ModalEditHead item={dataView}/>
+            <ModalEditHead item={dataView} />
             <ModalDeleteHead item={dataView}/>
             <ModalViewHead item={dataView}/>
             
