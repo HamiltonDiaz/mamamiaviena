@@ -104,6 +104,7 @@ const SublineAdmin = () => {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Linea</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Estado</th>
@@ -115,6 +116,7 @@ const SublineAdmin = () => {
                         sublines.map((item, id) => (
                             <tr key={item.name + id}>
                                 <td>{id + 1}</td>
+                                <td>{item.nameline}</td>
                                 <td>{item.name}</td>
                                 <td>{item.descrip}</td>
                                 <td>{item.stateitem==1? "Activo": "Inactivo"}</td>

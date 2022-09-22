@@ -120,10 +120,11 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
             // console.log(data.imageView)
             postRequestFile("/line/create", dataFinal, async (result) => {
                 //console.log(result)
+                console.log(result)
                 if (result.success) {
                     ToastType("success", "Creado Exitosamente");
                 } else {
-                    ToastType("error", result.message);
+                    ToastType("error", result.msg);
                 }
             });
             handleClose()

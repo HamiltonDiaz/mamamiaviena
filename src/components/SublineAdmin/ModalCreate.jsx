@@ -30,20 +30,22 @@ const style = {
 };
 
 const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
-
-    
     const [data, setData] = useState({
         name: "",
         descrip: "",
         imageView: null,
+        nameline:"",
+        lineid:"",
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
+    const [errorLine, setErrorline] = useState(false);
     const [msgName, setMsgname] = useState("");
     const [msgDescrip, setMsgdescrip] = useState("");
     const [msgImg, setMsgimg] = useState("");
+    const [msgLine, setMsgLine] = useState("");
 
     const handleClose = () => {
         setOpen(false);
@@ -58,6 +60,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             name: "",
             descrip: "",
             imageView: null,
+            nameline:""
         });
     };
 
@@ -83,6 +86,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
     };
 
     const handleChange = (e) => {
+        // console.log("change: ",e.target.name + ":" + e.target.value)
         setData({
             ...data,
             [e.target.name]: e.target.value,
@@ -91,6 +95,21 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
     const handleCreate = (data) => {
         let typeToast = "error";
         let msg = "";
+
+
+        if (data.nameline == "") {
+            msg = "Linea es requerida.";
+            setErrorline(true);
+            setMsgLine(msg);
+            ToastType(typeToast, msg);
+        }else{
+            setData({
+                ...data,
+                ["lineid"]: lines.filter((ln) =>
+                    ln.name == data.nameline ? ln.id : null
+                )[0].id,
+            });
+        }
         if (data.name == "") {
             msg = "Nombre es requerido.";
             setErrorname(true);
@@ -103,7 +122,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
         }
-
+ 
         if (LineImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
@@ -118,10 +137,11 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);
             dataFinal.append("stateitem", 1);
+            dataFinal.append("lineid", data.lineid);
 
-            // console.log(dataFinal)
-            // console.log(data.imageView)
-            postRequestFile("/line/create", dataFinal, async (result) => {
+            console.log(dataFinal)
+            console.log(data)
+            postRequestFile("/sublines/create", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
                     ToastType("success", "Creado Exitosamente");
@@ -172,15 +192,31 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                             >
                                 <Autocomplete
                                     disablePortal
-                                    id="combo-box-demo"
-                                    options={lines && lines.map((ln)=>ln.name)}
+                                    id="nameline"
+                                    name="nameline"
+                                    // value={data.nameline}
+                                    // onChange={handleChange}
+                                    onChange={(event, newValue) => {
+                                        setData({...data, ["nameline"]:newValue});
+                                      }}
+                                    options={
+                                        lines && lines.map((ln) => ln.name)
+                                    }
                                     sx={{ width: 300 }}
                                     renderInput={(params) => (
-                                        console.log(params),
-                                        <TextField {...params} label="Seleccione" />
+                                        // console.log(params),
+                                        <TextField
+                                            
+                                            error={errorLine}
+                                            helperText={msgLine}
+                                            {...params}
+                                            label="Seleccione"
+                                            
+                                        />
                                     )}
+                                    
                                 />
-                                
+
                                 <TextField
                                     error={errorName}
                                     helperText={msgName}
