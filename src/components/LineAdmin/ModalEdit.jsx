@@ -84,17 +84,13 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
     const handleChange = (e) => {
         let valEnd= e.target.value
 
-        switch (e.target.checked) {
-            case true:
-                valEnd=1
-                break;
-            case false:
-                valEnd=2
-                break;        
-            default:
-                valEnd=1
-                break;
+        if (valEnd=="on" && e.target.checked){
+            valEnd=1
         }
+        if (valEnd=="on"&& e.target.checked==false){
+            valEnd=2
+        }
+        // console.log(valEnd,  e.target.value, e.target.checked)
         setData({
             ...data,
             [e.target.name]: valEnd

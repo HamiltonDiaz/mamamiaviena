@@ -40,6 +40,7 @@ const SublineAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
+                nameline:item.nameline,
             }}/>
         )
     }
@@ -54,7 +55,8 @@ const SublineAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
-                id: item.id
+                id: item.id,
+                nameline:item.nameline
             }}
         />
         )

@@ -94,17 +94,14 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     const handleChange = (e) => {
         let valEnd= e.target.value
 
-        switch (e.target.checked) {
-            case true:
-                valEnd=1
-                break;
-            case false:
-                valEnd=2
-                break;        
-            default:
-                valEnd=1
-                break;
+        if (valEnd=="on" && e.target.checked){
+            valEnd=1
         }
+        if (valEnd=="on"&& e.target.checked==false){
+            valEnd=2
+        }
+
+        // console.log(valEnd,  e.target.value, e.target.checked)
         setData({
             ...data,
             [e.target.name]: valEnd
@@ -122,7 +119,8 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     const handleEdit = (data) => {
-        // console.log(data)
+        console.log("Data Inicial: ",data)
+        
         let typeToast = "error";
         let msg = "";
 
@@ -162,7 +160,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             dataFinal.append("lineid", data.lineid);
             dataFinal.append("imgold", imgold);
             
-            console.log("DataFinal: ", data)
+            // console.log("DataFinal: ", data)
 
             postRequestFile("/sublines/update", dataFinal, async (result) => {
                 //console.log(result)
@@ -178,13 +176,10 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     useEffect(() => {
-        // if (lines && nameline) {
-        //     const lineidprev=lines.filter((ln) =>ln.name == data.nameline ? ln.id : null)[0].id
-        //     setData({
-        //         ...data,
-        //         lineid:lineidprev
-        //     })
-        // } 
+        let lineidprev=null
+        if (lines && nameline) {
+            lineidprev=lines.filter((ln) =>ln.name == nameline ? ln.id : null)[0].id
+        } 
 
         setData({
             ...data,
@@ -194,6 +189,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             stateitem: statePrev,
             imageView:imageView,
             nameline:nameline,
+            lineid:lineidprev
         })
         setLineimg(imgold)
     }, [])

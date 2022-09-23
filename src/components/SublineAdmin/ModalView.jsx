@@ -26,7 +26,7 @@ const style = {
 };
 
 const ModalCreate = ({ open, setOpen, titleModal, data }) => {
-    const {name, descrip, imageView}=data
+    const {name, descrip, imageView, nameline }=data
 
     const handleClose = () => {
         setOpen(false);
@@ -69,7 +69,7 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                                     Nombre:
                                 </Typography>
                                 <Typography variant="h5">
-                                    {name}
+                                   {nameline} -<u> {name} </u>
                                 </Typography>
                                 
                                 <Typography variant="h6">
