@@ -27,7 +27,7 @@ const style = {
 };
 
 const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
-    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline } = prevData;
+    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline, } = prevData;
     const [data, setData] = useState({
         name: "",
         descrip: "",
@@ -35,8 +35,9 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
         stateitem: null,
         imageView:null,
         nameline:"",
-        lineid:""
+        lineid:"",
     });
+
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
@@ -124,6 +125,14 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
         // console.log(data)
         let typeToast = "error";
         let msg = "";
+
+        if (data.nameline == "") {
+            msg = "Linea es requerida.";
+            setErrorline(true);
+            setMsgLine(msg);
+            ToastType(typeToast, msg);
+        }
+
         if (data.name == "") {
             msg = "Nombre es requerido.";
             setErrorname(true);
@@ -150,9 +159,12 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);                
             dataFinal.append("stateitem", data.stateitem);
+            dataFinal.append("lineid", data.lineid);
             dataFinal.append("imgold", imgold);
             
-            postRequestFile("/line/update", dataFinal, async (result) => {
+            console.log("DataFinal: ", data)
+
+            postRequestFile("/sublines/update", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
                     ToastType("success", result.msg);
@@ -166,13 +178,22 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     useEffect(() => {
+        // if (lines && nameline) {
+        //     const lineidprev=lines.filter((ln) =>ln.name == data.nameline ? ln.id : null)[0].id
+        //     setData({
+        //         ...data,
+        //         lineid:lineidprev
+        //     })
+        // } 
+
         setData({
+            ...data,
             name: namePrev,
             descrip: descripPrev,
             image: imgold,
             stateitem: statePrev,
-            imageView: imageView,
-            nameline:nameline
+            imageView:imageView,
+            nameline:nameline,
         })
         setLineimg(imgold)
     }, [])
@@ -229,6 +250,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
 
                                 <Autocomplete
                                     disablePortal
+                                    isOptionEqualToValue={(option, value) => option.id === value.id}
                                     id="nameline"
                                     name="nameline"
                                     value={data.nameline}

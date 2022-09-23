@@ -73,7 +73,7 @@ const SublineAdmin = () => {
                 descripPrev: item.descrip,
                 id: item.id,
                 statePrev:item.stateitem,
-                nameline:item.nameline
+                nameline:item.nameline,
             }}
             lines={lines}
         />
