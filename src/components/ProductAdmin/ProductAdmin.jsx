@@ -15,6 +15,7 @@ import ModalDelete from "./ModalDelete";
 import ModalView from "./ModalView";
 
 const ProductAdmin = () => {
+    const [sublines, setSublines] = useState(null);
     const [lines, setLines] = useState(null);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -39,6 +40,7 @@ const ProductAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
+                nameline:item.nameline,
             }}/>
         )
     }
@@ -53,7 +55,8 @@ const ProductAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
-                id: item.id
+                id: item.id,
+                nameline:item.nameline
             }}
         />
         )
@@ -72,15 +75,18 @@ const ProductAdmin = () => {
                 descripPrev: item.descrip,
                 id: item.id,
                 statePrev:item.stateitem,
+                nameline:item.nameline,
             }}
+            lines={lines}
         />
         )
     }
 
     useEffect(() => {
-        getRequest("/line", async (result) => {
+        getRequest("/sublines", async (result) => {
             if (result.success) {
-                setLines(result.data);
+                setSublines(result.data[0]);
+                setLines(result.data[1]);
                 // console.log(result.data);
             }
         });
@@ -91,10 +97,10 @@ const ProductAdmin = () => {
             <ModalCreate
                 open={open}
                 setOpen={setOpen}
-                titleModal={"Nueva Linea"}
+                titleModal={"Nueva SubLinea"}
+                lines={lines}
             />
-
-            <ModalEditHead item={dataView}/>
+            <ModalEditHead item={dataView} />
             <ModalDeleteHead item={dataView}/>
             <ModalViewHead item={dataView}/>
             
@@ -102,6 +108,8 @@ const ProductAdmin = () => {
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Linea</th>
+                        <th>SubLinea</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Estado</th>
@@ -109,10 +117,12 @@ const ProductAdmin = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {lines &&
-                        lines.map((item, id) => (
+                    {sublines &&
+                        sublines.map((item, id) => (
                             <tr key={item.name + id}>
                                 <td>{id + 1}</td>
+                                <td>{item.nameline}</td>
+                                <td>{item.nameline}</td>
                                 <td>{item.name}</td>
                                 <td>{item.descrip}</td>
                                 <td>{item.stateitem==1? "Activo": "Inactivo"}</td>

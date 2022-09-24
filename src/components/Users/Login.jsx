@@ -16,10 +16,10 @@ import {useNavigate} from "react-router-dom"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Copyright from "../Copyright/Copyright";
 import { postRequest } from "../../utils/api";
-import { setCookie, getCookie } from "../../utils/CookiesUtil";
+import { setCookie } from "../../utils/CookiesUtil";
 import ToastType from "../../utils/ToastType";
 import {admin} from "../../utils/Routes"
-import { WindowSharp } from "@mui/icons-material";
+
 
 
 const Login = () => {
@@ -92,7 +92,7 @@ const Login = () => {
                     setTimeout(function(){
                         navigate(admin,{replace:true})
                         window.location.reload();
-                        console.log(admin)
+                        // console.log(admin)
                     }, 2000);
                     //window.location.replace(`${global.urlHome}/admin/home`);
                 }else{

@@ -9,6 +9,7 @@ import {
     CircularProgress,
     FormControlLabel,
     Switch,
+    Autocomplete,
 } from "@mui/material";
 import { postRequestFile } from "../../utils/api";
 import ToastType from "../../utils/ToastType";
@@ -25,22 +26,27 @@ const style = {
     p: 4,
 };
 
-const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
-    const { imageView, imgold, namePrev, descripPrev, id,statePrev } = prevData;
+const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
+    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline, } = prevData;
     const [data, setData] = useState({
         name: "",
         descrip: "",
         image: "",
         stateitem: null,
         imageView:null,
+        nameline:"",
+        lineid:"",
     });
+
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
+    const [errorLine, setErrorline] = useState(false);
     const [msgName, setMsgname] = useState("");
     const [msgDescrip, setMsgdescrip] = useState("");
     const [msgImg, setMsgimg] = useState("");
+    const [msgLine, setMsgLine] = useState("");
 
     const handleClose = () => {
         setOpen(false);
@@ -48,6 +54,8 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
+        setErrorline(false);
+        setMsgLine("");
         setMsgname("");
         setMsgdescrip("");
         setMsgimg("");
@@ -57,6 +65,8 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             image: "",
             stateitem: null,
             imageView:null,
+            nameline:"",
+            lineid:""
         });
     };
 
@@ -84,26 +94,43 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
     const handleChange = (e) => {
         let valEnd= e.target.value
 
-        switch (e.target.checked) {
-            case true:
-                valEnd=1
-                break;
-            case false:
-                valEnd=2
-                break;        
-            default:
-                valEnd=1
-                break;
+        if (valEnd=="on" && e.target.checked){
+            valEnd=1
         }
+        if (valEnd=="on"&& e.target.checked==false){
+            valEnd=2
+        }
+
+        // console.log(valEnd,  e.target.value, e.target.checked)
         setData({
             ...data,
             [e.target.name]: valEnd
         });
     };
+    const handleChangeList = (nameLine) => {
+        //console.log(nameLine.target.innerText)
+        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        // console.log("idfinal",idfinal)
+        setData({
+            ...data,
+            ["lineid"]: idfinal,
+            ["nameline"]: nameLine,
+        });
+    };
+
     const handleEdit = (data) => {
-        // console.log(data)
+        console.log("Data Inicial: ",data)
+        
         let typeToast = "error";
         let msg = "";
+
+        if (data.nameline == "") {
+            msg = "Linea es requerida.";
+            setErrorline(true);
+            setMsgLine(msg);
+            ToastType(typeToast, msg);
+        }
+
         if (data.name == "") {
             msg = "Nombre es requerido.";
             setErrorname(true);
@@ -130,9 +157,12 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);                
             dataFinal.append("stateitem", data.stateitem);
+            dataFinal.append("lineid", data.lineid);
             dataFinal.append("imgold", imgold);
             
-            postRequestFile("/line/update", dataFinal, async (result) => {
+            // console.log("DataFinal: ", data)
+
+            postRequestFile("/sublines/update", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
                     ToastType("success", result.msg);
@@ -146,18 +176,23 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
     };
 
     useEffect(() => {
+        let lineidprev=null
+        if (lines && nameline) {
+            lineidprev=lines.filter((ln) =>ln.name == nameline ? ln.id : null)[0].id
+        } 
+
         setData({
+            ...data,
             name: namePrev,
             descrip: descripPrev,
             image: imgold,
             stateitem: statePrev,
-            imageView: imageView,
+            imageView:imageView,
+            nameline:nameline,
+            lineid:lineidprev
         })
         setLineimg(imgold)
     }, [])
-
-
-
 
     return (
         <Modal
@@ -208,6 +243,34 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
                                     }
                                     label="Estado"
                                 />
+
+                                <Autocomplete
+                                    disablePortal
+                                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                                    id="nameline"
+                                    name="nameline"
+                                    value={data.nameline}
+                                    onChange={(event, newValue) => {
+                                        handleChangeList(newValue)
+                                        }}
+                                    options={
+                                        lines && lines.map((ln) => ln.name)
+                                    }
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => (
+                                        // console.log(params),
+                                        <TextField
+                                            
+                                            error={errorLine}
+                                            helperText={msgLine}
+                                            {...params}
+                                            label="Seleccione"
+                                            
+                                        />
+                                    )}
+                                    
+                                />
+
                                 <TextField
                                     error={errorName}
                                     helperText={msgName}

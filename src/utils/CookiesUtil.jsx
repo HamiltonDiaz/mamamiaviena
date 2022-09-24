@@ -1,11 +1,10 @@
+
 /**
  * name= corresponde al nombre a asignar a la cookie
  * value= corresponde al valor a asginar a la cookie
  * days= corresponde al valor en días en que expira la cookie.
  */
-
 //link https://medium.com/angular-chile/cookies-con-javascript-9160655d4160
-
 export const setCookie = (name, value, hours) => {
     //let expires = "";
     let deleteCookie="";
@@ -60,3 +59,10 @@ export const getCookie = (name) => {
     }
     return null;
 };
+
+
+export const singOut = (name)=>{
+    setCookie(name,"",-1)
+    alert("¡Hasta pronto!")
+    window.location.href ="/login";    
+}

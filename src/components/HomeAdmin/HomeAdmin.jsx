@@ -4,6 +4,7 @@ import { Grid, Paper, Typography } from "@mui/material";
 import UserImg from "../../assets/Users.png";
 import ProductImg from "../../assets/Products.png";
 import LineImg from "../../assets/Lines.png";
+import SublineImg from "../../assets/Sublines.png";
 import { Link as RouterLink } from "react-router-dom";
 
 const HomeAdmin = () => {
@@ -52,6 +53,25 @@ const HomeAdmin = () => {
                     </Paper>
                 </RouterLink>
             </Grid>
+
+            <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
+                <RouterLink
+                    to="/admin/sublines"
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                >
+                    <Paper variant="outlined">
+                        <Grid item sx={{ padding: 2 }}>
+                            <img src={SublineImg} alt="imagen-sublineas" />
+                            <Typography variant="subtitle1" align="center">
+                                SubLineas
+                            </Typography>
+                        </Grid>
+                    </Paper>
+                </RouterLink>
+            </Grid>            
 
             <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
                 <RouterLink

@@ -11,7 +11,10 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import DrawerItems from "./DrawerItems";
+import {singOut} from "../../utils/CookiesUtil"
+import { Grid } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -86,9 +89,28 @@ const DrawerMenu = ({children,titlePage}) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+
+                    <Typography variant="h6"  component="div">
                         {titlePage}
                     </Typography>
+
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-end"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <IconButton
+                                color="inherit"
+                                aria-label="cerrar-sesion"
+                                onClick={()=>singOut("TOKENAUTH")}
+                                // edge="start"
+                            >
+                                <PowerSettingsNewIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
             <Drawer
