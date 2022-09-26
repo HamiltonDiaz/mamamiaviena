@@ -158,9 +158,9 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             postRequestFile("/sublines/create", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
-                    ToastType("success", "Creado Exitosamente");
+                    ToastType("success", result.msg);
                 } else {
-                    ToastType("error", result.message);
+                    ToastType("error", result.msg);
                 }
             });
             handleClose()

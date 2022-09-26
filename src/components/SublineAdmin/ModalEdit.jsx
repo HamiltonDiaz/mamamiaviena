@@ -29,14 +29,17 @@ const style = {
 const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline, } = prevData;
     const [data, setData] = useState({
-        name: "",
-        descrip: "",
-        image: "",
-        stateitem: null,
-        imageView:null,
+        name: namePrev,
+        descrip: descripPrev,
+        image: imgold,
+        stateitem: statePrev,
         nameline:"",
         lineid:"",
+        imageView:imageView,
+        nameline:nameline,
     });
+
+    const [lineState, setLinestate] = useState(null)
 
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
@@ -110,6 +113,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     const handleChangeList = (nameLine) => {
         //console.log(nameLine.target.innerText)
         const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        setLinestate(lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].stateline)
         // console.log("idfinal",idfinal)
         setData({
             ...data,
@@ -156,7 +160,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);                
-            dataFinal.append("stateitem", data.stateitem);
+            dataFinal.append("stateitem", data.stateitem == true ? 1 : 2);
             dataFinal.append("lineid", data.lineid);
             dataFinal.append("imgold", imgold);
             
@@ -176,22 +180,14 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     useEffect(() => {
-        let lineidprev=null
         if (lines && nameline) {
-            lineidprev=lines.filter((ln) =>ln.name == nameline ? ln.id : null)[0].id
+            setData({
+                ...data,
+                lineid:lines.filter((ln) =>ln.name == nameline ? ln.id : null)[0].id
+            })
+            setLinestate(lines.filter((ln) =>ln.name == nameline ? ln.stateline : null)[0].stateline)
         } 
-
-        setData({
-            ...data,
-            name: namePrev,
-            descrip: descripPrev,
-            image: imgold,
-            stateitem: statePrev,
-            imageView:imageView,
-            nameline:nameline,
-            lineid:lineidprev
-        })
-        setLineimg(imgold)
+        imgold && imgold? setLineimg(imgold) : setLineimg(null) 
     }, [])
 
     return (
@@ -223,6 +219,11 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
+                                <Typography variant="caption" color="red">
+                                    {lineState && lineState == 2
+                                        ? "Debe activar registro padre para poder modificar este registro."
+                                        : ""}
+                                </Typography>
                             <Box
                                 component="form"
                                 onSubmit={handleEdit}
@@ -231,28 +232,37 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                                 sx={{ mt: 1 }}
                             >
                                 <FormControlLabel
+                                    disabled={
+                                        lineState && lineState == 2
+                                            ? true
+                                            : false
+                                    }
                                     labelPlacement="start"
                                     onChange={handleChange}
                                     control={
                                         <Switch
-                                            name="stateitem"                                            
-                                            defaultChecked={
-                                                statePrev == 1 ? true : false
-                                            }
+                                            name="stateitem"
+                                            defaultChecked={statePrev}
                                         />
                                     }
                                     label="Estado"
                                 />
-
                                 <Autocomplete
                                     disablePortal
-                                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                                    isOptionEqualToValue={(option, value) =>
+                                        option.id === value.id
+                                    }
                                     id="nameline"
                                     name="nameline"
-                                    value={data.nameline}
+                                    // value={data.nameline}
+                                    defaultValue={
+                                        data.nameline != null
+                                            ? data.nameline
+                                            : ""
+                                    }
                                     onChange={(event, newValue) => {
-                                        handleChangeList(newValue)
-                                        }}
+                                        handleChangeList(newValue);
+                                    }}
                                     options={
                                         lines && lines.map((ln) => ln.name)
                                     }
@@ -260,15 +270,12 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                                     renderInput={(params) => (
                                         // console.log(params),
                                         <TextField
-                                            
                                             error={errorLine}
                                             helperText={msgLine}
                                             {...params}
                                             label="Seleccione"
-                                            
                                         />
                                     )}
-                                    
                                 />
 
                                 <TextField
@@ -314,6 +321,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                                     }}
                                 />
                             </Box>
+             
                         </Grid>
                         <Grid
                             item
