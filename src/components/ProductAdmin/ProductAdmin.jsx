@@ -15,6 +15,7 @@ import ModalDelete from "./ModalDelete";
 import ModalView from "./ModalView";
 
 const ProductAdmin = () => {
+    const [products, setProducts] = useState(null);
     const [sublines, setSublines] = useState(null);
     const [lines, setLines] = useState(null);
     const [open, setOpen] = useState(false);
@@ -40,6 +41,7 @@ const ProductAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
+                namesubline:item.namesubline,
                 nameline:item.nameline,
             }}/>
         )
@@ -56,7 +58,9 @@ const ProductAdmin = () => {
                 name: item.name,
                 descrip: item.descrip,
                 id: item.id,
+                namesubline:item.namesubline,
                 nameline:item.nameline
+
             }}
         />
         )
@@ -75,6 +79,7 @@ const ProductAdmin = () => {
                 descripPrev: item.descrip,
                 id: item.id,
                 statePrev:item.stateitem,
+                namesubline:item.namesubline,
                 nameline:item.nameline,
             }}
             lines={lines}
@@ -83,11 +88,11 @@ const ProductAdmin = () => {
     }
 
     useEffect(() => {
-        getRequest("/sublines", async (result) => {
+        getRequest("/products", async (result) => {
             if (result.success) {
-                setSublines(result.data[0]);
-                setLines(result.data[1]);
-                // console.log(result.data);
+                setProducts(result.data["products"]);
+                setSublines(result.data["sublines"]);
+                setLines(result.data["lines"]);
             }
         });
     }, [open, openDelete, openEdit]);
@@ -117,12 +122,12 @@ const ProductAdmin = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {sublines &&
-                        sublines.map((item, id) => (
+                    {products &&
+                        products.map((item, id) => (
                             <tr key={item.name + id}>
                                 <td>{id + 1}</td>
                                 <td>{item.nameline}</td>
-                                <td>{item.nameline}</td>
+                                <td>{item.namesubline}</td>
                                 <td>{item.name}</td>
                                 <td>{item.descrip}</td>
                                 <td>{item.stateitem==1? "Activo": "Inactivo"}</td>

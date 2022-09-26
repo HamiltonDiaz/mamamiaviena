@@ -85,9 +85,10 @@ const SublineAdmin = () => {
     useEffect(() => {
         getRequest("/sublines", async (result) => {
             if (result.success) {
-                setSublines(result.data[0]);
-                setLines(result.data[1]);
+                setSublines(result.data["sublines"]);
+                setLines(result.data["lines"]);
                 // console.log(result.data);
+
             }
         });
     }, [open, openDelete, openEdit]);

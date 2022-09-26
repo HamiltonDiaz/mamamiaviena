@@ -37,6 +37,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
         imageView: null,
         nameline:"",
         lineid:"",
+        stateitem:null,
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
@@ -64,7 +65,8 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             descrip: "",
             imageView: null,
             nameline:"",
-            lineid:""
+            lineid:"",
+            stateitem:null,
         });
     };
 
@@ -100,11 +102,13 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
     const handleChangeList = (nameLine) => {
         //console.log(nameLine.target.innerText)
         const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        const stateline=lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].id
         // console.log("idfinal",idfinal)
         setData({
             ...data,
-            ["lineid"]: idfinal,
-            ["nameline"]: nameLine,
+            lineid: idfinal,
+            nameline: nameLine,
+            stateitem:stateline,
         });
     };
     
@@ -146,7 +150,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);
-            dataFinal.append("stateitem", 1);
+            dataFinal.append("stateitem", data.stateitem);
             dataFinal.append("lineid", data.lineid);
 
             //console.log(dataFinal)
