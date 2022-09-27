@@ -26,17 +26,22 @@ const style = {
     p: 4,
 };
 
-const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
-    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline, } = prevData;
+const ModalEdit = ({ open, setOpen, titleModal, prevData, lines, sublines}) => {
+    const { imageView, imgold, namePrev, descripPrev, id,statePrev,nameline, namesubline} = prevData;
     const [data, setData] = useState({
-        name: "",
-        descrip: "",
-        image: "",
-        stateitem: null,
-        imageView:null,
-        nameline:"",
+        name: namePrev,
+        descrip: descripPrev,
+        image: imgold,
+        stateitem: statePrev,
         lineid:"",
+        nameline:nameline,
+        sublineid:"",
+        namesubline:namesubline,
+        imageView:imageView,
     });
+
+    const [lineState, setLinestate] = useState(null)
+    const [sublineState, setSublinestate] = useState(null)
 
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
@@ -66,7 +71,9 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             stateitem: null,
             imageView:null,
             nameline:"",
-            lineid:""
+            lineid:"",
+            sublineid:"",
+            namesubline:"",
         });
     };
 
@@ -93,28 +100,27 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
 
     const handleChange = (e) => {
         let valEnd= e.target.value
-
         if (valEnd=="on" && e.target.checked){
             valEnd=1
         }
         if (valEnd=="on"&& e.target.checked==false){
             valEnd=2
         }
-
-        // console.log(valEnd,  e.target.value, e.target.checked)
+       // console.log(valEnd,  e.target.value, e.target.checked)
         setData({
             ...data,
             [e.target.name]: valEnd
         });
     };
-    const handleChangeList = (nameLine) => {
+    const handleChangeList = (name) => {
         //console.log(nameLine.target.innerText)
-        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
+        const idfinal=sublines.filter((sln) =>sln.name == name ? sln.id : null)[0].id
+        setSublinestate(sublines.filter((sln) =>sln.name == name ? sln.statesubline : null)[0].statesubline)
         // console.log("idfinal",idfinal)
         setData({
             ...data,
-            ["lineid"]: idfinal,
-            ["nameline"]: nameLine,
+            ["sublineid"]: idfinal,
+            ["namesubline"]: name,
         });
     };
 
@@ -156,13 +162,13 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);                
-            dataFinal.append("stateitem", data.stateitem);
+            dataFinal.append("stateitem", data.stateitem == true ? 1 : 2);
             dataFinal.append("lineid", data.lineid);
             dataFinal.append("imgold", imgold);
             
             // console.log("DataFinal: ", data)
 
-            postRequestFile("/sublines/update", dataFinal, async (result) => {
+            postRequestFile("/products/update", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
                     ToastType("success", result.msg);
@@ -176,22 +182,15 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     useEffect(() => {
-        let lineidprev=null
-        if (lines && nameline) {
-            lineidprev=lines.filter((ln) =>ln.name == nameline ? ln.id : null)[0].id
+        if (lines && sublines  && nameline && namesubline ) {
+            setData({
+                ...data,
+                sublineid:sublines.filter((sln) =>sln.name == namesubline ? sln.id : null)[0].id,
+            })
+            // setLinestate(lines.filter((ln) =>ln.name == nameline ? ln.stateline : null)[0].stateline)
         } 
-
-        setData({
-            ...data,
-            name: namePrev,
-            descrip: descripPrev,
-            image: imgold,
-            stateitem: statePrev,
-            imageView:imageView,
-            nameline:nameline,
-            lineid:lineidprev
-        })
-        setLineimg(imgold)
+        imgold && imgold? setLineimg(imgold) : setLineimg(null) 
+    
     }, [])
 
     return (
@@ -223,6 +222,14 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
+                            <Typography variant="caption" color="red">
+                                {(lineState &&
+                                    sublineState &&
+                                    lineState == 2) ||
+                                    sublineState == 2
+                                    ? "Debe activar registro padre para poder habilitar este item."
+                                    : ""}
+                            </Typography>
                             <Box
                                 component="form"
                                 onSubmit={handleEdit}
@@ -231,44 +238,50 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                                 sx={{ mt: 1 }}
                             >
                                 <FormControlLabel
+                                    disabled={
+                                        lineState && lineState == 2
+                                            ? true
+                                            : false
+                                    }
                                     labelPlacement="start"
                                     onChange={handleChange}
                                     control={
                                         <Switch
-                                            name="stateitem"                                            
-                                            defaultChecked={
-                                                statePrev == 1 ? true : false
-                                            }
+                                            name="stateitem"
+                                            defaultChecked={statePrev}
                                         />
                                     }
                                     label="Estado"
                                 />
-
                                 <Autocomplete
                                     disablePortal
-                                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                                    isOptionEqualToValue={(option, value) =>
+                                        option.id === value.id
+                                    }
                                     id="nameline"
                                     name="nameline"
-                                    value={data.nameline}
+                                    defaultValue={
+                                        data.namesubline != null
+                                            ? data.namesubline
+                                            : ""
+                                    }
                                     onChange={(event, newValue) => {
-                                        handleChangeList(newValue)
-                                        }}
+                                        handleChangeList(newValue);
+                                    }}
                                     options={
-                                        lines && lines.map((ln) => ln.name)
+                                        sublines &&
+                                        sublines.map((ln) => ln.name)
                                     }
                                     sx={{ width: 300 }}
                                     renderInput={(params) => (
                                         // console.log(params),
                                         <TextField
-                                            
                                             error={errorLine}
                                             helperText={msgLine}
                                             {...params}
-                                            label="Seleccione"
-                                            
+                                            label="Sublinea"
                                         />
                                     )}
-                                    
                                 />
 
                                 <TextField

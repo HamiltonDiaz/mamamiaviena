@@ -14,19 +14,14 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: { xs: 400, sm: 700 },
-    // bgcolor:"#F26968", //Rosado Intenso
-    // bgcolor:"#323339",
-    // bgcolor:"#6CBF84",
-    // bgcolor:"#FFFFFF",
     bgcolor: "background.paper",
-    // border: "2px solid #000",
     boxShadow: 24,
     borderRadius: 3,
     p: 4,
 };
 
-const ModalCreate = ({ open, setOpen, titleModal, data }) => {
-    const {name, descrip, imageView, nameline }=data
+const ModalView = ({ open, setOpen, titleModal, data}) => {
+    const {name, descrip, imageView, nameline,namesubline, price }=data
 
     const handleClose = () => {
         setOpen(false);
@@ -39,9 +34,6 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             hideBackdrop={false}
-            // sx={{"& .css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop":{
-            //     backgroundColor: "rgba(0, 0, 0, 0)",
-            // }}}
         >
             <Box sx={style}>
                 <Grid
@@ -65,20 +57,25 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
-                                <Typography variant="h6">
-                                    Nombre:
-                                </Typography>
-                                <Typography variant="h5">
-                                   {nameline} -<u> {name} </u>
-                                </Typography>
-                                
-                                <Typography variant="h6">
-                                    Descripción:
-                                </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >
-                                    {descrip}
-                                </Typography>                                
-                            
+                            <Typography variant="h6">Nombre:</Typography>
+                            <Typography variant="subtitle1">
+                                <small>
+                                    {nameline}/{namesubline}
+                                </small>
+                                /<u> {name} </u>
+                            </Typography>
+
+                            <Typography variant="h6">Descripción:</Typography>
+                            <Typography
+                                variant="subtitle1"
+                                sx={{ width: "80%" }}
+                            >
+                                {descrip}
+                            </Typography>
+                            <Typography variant="h6">Precio:</Typography>
+                            <Typography variant="subtitle1" color="initial">
+                                {price}
+                            </Typography>
                         </Grid>
                         <Grid
                             item
@@ -89,20 +86,17 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                             xs={4}
                             sx={{ padding: 2 }}
                         >
-                            <Grid item sx={{marginRight:8, border:0.1, }}>
-                       
-                                    <img
-                                        src={imageView}
-                                        alt="ImgLine"
-                                        width={300}
-                                        height={250}
-                                    />
-                            
+                            <Grid item sx={{ marginRight: 8, border: 0.1 }}>
+                                <img
+                                    src={imageView}
+                                    alt="ImgLine"
+                                    width={300}
+                                    height={250}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} container justifyContent="flex-end">
-         
                         <Button
                             onClick={handleClose}
                             variant="contained"
@@ -121,4 +115,4 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
     );
 };
 
-export default ModalCreate;
+export default ModalView;

@@ -25,7 +25,7 @@ const style = {
     p: 4,
 };
 
-const ModalCreate = ({ open, setOpen, titleModal, data }) => {
+const ModalView = ({ open, setOpen, titleModal, data }) => {
     const {name, descrip, imageView, nameline }=data
 
     const handleClose = () => {
@@ -68,14 +68,14 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                                 <Typography variant="h6">
                                     Nombre:
                                 </Typography>
-                                <Typography variant="h5">
+                                <Typography variant="subtitle1">
                                    {nameline} -<u> {name} </u>
                                 </Typography>
                                 
                                 <Typography variant="h6">
                                     Descripción:
                                 </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >
+                                <Typography variant="subtitle1" sx={{ width:"80%"}} >
                                     {descrip}
                                 </Typography>                                
                             
@@ -121,4 +121,4 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
     );
 };
 
-export default ModalCreate;
+export default ModalView;

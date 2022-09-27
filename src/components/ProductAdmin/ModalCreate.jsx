@@ -18,36 +18,34 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: { xs: 400, sm: 700 },
-    // bgcolor:"#F26968", //Rosado Intenso
-    // bgcolor:"#323339",
-    // bgcolor:"#6CBF84",
-    // bgcolor:"#FFFFFF",
     bgcolor: "background.paper",
-    // border: "2px solid #000",
     boxShadow: 24,
     borderRadius: 3,
     p: 4,
 };
 
-const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
+const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
     
     const [data, setData] = useState({
         name: "",
         descrip: "",
         imageView: null,
-        nameline:"",
-        lineid:"",
-        stateitem:null,
+        namesubline:"",
+        price:"",
+        sublineid:null,
+        stateitem:null
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
-    const [errorLine, setErrorline] = useState(false);
+    const [errorSubline, setErrorsubline] = useState(false);
+    const [errorPrice, setErrorprice] = useState(false);
     const [msgName, setMsgname] = useState("");
     const [msgDescrip, setMsgdescrip] = useState("");
     const [msgImg, setMsgimg] = useState("");
-    const [msgLine, setMsgLine] = useState("");
+    const [msgSubline, setMsgsubline] = useState("");
+    const [msgPrice, setMsgprice] = useState("");
 
     const handleClose = () => {
         setOpen(false);
@@ -55,18 +53,21 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
-        setErrorline(false);
-        setMsgLine("");
+        setErrorsubline(false);
+        setErrorprice(false);
+        setMsgsubline("");
         setMsgname("");
         setMsgdescrip("");
         setMsgimg("");
+        setMsgprice("");
         setData({
             name: "",
             descrip: "",
             imageView: null,
-            nameline:"",
-            lineid:"",
-            stateitem:null,
+            namesubline:"",
+            price:"",
+            sublineid:"",
+            stateitem:null
         });
     };
 
@@ -101,14 +102,14 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
 
     const handleChangeList = (nameLine) => {
         //console.log(nameLine.target.innerText)
-        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
-        const stateline=lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].id
+        const idfinal=sublines.filter((sln) =>sln.name == nameLine ? sln.id : null)[0].id
+        const sublinestate=sublines.filter((sln) =>sln.name == nameLine ? sln.sublinestate : null)[0].sublinestate
         // console.log("idfinal",idfinal)
         setData({
             ...data,
-            lineid: idfinal,
-            nameline: nameLine,
-            stateitem:stateline,
+            sublineid: idfinal,
+            namesubline:nameLine,
+            stateitem: sublinestate,
         });
     };
     
@@ -117,10 +118,10 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
         let typeToast = "error";
         let msg = "";
 
-        if (data.nameline == "") {
-            msg = "Linea es requerida.";
-            setErrorline(true);
-            setMsgLine(msg);
+        if (data.namesubline == "") {
+            msg = "Sublinea es requerida.";
+            setErrorsubline(true);
+            setMsgsubline(msg);
             ToastType(typeToast, msg);
         }
 
@@ -136,6 +137,15 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
         }
+
+        if (data.price == "" || data.price<0) {
+            msg = "Precio es requerido.";
+            setErrorprice(true);
+            setMsgprice(msg);
+            ToastType(typeToast, msg);
+        }
+        
+ 
  
         if (LineImg == null) {
             msg = "Debe seleccionar la imagen";
@@ -150,17 +160,18 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);
+            dataFinal.append("price", data.price);
             dataFinal.append("stateitem", data.stateitem);
-            dataFinal.append("lineid", data.lineid);
+            dataFinal.append("sublineid", data.sublineid);
 
             //console.log(dataFinal)
             // console.log("dataenvio:",data)
-            postRequestFile("/sublines/create", dataFinal, async (result) => {
+            postRequestFile("/products/create", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
-                    ToastType("success", "Creado Exitosamente");
+                    ToastType("success", result.msg);
                 } else {
-                    ToastType("error", result.message);
+                    ToastType("error", result.msg);
                 }
             });
             handleClose()
@@ -208,26 +219,23 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                                     disablePortal
                                     id="nameline"
                                     name="nameline"
-                                    // value={data.nameline}
                                     onChange={(event, newValue) => {
-                                        handleChangeList(newValue)
-                                        }}
+                                        handleChangeList(newValue);
+                                    }}
                                     options={
-                                        lines && lines.map((ln) => ln.name)
+                                        sublines &&
+                                        sublines.map((sln) => sln.name)
                                     }
                                     sx={{ width: 300 }}
                                     renderInput={(params) => (
                                         // console.log(params),
                                         <TextField
-                                            
-                                            error={errorLine}
-                                            helperText={msgLine}
+                                            error={errorSubline}
+                                            helperText={msgSubline}
                                             {...params}
-                                            label="Seleccione"
-                                            
+                                            label="Sublinea"
                                         />
                                     )}
-                                    
                                 />
 
                                 <TextField
@@ -269,6 +277,20 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                                     inputProps={{
                                         accept: "image/*",
                                     }}
+                                />
+
+                                <TextField
+                                    error={errorPrice}
+                                    helperText={msgPrice}
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="price"
+                                    label="Precio"
+                                    type="number"
+                                    inputProps={{ inputMode: 'numeric', min:0}}
+                                    id="price"
+                                    onChange={handleChange}
                                 />
                             </Box>
                         </Grid>

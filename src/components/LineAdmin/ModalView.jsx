@@ -68,14 +68,14 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                                 <Typography variant="h6" >
                                     Nombre:
                                 </Typography>
-                                <Typography variant="h5" >
+                                <Typography variant="subtitle1" >
                                     {name}
                                 </Typography>
                                 
                                 <Typography variant="h6">
                                     Descripción:
                                 </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >
+                                <Typography variant="subtitle1" sx={{ width:"80%"}} >
                                     {descrip}
                                 </Typography>                                
                             

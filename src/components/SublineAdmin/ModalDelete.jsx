@@ -67,12 +67,12 @@ const ModalDelete = ({ open, setOpen, titleModal, data }) => {
                         <Grid item xs={8} container spacing={0}>
                             <Grid item xs={12}>
                                 <Typography variant="h6">Nombre:</Typography>
-                                <Typography variant="h5"> {nameline} -<u> {name} </u></Typography>
+                                <Typography variant="subtitle1"> {nameline} -<u> {name} </u></Typography>
                                 <Typography variant="h6">
                                     Descripción:
                                 </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >{descrip}</Typography>
-                                <Typography variant="h6" sx={{ width:"80%"}} color="red" >Todos los registros dependientes serán eliminados...</Typography>
+                                <Typography variant="subtitle1" sx={{ width:"80%"}} >{descrip}</Typography>
+                                <Typography variant="subtitle2" sx={{ width:"80%"}} color="red" >Todos los registros dependientes serán eliminados...</Typography>
                             </Grid>
                         </Grid>
 

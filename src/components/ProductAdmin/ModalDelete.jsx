@@ -16,14 +16,14 @@ const style = {
 };
 
 const ModalDelete = ({ open, setOpen, titleModal, data }) => {
-    const { name, descrip, imageView, id, nameline } = data;
+    const { name, descrip, imageView, id, nameline, namesubline, price } = data;
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleDelete =()=>{
-        deleteRequest("/sublines/delete/"+id, async (result) => {
+        deleteRequest("/products/delete/"+id, async (result) => {
             // console.log(result)
             if (result.success) {
                 ToastType("warning", result.msg);
@@ -66,13 +66,26 @@ const ModalDelete = ({ open, setOpen, titleModal, data }) => {
                         {/* Cuerpo */}
                         <Grid item xs={8} container spacing={0}>
                             <Grid item xs={12}>
-                                <Typography variant="h6">Nombre:</Typography>
-                                <Typography variant="h5"> {nameline} -<u> {name} </u></Typography>
-                                <Typography variant="h6">
-                                    Descripción:
-                                </Typography>
-                                <Typography variant="h5" sx={{ width:"80%"}} >{descrip}</Typography>
-                                <Typography variant="h6" sx={{ width:"80%"}} color="red" >Todos los registros dependientes serán eliminados...</Typography>
+                            <Typography variant="h6">Nombre:</Typography>
+                            <Typography variant="subtitle1">
+                                <small>
+                                    {nameline}/{namesubline}
+                                </small>
+                                /<u> {name} </u>
+                            </Typography>
+
+                            <Typography variant="h6">Descripción:</Typography>
+                            <Typography
+                                variant="subtitle1"
+                                sx={{ width: "80%" }}
+                            >
+                                {descrip}
+                            </Typography>
+                            <Typography variant="h6">Precio:</Typography>
+                            <Typography variant="subtitle1" color="initial">
+                                {price}
+                            </Typography>
+                                <Typography variant="subtitle2" sx={{ width:"80%"}} color="red" >Todos los registros dependientes serán eliminados...</Typography>
                             </Grid>
                         </Grid>
 

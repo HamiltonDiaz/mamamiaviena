@@ -102,7 +102,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
     const handleChangeList = (nameLine) => {
         //console.log(nameLine.target.innerText)
         const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
-        const stateline=lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].id
+        const stateline=lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].stateline
         // console.log("idfinal",idfinal)
         setData({
             ...data,

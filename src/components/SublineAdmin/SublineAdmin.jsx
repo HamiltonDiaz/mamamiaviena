@@ -74,7 +74,7 @@ const SublineAdmin = () => {
                 namePrev: item.name,
                 descripPrev: item.descrip,
                 id: item.id,
-                statePrev:item.stateitem=1?true : false,
+                statePrev:item.stateitem==1?true : false,
                 // statePrev:item.stateitem,
                 nameline:item.nameline,
             }}

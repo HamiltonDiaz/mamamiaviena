@@ -33,7 +33,6 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
         descrip: descripPrev,
         image: imgold,
         stateitem: statePrev,
-        nameline:"",
         lineid:"",
         imageView:imageView,
         nameline:nameline,
@@ -123,7 +122,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
     };
 
     const handleEdit = (data) => {
-        console.log("Data Inicial: ",data)
+        // console.log("Data Inicial: ",data)
         
         let typeToast = "error";
         let msg = "";
@@ -221,7 +220,7 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
                         <Grid item xs={8}>
                                 <Typography variant="caption" color="red">
                                     {lineState && lineState == 2
-                                        ? "Debe activar registro padre para poder modificar este registro."
+                                        ? "Debe activar registro padre para poder habilitar este item."
                                         : ""}
                                 </Typography>
                             <Box
