@@ -39,6 +39,7 @@ const LineAdmin = () => {
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
+                stateitem: item.stateitem
             }}/>
         )
     }

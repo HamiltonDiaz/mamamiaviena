@@ -8,6 +8,7 @@ import {
     TextField,
     CircularProgress,
     Autocomplete,
+    Skeleton,
 } from "@mui/material";
 import { postRequestFile } from "../../utils/api";
 import ToastType from "../../utils/ToastType";
@@ -24,16 +25,16 @@ const style = {
     p: 4,
 };
 
-const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
-    
+const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
     const [data, setData] = useState({
         name: "",
         descrip: "",
         imageView: null,
-        namesubline:"",
-        price:"",
-        sublineid:null,
-        stateitem:null
+        namesubline: "",
+        nameline: "",
+        price: "",
+        sublineid: null,
+        stateitem: 1,
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
@@ -47,6 +48,10 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
     const [msgSubline, setMsgsubline] = useState("");
     const [msgPrice, setMsgprice] = useState("");
 
+    //Nuevos
+    const [listSublines, setListsublines] = useState([]);
+    const [stateLine, setStateline] = useState(null);
+
     const handleClose = () => {
         setOpen(false);
         setLineimg(null);
@@ -55,6 +60,7 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
         setErrorimg(false);
         setErrorsubline(false);
         setErrorprice(false);
+        setListsublines([]);
         setMsgsubline("");
         setMsgname("");
         setMsgdescrip("");
@@ -64,10 +70,11 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
             name: "",
             descrip: "",
             imageView: null,
-            namesubline:"",
-            price:"",
-            sublineid:"",
-            stateitem:null
+            namesubline: "",
+            nameline: "",
+            price: "",
+            sublineid: "",
+            stateitem: null,
         });
     };
 
@@ -100,19 +107,31 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
         });
     };
 
-    const handleChangeList = (nameLine) => {
-        //console.log(nameLine.target.innerText)
-        const idfinal=sublines.filter((sln) =>sln.name == nameLine ? sln.id : null)[0].id
-        const sublinestate=sublines.filter((sln) =>sln.name == nameLine ? sln.sublinestate : null)[0].sublinestate
-        // console.log("idfinal",idfinal)
+    const handleChangeList = (name, event) => {
+        // console.log(event.target.id)
+        // return
+        const finalLineId = lines.filter((ln) =>
+            ln.name == name ? ln.id : null
+        )[0].id;
+        const finalStateLine = lines.filter((ln) =>
+            ln.name == name ? ln.name : null
+        )[0].linestate;
+
+        setListsublines(
+            sublines.filter((sln) =>
+                sln.lineid == finalLineId ? sln.name : null
+            )
+        );
+        setStateline(finalStateLine);
         setData({
             ...data,
-            sublineid: idfinal,
-            namesubline:nameLine,
-            stateitem: sublinestate,
+            nameline: name,
+            namesubline: "",
+            lineid: finalLineId,
+            stateitem: finalStateLine,
         });
     };
-    
+
     const handleCreate = (data) => {
         // console.log("datainicio",data)
         let typeToast = "error";
@@ -138,15 +157,13 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
             ToastType(typeToast, msg);
         }
 
-        if (data.price == "" || data.price<0) {
+        if (data.price == "" || data.price < 0) {
             msg = "Precio es requerido.";
             setErrorprice(true);
             setMsgprice(msg);
             ToastType(typeToast, msg);
         }
-        
- 
- 
+
         if (LineImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
@@ -154,9 +171,8 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
             ToastType(typeToast, msg);
         }
         if (msg == "") {
-            //stateitem
+            // console.log("datafinal",data)
             const dataFinal = new FormData();
-
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
             dataFinal.append("image", LineImg);
@@ -164,8 +180,7 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
             dataFinal.append("stateitem", data.stateitem);
             dataFinal.append("sublineid", data.sublineid);
 
-            //console.log(dataFinal)
-            // console.log("dataenvio:",data)
+            //console.log(dataFinal))
             postRequestFile("/products/create", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
@@ -174,7 +189,7 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
                     ToastType("error", result.msg);
                 }
             });
-            handleClose()
+            handleClose();
         }
         return;
     };
@@ -208,6 +223,21 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
+                            {data.stateitem == 2 ? (
+                                <Grid item>
+                                    <Typography
+                                        variant="caption"
+                                        textAlign={"center"}
+                                        color="red"
+                                    >
+                                        Este item se va a crear con estado{" "}
+                                        <b>inactivo</b>
+                                    </Typography>
+                                </Grid>
+                            ) : (
+                                ""
+                            )}
+
                             <Box
                                 component="form"
                                 onSubmit={handleCreate}
@@ -220,23 +250,85 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
                                     id="nameline"
                                     name="nameline"
                                     onChange={(event, newValue) => {
-                                        handleChangeList(newValue);
+                                        handleChangeList(newValue, event);
                                     }}
-                                    options={
-                                        sublines &&
-                                        sublines.map((sln) => sln.name)
+                                    isOptionEqualToValue={(option, value) =>
+                                        option.id === value.id
                                     }
-                                    sx={{ width: 300 }}
+                                    options={
+                                        lines && lines.map((ln) => ln.name)
+                                    }
+                                    sx={{ width: 400 }}
                                     renderInput={(params) => (
                                         // console.log(params),
                                         <TextField
                                             error={errorSubline}
                                             helperText={msgSubline}
                                             {...params}
-                                            label="Sublinea"
+                                            label="Línea"
                                         />
                                     )}
                                 />
+
+                                {data.nameline != "" ? (
+                                    <Autocomplete
+                                        disablePortal
+                                        id="namesubline"
+                                        name="namesubline"
+                                        value={data.namesubline}
+                                        isOptionEqualToValue={(option, value) =>
+                                            option.id === value.id
+                                        }
+                                        onChange={(event, newValue) => {
+                                            const finalStateSubline =
+                                                sublines.filter((sln) =>
+                                                    sln.name == newValue
+                                                        ? sln.sublinestate
+                                                        : null
+                                                )[0].sublinestate;
+                                            setData({
+                                                ...data,
+                                                namesubline: newValue,
+                                                sublineid: sublines.filter(
+                                                    (sln) =>
+                                                        sln.name == newValue &&
+                                                        sln.lineid ==
+                                                            data.lineid
+                                                            ? sln.id
+                                                            : null
+                                                )[0].id,
+                                                stateitem:
+                                                    finalStateSubline == 2 ||
+                                                    stateLine == 2
+                                                        ? 2
+                                                        : 1,
+                                            });
+                                        }}
+                                        options={
+                                            listSublines &&
+                                            listSublines.map((sln) => sln.name)
+                                        }
+                                        sx={{ width: 400, marginTop: 2 }}
+                                        renderInput={(params) => (
+                                            // console.log(params),
+                                            <TextField
+                                                error={errorSubline}
+                                                helperText={msgSubline}
+                                                {...params}
+                                                label="Sublinea"
+                                            />
+                                        )}
+                                    />
+                                ) : (
+                                    <Skeleton
+                                        variant="text"
+                                        sx={{
+                                            fontSize: "1rem",
+                                            width: "80%",
+                                            marginTop: 2,
+                                        }}
+                                    />
+                                )}
 
                                 <TextField
                                     error={errorName}
@@ -262,7 +354,22 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
                                     id="descrip"
                                     onChange={handleChange}
                                 />
-
+                                <TextField
+                                    error={errorPrice}
+                                    helperText={msgPrice}
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="price"
+                                    label="Precio"
+                                    type="number"
+                                    inputProps={{
+                                        inputMode: "numeric",
+                                        min: 0,
+                                    }}
+                                    id="price"
+                                    onChange={handleChange}
+                                />
                                 <TextField
                                     error={errorImg}
                                     helperText={msgImg}
@@ -277,20 +384,6 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines }) => {
                                     inputProps={{
                                         accept: "image/*",
                                     }}
-                                />
-
-                                <TextField
-                                    error={errorPrice}
-                                    helperText={msgPrice}
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="price"
-                                    label="Precio"
-                                    type="number"
-                                    inputProps={{ inputMode: 'numeric', min:0}}
-                                    id="price"
-                                    onChange={handleChange}
                                 />
                             </Box>
                         </Grid>

@@ -43,7 +43,8 @@ const ProductAdmin = () => {
                 descrip: item.descrip,
                 nameline:item.nameline,
                 namesubline:item.namesubline,
-                price: item.price
+                price: item.price,
+                stateitem:item.stateitem
                 }}        
             />         
         )

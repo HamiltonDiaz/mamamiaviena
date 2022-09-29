@@ -30,14 +30,13 @@ const style = {
 };
 
 const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
-    
     const [data, setData] = useState({
         name: "",
         descrip: "",
         imageView: null,
-        nameline:"",
-        lineid:"",
-        stateitem:null
+        nameline: "",
+        lineid: "",
+        stateitem: null,
     });
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
@@ -64,9 +63,9 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             name: "",
             descrip: "",
             imageView: null,
-            nameline:"",
-            lineid:"",
-            stateitem:null
+            nameline: "",
+            lineid: "",
+            stateitem: null,
         });
     };
 
@@ -101,17 +100,21 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
 
     const handleChangeList = (nameLine) => {
         //console.log(nameLine.target.innerText)
-        const idfinal=lines.filter((ln) =>ln.name == nameLine ? ln.id : null)[0].id
-        const stateline=lines.filter((ln) =>ln.name == nameLine ? ln.stateline : null)[0].stateline
+        const idfinal = lines.filter((ln) =>
+            ln.name == nameLine ? ln.id : null
+        )[0].id;
+        const stateline = lines.filter((ln) =>
+            ln.name == nameLine ? ln.stateline : null
+        )[0].stateline;
         // console.log("idfinal",idfinal)
         setData({
             ...data,
             lineid: idfinal,
-            nameline:nameLine,
+            nameline: nameLine,
             stateitem: stateline,
         });
     };
-    
+
     const handleCreate = (data) => {
         // console.log("datainicio",data)
         let typeToast = "error";
@@ -136,7 +139,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
         }
- 
+
         if (LineImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
@@ -163,7 +166,7 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                     ToastType("error", result.msg);
                 }
             });
-            handleClose()
+            handleClose();
         }
         return;
     };
@@ -197,6 +200,20 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                     <Grid item container xs={12}>
                         {/* Formulario */}
                         <Grid item xs={8}>
+                            {data.stateitem == 2 ? (
+                                <Grid item>
+                                    <Typography
+                                        variant="caption"
+                                        textAlign={"center"}
+                                        color="red"
+                                    >
+                                        Este item se va a crear con estado{" "}
+                                        <b>inactivo</b>
+                                    </Typography>
+                                </Grid>
+                            ) : (
+                                ""
+                            )}
                             <Box
                                 component="form"
                                 onSubmit={handleCreate}
@@ -210,8 +227,8 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                                     name="nameline"
                                     // value={data.nameline}
                                     onChange={(event, newValue) => {
-                                        handleChangeList(newValue)
-                                        }}
+                                        handleChangeList(newValue);
+                                    }}
                                     options={
                                         lines && lines.map((ln) => ln.name)
                                     }
@@ -219,15 +236,12 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
                                     renderInput={(params) => (
                                         // console.log(params),
                                         <TextField
-                                            
                                             error={errorLine}
                                             helperText={msgLine}
                                             {...params}
                                             label="Seleccione"
-                                            
                                         />
                                     )}
-                                    
                                 />
 
                                 <TextField

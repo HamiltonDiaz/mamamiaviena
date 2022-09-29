@@ -21,7 +21,7 @@ const style = {
 };
 
 const ModalView = ({ open, setOpen, titleModal, data}) => {
-    const {name, descrip, imageView, nameline,namesubline, price }=data
+    const {name, descrip, imageView, nameline,namesubline, price, stateitem }=data
 
     const handleClose = () => {
         setOpen(false);
@@ -75,6 +75,9 @@ const ModalView = ({ open, setOpen, titleModal, data}) => {
                             <Typography variant="h6">Precio:</Typography>
                             <Typography variant="subtitle1" color="initial">
                                 {price}
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                    <b>Estado:</b>  { stateitem==1? " Activo" : " Inactivo"  } 
                             </Typography>
                         </Grid>
                         <Grid

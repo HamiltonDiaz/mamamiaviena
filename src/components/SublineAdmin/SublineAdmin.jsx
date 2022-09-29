@@ -35,12 +35,13 @@ const SublineAdmin = () => {
             <ModalView
             open={openView}
             setOpen={setOpenview}
-            titleModal={"Ver Linea"}
+            titleModal={"Ver Sublinea"}
             data={{
                 imageView: routeImg(item.image),
                 name: item.name,
                 descrip: item.descrip,
                 nameline:item.nameline,
+                stateitem:item.stateitem
             }}/>
         )
     }

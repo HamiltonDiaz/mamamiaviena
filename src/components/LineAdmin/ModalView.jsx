@@ -26,7 +26,7 @@ const style = {
 };
 
 const ModalCreate = ({ open, setOpen, titleModal, data }) => {
-    const {name, descrip, imageView}=data
+    const {name, descrip, imageView, stateitem}=data
 
     const handleClose = () => {
         setOpen(false);
@@ -77,7 +77,10 @@ const ModalCreate = ({ open, setOpen, titleModal, data }) => {
                                 </Typography>
                                 <Typography variant="subtitle1" sx={{ width:"80%"}} >
                                     {descrip}
-                                </Typography>                                
+                                </Typography>
+                                <Typography variant="subtitle1">
+                                    <b>Estado:</b>  { stateitem==1? " Activo" : " Inactivo"  } 
+                                </Typography>                           
                             
                         </Grid>
                         <Grid
