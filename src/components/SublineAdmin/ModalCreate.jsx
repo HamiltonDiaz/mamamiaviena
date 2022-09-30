@@ -125,6 +125,9 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setErrorline(true);
             setMsgLine(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorline(false);
+            setMsgLine("");
         }
 
         if (data.name == "") {
@@ -132,12 +135,19 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setErrorname(true);
             setMsgname(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorname(false);
+            setMsgname("");
         }
+
         if (data.descrip == "") {
             msg = "Descripción es requerida.";
             setErrordescrip(true);
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrordescrip(false);
+            setMsgdescrip("");
         }
 
         if (LineImg == null) {
@@ -145,6 +155,9 @@ const ModalCreate = ({ open, setOpen, titleModal, lines }) => {
             setErrorimg(true);
             setMsgimg(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorimg(false);
+            setMsgimg("");
         }
         if (msg == "") {
             //stateitem

@@ -36,6 +36,10 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
         sublineid: null,
         stateitem: 1,
     });
+    //Nuevos
+    const [listSublines, setListsublines] = useState([]);
+    const [stateLine, setStateline] = useState(null);
+
     const [LineImg, setLineimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
@@ -48,9 +52,7 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
     const [msgSubline, setMsgsubline] = useState("");
     const [msgPrice, setMsgprice] = useState("");
 
-    //Nuevos
-    const [listSublines, setListsublines] = useState([]);
-    const [stateLine, setStateline] = useState(null);
+
 
     const handleClose = () => {
         setOpen(false);
@@ -142,6 +144,9 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
             setErrorsubline(true);
             setMsgsubline(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorsubline(false);
+            setMsgsubline("");
         }
 
         if (data.name == "") {
@@ -149,12 +154,18 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
             setErrorname(true);
             setMsgname(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorname(false);
+            setMsgname("");
         }
         if (data.descrip == "") {
             msg = "Descripción es requerida.";
             setErrordescrip(true);
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrordescrip(false);
+            setMsgdescrip("");
         }
 
         if (data.price == "" || data.price < 0) {
@@ -162,6 +173,9 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
             setErrorprice(true);
             setMsgprice(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorprice(false);
+            setMsgprice("");
         }
 
         if (LineImg == null) {
@@ -169,7 +183,11 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
             setErrorimg(true);
             setMsgimg(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorimg(false);
+            setMsgimg("");
         }
+
         if (msg == "") {
             // console.log("datafinal",data)
             const dataFinal = new FormData();
@@ -200,6 +218,9 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            sx={{
+                overflow: "scroll",
+            }}
         >
             <Box sx={style}>
                 <Grid
@@ -280,9 +301,10 @@ const ModalCreate = ({ open, setOpen, titleModal, sublines, lines }) => {
                                             option.id === value.id
                                         }
                                         onChange={(event, newValue) => {
-                                            const finalStateSubline =
+                                                const finalStateSubline =
                                                 sublines.filter((sln) =>
-                                                    sln.name == newValue
+                                                    sln.name == newValue &&
+                                                    sln.lineid == data.lineid
                                                         ? sln.sublinestate
                                                         : null
                                                 )[0].sublinestate;

@@ -132,6 +132,9 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             setErrorline(true);
             setMsgLine(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorline(false);
+            setMsgLine("");
         }
 
         if (data.name == "") {
@@ -139,12 +142,18 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             setErrorname(true);
             setMsgname(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorname(false);
+            setMsgname("");            
         }
         if (data.descrip == "") {
             msg = "Descripción es requerida.";
             setErrordescrip(true);
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrordescrip(false);
+            setMsgdescrip("");
         }
 
         if (LineImg == null) {
@@ -152,6 +161,9 @@ const ModalEdit = ({ open, setOpen, titleModal, prevData, lines}) => {
             setErrorimg(true);
             setMsgimg(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorimg(false);
+            setMsgimg("");
         }
         if (msg == "") {
             const dataFinal = new FormData();

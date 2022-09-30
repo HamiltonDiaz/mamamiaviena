@@ -93,19 +93,30 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
             setErrorname(true);
             setMsgname(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorname(false);
+            setMsgname("");
         }
+
         if (data.descrip == "") {
             msg = "Descripción es requerida.";
             setErrordescrip(true);
             setMsgdescrip(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrordescrip(false);
+            setMsgdescrip("");
         }
+
 
         if (LineImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
             setMsgimg(msg);
             ToastType(typeToast, msg);
+        }else{
+            setErrorimg(false);
+            setMsgimg("");
         }
         if (msg == "") {
             //stateitem

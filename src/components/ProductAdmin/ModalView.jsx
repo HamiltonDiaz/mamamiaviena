@@ -58,7 +58,7 @@ const ModalView = ({ open, setOpen, titleModal, data}) => {
                         {/* Formulario */}
                         <Grid item xs={8}>
                             <Typography variant="h6">Nombre:</Typography>
-                            <Typography variant="subtitle1">
+                            <Typography variant="subtitle1" sx={{ width: "80%" }} >
                                 <small>
                                     {nameline}/{namesubline}
                                 </small>

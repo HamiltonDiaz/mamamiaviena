@@ -84,7 +84,8 @@ const ProductAdmin = () => {
                 statePrev:item.stateitem==1?true : false,
                 // statePrev:item.stateitem,
                 nameline:item.nameline,
-                namesubline:item.namesubline
+                namesubline:item.namesubline,
+                priceprev:item.price
             }}
             sublines={sublines}
             lines={lines}
