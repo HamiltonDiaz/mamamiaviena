@@ -29,7 +29,7 @@ const replaceWhatsApp=(msg, number)=>{
 }
 
 export const msgWhatsapp = (msg)=>{    
-    return replaceWhatsApp(msg,"573132055928")
+    return replaceWhatsApp(msg,"573144181911")
 }
 const isLogin= getCookie("TOKENAUTH")
 export const protectAdmin=(routeName)=>{

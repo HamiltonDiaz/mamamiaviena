@@ -1,6 +1,7 @@
 import React from "react";
 import AppFrame from "./AppFrame";
 import imgHome from "../assets/ImgHome2.png";
+import imgHomeBig from "../assets/ImgHome3.png";
 import imgHomeMovil from "../assets/ImgHome2Movil.png";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -31,11 +32,26 @@ const WelcomePage = () => {
                         alignItems="center"
                         alignContent="center"
                         sx={{
-                            display: { xs: "none", lg: "flex" },
+                            display: { xs: "none", lg: "flex", xl: "none" },
                         }}
                     >
                         <Grid item>
                             <img src={imgHome} alt="imagen Home" />
+                            
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                        alignContent="center"
+                        sx={{
+                            display: { xs: "none", lg: "none", xl:"flex" },
+                        }}
+                    >
+                        <Grid item>                            
+                            <img src={imgHomeBig} alt="imagen Home" />
                         </Grid>
                     </Grid>
                     <Grid
@@ -45,7 +61,7 @@ const WelcomePage = () => {
                         alignItems="center"
                         sx={{
                             backgroundColor: "#F2AD9F !important",
-                            display: { xs: "flex", lg: "none" },
+                            display: { xs: "flex", lg: "none", xl: "none" },
                         }}
                     >
                         <Grid item>
@@ -55,7 +71,7 @@ const WelcomePage = () => {
                 </Grid>
 
                 {/* productos */}
-                <Grid item>
+                <Grid item sx={{marginY:2}}>
                     <Typography
                         variant="h3"
                         align="center"
@@ -65,13 +81,13 @@ const WelcomePage = () => {
                     </Typography>
                 </Grid>
 
-                <Container>
-                    <Grid item>
+                <Container sx={{marginY:2}}>
+                    <Grid item >
                         <CoruoselProduct data={dataProducts} />
                     </Grid>
                 </Container>
 
-                <Grid item>
+                <Grid item sx={{marginY:2}}>
                     <Typography
                         variant="h3"
                         align="center"
