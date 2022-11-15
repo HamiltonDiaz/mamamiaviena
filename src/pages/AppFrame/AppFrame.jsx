@@ -441,7 +441,7 @@ const AppFrame = (props) => {
             </ElevationScroll>        
             
            
-            <Toolbar id="irinicio" sx={{height: { xs: "70px", md: "90px"}}} />
+            <Toolbar id="irinicio" sx={{height: { xs: "78px", md: "90px"}}} />
             {/* contenido */}
             <Grid> {children}</Grid>
 
