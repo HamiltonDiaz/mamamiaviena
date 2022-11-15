@@ -27,6 +27,7 @@ import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import { msgWhatsapp } from "../../utils/Functions";
 import LogoHome from "../../assets/LogoHome.png";
+import NavRedes from "../NavRedes"
 
 const fuente = "Caveat"; // "Indie Flower"
 
@@ -217,6 +218,7 @@ const AppFrame = (props) => {
             <ElevationScroll {...props}>
                 <AppBar>
                     <Container maxWidth="xl">
+                        <NavRedes />
                         <Toolbar disableGutters>
                             {/* Menu movil */}
                             <Grid
@@ -266,7 +268,6 @@ const AppFrame = (props) => {
                                                 }}
                                             >
                                                 <MenuItem
-                                                    
                                                     onClick={handleCloseNavMenu}
                                                 >
                                                     <Typography
@@ -323,6 +324,7 @@ const AppFrame = (props) => {
                             {/* fin menu movil */}
 
                             {/* Toda la pantalla */}
+                   
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography
                                     variant="h6"
@@ -429,18 +431,19 @@ const AppFrame = (props) => {
                                     </Menu>
                                 </div>
                             </Box>
+
+                       
                             {/* fin toda la pantalla */}
                         </Toolbar>
+                        
                     </Container>
                 </AppBar>
-            </ElevationScroll>
-            <Toolbar id="irinicio" />
-
+            </ElevationScroll>        
+            
+           
+            <Toolbar id="irinicio" sx={{height: { xs: "70px", md: "90px"}}} />
             {/* contenido */}
-            <Grid>
-                {children}
-                {/* <Box sx={{ my: 2 }}></Box> */}
-            </Grid>
+            <Grid> {children}</Grid>
 
             {/* boton subir */}
             <ScrollTop {...props}>
@@ -487,8 +490,8 @@ const AppFrame = (props) => {
                     </Fab>
                 </Link>
             </Box>
-
             {/* fin boton whatsapp */}
+
         </React.Fragment>
     );
 };
