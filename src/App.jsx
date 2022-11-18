@@ -35,8 +35,12 @@ import {
     adminLines,
     adminSublines,
     adminProducts,
-    adminItemProduct
+    adminItemProduct,
+    productClient
 } from "./utils/Routes";
+
+
+import ProductClient from "./components/ProductClient/ProductClient"
 
 const App = () => {
     let isLogin= getCookie("TOKENAUTH")
@@ -50,6 +54,7 @@ const App = () => {
                     <Route path={nuestraCreadora} element={<CreatorPage />} />
                     <Route path={zonaOutlet} element={<OutletPage />} />
                     <Route path={muroFama} element={<WallPage />} />
+                    <Route path={productClient} element={<ProductClient />} />
 
                     <Route
                         path={protectAdmin(admin)}

@@ -9,4 +9,8 @@ export const nuestraHistoria ="/nuestra-historia"
 export const nuestraCreadora ="/nuestra-creadora"
 export const zonaOutlet ="/zona-outlet"
 export const muroFama ="/muro-fama"
+export const productClient="/products"
+export const routeFacebook ="https://www.facebook.com"
+export const routeInstagram ="https://www.instagram.com/mammamiaviena/"
+
 
