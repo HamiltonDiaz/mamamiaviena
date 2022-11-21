@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 //import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
@@ -113,8 +114,9 @@ const pages = [
     ["Inicio", "/"],
     ["¿Quienes somos?", ""],
     ["Nuestros Diseños", "/nuestros-disenios"],
+    ["Productos", "/products"],
     ["Muro de la fama", "/muro-fama"],
-    ["Zona Outlet", "/zona-outlet"],
+    // ["Zona Outlet", "/zona-outlet"],
 ];
 
 const pagesCelu = [
@@ -122,8 +124,9 @@ const pagesCelu = [
     ["Nuestra Historia", "/nuestra-historia"],
     ["La Creadora", "/nuestra-creadora"],
     ["Nuestros Diseños", "/nuestros-disenios"],
+    ["Productos", "/products"],
     ["Muro de la fama", "/muro-fama"],
-    ["Zona Outlet", "/zona-outlet"],
+    // ["Zona Outlet", "/zona-outlet"],
 ];
 
 
@@ -184,6 +187,9 @@ const AppFrame = (props) => {
             case "Muro de la fama":
                 icon = <StarRateIcon />;
                 break;
+            case "Productos":
+                icon = <ShoppingBagIcon />;
+                break;            
             case "Zona Outlet":
                 icon = <StoreIcon />;
                 break;
