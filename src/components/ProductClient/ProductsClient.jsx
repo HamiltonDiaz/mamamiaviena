@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
-import Button from "react-bootstrap/Button";
+import {Button as BotonBS} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import { getRequest } from "../../utils/api";
+import { FormControlLabel, FormGroup, Typography, Button } from "@mui/material";
 
 const CardProduct = () => {
     return (
@@ -21,7 +22,7 @@ const CardProduct = () => {
                         Some quick example text to build on the card title and
                         make up the bulk of the card's content.
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <BotonBS variant="primary">Go somewhere</BotonBS>
                 </Card.Body>
             </Card>
         </Grid>
@@ -30,28 +31,31 @@ const CardProduct = () => {
 
 export default function ProductClient() {
     const [lines, setLines] = useState([]);
-    const [linesId, setLinesId] = useState({ linesid: [] });
-
+    const [linesId, setLinesId] = useState( [0] );
     const [products, setProducts] = useState([]);
+
     useEffect(() => {
-        getRequest("/products-client/listAll" , async (result) => {
+        getRequest("/products-client/listall/"+ linesId, async (result) => {
             if (result.success) {
-                setLines(result.data.lines)
+                setLines(result.data.lines);
                 //setProduct(result.data.data);
-                // console.log(result.data);
+                console.log(result.data.products.data);
             }
         });
-    }, [lines]);
+    }, []);
 
     const handleChange = (e) => {
-        console.log(e.target.checked);
-        console.log(e.target.value);
-
-        // setLines({
-        //     ...lines,
-        //     linesid: e.target.value,
-        // });
+        // console.log(e.target.checked);
+        // console.log(e.target.value);
+        setLinesId([
+            ...linesId,
+            parseInt(e.target.value) 
+        ])
     };
+
+    const handleFilter=(linesFilter)=>{
+        console.log(linesFilter)
+    }
 
     return (
         <Grid
@@ -60,22 +64,34 @@ export default function ProductClient() {
             justifyContent="center"
             alignItems="center"
         >
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} sx={{height:"150vh", padding:2}}>
                 {/* filtros */}
-
-                {
-                    lines &&
+                <Typography variant="h6">
+                    Filtros
+                </Typography>
+                <FormGroup>
+                    {lines &&
                         lines.map((item, id) => (
-                            <Checkbox
-                                onChange={handleChange}
-                                inputProps={{ "aria-label": "controlled" }}
-                                name="linesid"
-                                value={item.id}
-                                key={`${item}${id}`}
+                            <FormControlLabel 
+                            key={`${item}${id}`}
+                                control={
+                                    <Checkbox
+                                        onChange={handleChange}
+                                        inputProps={{
+                                            "aria-label": "controlled",
+                                        }}
+                                        name="linesid"
+                                        value={item.id}
+                                        
+                                    />
+                                }
                                 label={item.name}
                             />
-                        ))
-                }
+                        ))}
+                    <Button variant="outlined" color="primary" onClick={()=>handleFilter(linesId)}>
+                            Filtrar
+                    </Button>
+                </FormGroup>
             </Grid>
 
             <Grid item xs={12} md={9}>
