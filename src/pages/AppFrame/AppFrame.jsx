@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 //import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
@@ -28,7 +28,7 @@ import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import { msgWhatsapp } from "../../utils/Functions";
 import LogoHome from "../../assets/LogoHome.png";
-import NavRedes from "../NavRedes"
+import NavRedes from "../NavRedes";
 
 const fuente = "Caveat"; // "Indie Flower"
 
@@ -129,7 +129,6 @@ const pagesCelu = [
     // ["Zona Outlet", "/zona-outlet"],
 ];
 
-
 const AppFrame = (props) => {
     const { children } = props;
     const classes = useStyles();
@@ -189,7 +188,7 @@ const AppFrame = (props) => {
                 break;
             case "Productos":
                 icon = <ShoppingBagIcon />;
-                break;            
+                break;
             case "Zona Outlet":
                 icon = <StoreIcon />;
                 break;
@@ -198,9 +197,12 @@ const AppFrame = (props) => {
                 break;
         }
         return (
-            <RouterLink key={namebtn[0]} to={namebtn[1]} style={{ textDecoration: 'none', color:'inherit'}}>
+            <RouterLink
+                key={namebtn[0]}
+                to={namebtn[1]}
+                style={{ textDecoration: "none", color: "inherit" }}
+            >
                 <Button
-                    
                     sx={{
                         color: "inherit",
                         fontWeight: "bold",
@@ -330,7 +332,7 @@ const AppFrame = (props) => {
                             {/* fin menu movil */}
 
                             {/* Toda la pantalla */}
-                   
+
                             <Box sx={{ flexGrow: 1 }}>
                                 <Typography
                                     variant="h6"
@@ -438,16 +440,16 @@ const AppFrame = (props) => {
                                 </div>
                             </Box>
 
-                       
                             {/* fin toda la pantalla */}
                         </Toolbar>
-                        
                     </Container>
                 </AppBar>
-            </ElevationScroll>        
-            
-           
-            <Toolbar id="irinicio" sx={{height: { xs: "78px", md: "90px"}}} />
+            </ElevationScroll>
+
+            <Toolbar
+                id="irinicio"
+                sx={{ height: { xs: "78px", md: "90px" } }}
+            />
             {/* contenido */}
             <Grid> {children}</Grid>
 
@@ -498,6 +500,49 @@ const AppFrame = (props) => {
             </Box>
             {/* fin boton whatsapp */}
 
+            <Container >
+                {/* footer */}
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        marginTop:{xs:5},
+                        margin: { md: 4 },
+                        textAlign: "center !important",
+                    }}
+                >
+                    <Grid item xs={12} md={4}>
+                        <img
+                            src={LogoHome}
+                            className={classes.imgLogoSX}
+                            alt="LogoHome"
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Typography variant="body2" color="initial">
+                            Desarrolado por Hamilton Diaz&nbsp;
+                            <Link
+                                target="_blank"
+                                href={msgWhatsapp(
+                                    "Hola, vi el sitio www.mamamiaviena.com y me interesa tu trabajo."
+                                )}
+                            >
+                                3212479078
+                            </Link>
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                        <Typography variant="body2" color="initial">
+                            &copy; Todos los derechos reservados&nbsp;
+                            <Link target="_blank" href="/">
+                                www.mamamiaviena.com.co
+                            </Link>
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Container>
         </React.Fragment>
     );
 };
