@@ -15,6 +15,7 @@ import { routeImg } from "../../utils/Functions";
 const CardProduct = ({ title, price, image, description }) => {
     return (
         <Paper
+        elevation={5}
             sx={{
                 width: 200,
                 height: 300,
