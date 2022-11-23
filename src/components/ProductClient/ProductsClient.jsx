@@ -18,7 +18,7 @@ const CardProduct = ({ title, price, image, description }) => {
             sx={{
                 width: 200,
                 height: 300,
-                backgroundColor: "purple",
+                // backgroundColor: "purple",
                 margin:1
             }}
         >
