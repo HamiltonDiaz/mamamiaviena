@@ -29,7 +29,7 @@ const CardProduct = ({ title, price, image, description }) => {
                 alignItems="center"
                 wrap="nowrap"
             >
-                <Grid item sx={{ width: 200, height: 200 }} noWrap>
+                <Grid item sx={{ width: 200, height: 200 }} >
                     <img
                         src={routeImg(image)}
                         width={200}
@@ -37,7 +37,7 @@ const CardProduct = ({ title, price, image, description }) => {
                         alt={`img-product-${title}`}
                     />
                 </Grid>
-                <Grid item sx={{ width: 200, padding:1 }} noWrap>
+                <Grid item sx={{ width: 200, padding:1 }} >
                     <Typography variant="subtitle2" align="left" noWrap>
                         <b>{title}</b>
                     </Typography>
@@ -146,6 +146,7 @@ export default function ProductClient() {
                         {products &&
                             products.map((item, id) => (
                                 <CardProduct
+                                    key={`card${item}${id}`}
                                     title={item.name}
                                     price={item.price}
                                     image={item.image}
