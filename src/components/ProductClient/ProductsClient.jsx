@@ -6,60 +6,15 @@ import {
     Button,
     Pagination,
     Grid,
-    Checkbox,
-    Paper,
+    Checkbox,    
 } from "@mui/material";
+import CardProduct from "./CardProduct"
 import { getRequest } from "../../utils/api";
-import { routeImg } from "../../utils/Functions";
 
-const CardProduct = ({ title, price, image, description }) => {
-    return (
-        <Paper
-        elevation={5}
-            sx={{
-                width: 200,
-                height: 300,
-                // backgroundColor: "purple",
-                margin:1
-            }}
-        >
-            <Grid
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-                wrap="nowrap"
-            >
-                <Grid item sx={{ width: 200, height: 200 }} >
-                    <img
-                        src={routeImg(image)}
-                        width={200}
-                        height={200}
-                        alt={`img-product-${title}`}
-                    />
-                </Grid>
-                <Grid item sx={{ width: 200, padding:1 }} >
-                    <Typography variant="subtitle2" align="left" noWrap>
-                        <b>{title}</b>
-                    </Typography>
-                    <Typography variant="body2" align="left" noWrap>
-                        {`Descripción: ${description}`}
-                    </Typography>
-                    <Typography variant="body2" align="left">
-                        {`Precio: ${price}`}
-                    </Typography>
-
-                </Grid>
-            </Grid>
-        </Paper>
-    );
-};
-
-export default function ProductClient() {
+const ProductClient =()=> {
     const [lines, setLines] = useState([]);
     const [selectPage, setSelectpage] = useState(1);
     const [totalPage, setTotalpage] = useState();
-
     const [linesId, setLinesId] = useState([0]);
     const [products, setProducts] = useState([]);
 
@@ -72,19 +27,28 @@ export default function ProductClient() {
                 setSelectpage(result.data.products.current_page); //pagina actual
                 setTotalpage(result.data.products.last_page); //total de paginas
                 setProducts(result.data.products.data);
-                console.log("Data:", result.data.products.data);
+                // console.log("Data:", result.data.products.data);
             }
         });
     }, [selectPage]);
 
     const handleChange = (e) => {
+
+
+        const findLineId= linesId.filter((item)=>item==e.target.value)
+        
+        console.log("Filter: ", findLineId)
+        console.log(e.target.value)
+        console.log(e.target.checked)
         setLinesId([...linesId, parseInt(e.target.value)]);
     };
 
-    const handleChagePage = (event, value) => {
+    const handleChangePage = (event, value) => {
         setSelectpage(value);
     };
     const handleFilter = (linesFilter) => {
+        // setLinesId(linesFilter);
+        // setSelectpage(1);
         console.log(linesFilter);
     };
 
@@ -148,20 +112,23 @@ export default function ProductClient() {
                             products.map((item, id) => (
                                 <CardProduct
                                     key={`card${item}${id}`}
+                                    id={item.id}
                                     title={item.name}
                                     price={item.price}
                                     image={item.image}
+                                    line={item.nameline}
+                                    subline={item.namesubline}
                                     description={item.descrip}
                                 />
                             ))}
                     </Grid>
                     {/* paginación */}
-                    <Grid item xs={2}>                        
+                    <Grid item xs={2}>
                         <Pagination
                             count={totalPage}
                             page={selectPage}
                             color="secondary"
-                            onChange={handleChagePage}
+                            onChange={handleChangePage}
                         />
                     </Grid>
                 </Grid>
@@ -169,3 +136,5 @@ export default function ProductClient() {
         </Grid>
     );
 }
+
+export default ProductClient
