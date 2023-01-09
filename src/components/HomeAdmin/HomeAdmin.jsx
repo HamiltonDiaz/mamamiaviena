@@ -5,7 +5,9 @@ import UserImg from "../../assets/Users.png";
 import ProductImg from "../../assets/Products.png";
 import LineImg from "../../assets/Lines.png";
 import SublineImg from "../../assets/Sublines.png";
+import DiseniosImg from "../../assets/Disenios.png";
 import { Link as RouterLink } from "react-router-dom";
+import { adminDesing, adminLines, adminSublines, adminProducts} from "../../utils/Routes"
 
 const HomeAdmin = () => {
     return (
@@ -37,7 +39,7 @@ const HomeAdmin = () => {
             </Grid>
             <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
                 <RouterLink
-                    to="/admin/lines"
+                    to={adminLines}
                     style={{
                         textDecoration: "none",
                         color: "inherit",
@@ -56,7 +58,7 @@ const HomeAdmin = () => {
 
             <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
                 <RouterLink
-                    to="/admin/sublines"
+                    to={adminSublines}
                     style={{
                         textDecoration: "none",
                         color: "inherit",
@@ -71,11 +73,30 @@ const HomeAdmin = () => {
                         </Grid>
                     </Paper>
                 </RouterLink>
-            </Grid>            
+            </Grid>
 
             <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
                 <RouterLink
-                    to="/admin/products"
+                    to={adminDesing}
+                    style={{
+                        textDecoration: "none",
+                        color: "inherit",
+                    }}
+                >
+                    <Paper variant="outlined">
+                        <Grid item sx={{ padding: 2 }}>
+                            <img src={DiseniosImg} alt="imagen-subdisenios" />
+                            <Typography variant="subtitle1" align="center">
+                                Diseños
+                            </Typography>
+                        </Grid>
+                    </Paper>
+                </RouterLink>
+            </Grid>    
+
+            <Grid item container xs={12} sm={4} lg={2} justifyContent="center">
+                <RouterLink
+                    to={adminProducts}
                     style={{
                         textDecoration: "none",
                         color: "inherit",

@@ -34,7 +34,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
         descrip: "",
         imageView: null,
     });
-    const [LineImg, setLineimg] = useState(null);
+    const [desingImg, setDesingimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
@@ -44,7 +44,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
 
     const handleClose = () => {
         setOpen(false);
-        setLineimg(null);
+        setDesingimg(null);
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
@@ -59,7 +59,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
     };
 
     const uploadFile = (e) => {
-        setLineimg(e.target.files[0]);
+        setDesingimg(e.target.files[0]);
         imgHandler(e.target.files[0]);
     };
 
@@ -109,7 +109,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
         }
 
 
-        if (LineImg == null) {
+        if (desingImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
             setMsgimg(msg);
@@ -124,18 +124,18 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
 
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
-            dataFinal.append("image", LineImg);
+            dataFinal.append("image", desingImg);
             dataFinal.append("stateitem", 1);
 
-            // console.log(dataFinal)
+            //console.log(dataFinal)
             // console.log(data.imageView)
-            postRequestFile("/line/create", dataFinal, async (result) => {
+            postRequestFile("/desing/create", dataFinal, async (result) => {
                 //console.log(result)
-                //console.log(result)
+                //console.log(result.msg.message)
                 if (result.success) {
                     ToastType("success", "Creado Exitosamente");
                 } else {
-                    ToastType("error", result.msg);
+                    ToastType("error", result.msg.message);
                 }
             });
             handleClose()
@@ -233,12 +233,12 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                             sx={{ padding: 2 }}
                         >
                             <Grid item>
-                                {LineImg == null ? (
+                                {desingImg == null ? (
                                     <CircularProgress />
                                 ) : (
                                     <img
                                         src={data.imageView}
-                                        alt="ImgLine"
+                                        alt="ImgDesing"
                                         width={200}
                                     />
                                 )}

@@ -7,7 +7,7 @@ async function request(endPoint, header, callback) {
     try {
         const token = await getCookie('TOKENAUTH');
         header.headers.Authorization = `Bearer ${token}`;
-        console.log(header)
+        //console.log(header)
         const response = await fetch(global.api + endPoint, header);
         const responseJson = await response.json();
         await callback(responseJson);
@@ -43,17 +43,22 @@ export async function getRequest(endPoint, callback) {
 
 
 export async function postRequestFile(endPoint, data, callback) {
+    //console.log(data)
     const header = {
         method: 'POST',
         mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
         body: data,
         headers: {
             'Accept': 'application/json, multipart/form-data',
-            'Content-Type': 'application/json, application/x-wwww-form-urlencoded, multipart/formdata',
+            //'Content-Type': 'application/json, application/x-wwww-form-urlencoded, multipart/form-data',
             'Accept-Encoding': 'gzip, deflate, br',
             'Access-Control-Allow-Origin': '*',
-            'User-agent': '*',
+            'User-agent': '*',           
+            'Connection': 'keep-alive'
         },
+        referrerPolicy: 'no-referrer',
     };
     await request(endPoint, header, callback);
 }

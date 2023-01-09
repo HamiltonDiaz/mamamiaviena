@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Typography,
@@ -7,6 +7,8 @@ import {
     Button,
     TextField,
     CircularProgress,
+    FormControlLabel,
+    Switch,
 } from "@mui/material";
 import { postRequestFile } from "../../utils/api";
 import ToastType from "../../utils/ToastType";
@@ -17,24 +19,22 @@ const style = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: { xs: 400, sm: 700 },
-    // bgcolor:"#F26968", //Rosado Intenso
-    // bgcolor:"#323339",
-    // bgcolor:"#6CBF84",
-    // bgcolor:"#FFFFFF",
     bgcolor: "background.paper",
-    // border: "2px solid #000",
     boxShadow: 24,
     borderRadius: 3,
     p: 4,
 };
 
-const ModalCreate = ({ open, setOpen, titleModal }) => {
+const ModalEdit = ({ open, setOpen, titleModal, prevData}) => {
+    const { imageView, imgold, namePrev, descripPrev, id,statePrev } = prevData;
     const [data, setData] = useState({
         name: "",
         descrip: "",
-        imageView: null,
+        image: "",
+        stateitem: null,
+        imageView:null,
     });
-    const [LineImg, setLineimg] = useState(null);
+    const [DesingImg, setDesingimg] = useState(null);
     const [errorName, setErrorname] = useState(false);
     const [errorDescrip, setErrordescrip] = useState(false);
     const [errorImg, setErrorimg] = useState(false);
@@ -44,7 +44,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
 
     const handleClose = () => {
         setOpen(false);
-        setLineimg(null);
+        setDesingimg(null);
         setErrorname(false);
         setErrordescrip(false);
         setErrorimg(false);
@@ -54,12 +54,14 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
         setData({
             name: "",
             descrip: "",
-            imageView: null,
+            image: "",
+            stateitem: null,
+            imageView:null,
         });
     };
 
     const uploadFile = (e) => {
-        setLineimg(e.target.files[0]);
+        setDesingimg(e.target.files[0]);
         imgHandler(e.target.files[0]);
     };
 
@@ -80,12 +82,22 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
     };
 
     const handleChange = (e) => {
+        let valEnd= e.target.value
+
+        if (valEnd=="on" && e.target.checked){
+            valEnd=1
+        }
+        if (valEnd=="on"&& e.target.checked==false){
+            valEnd=2
+        }
+        // console.log(valEnd,  e.target.value, e.target.checked)
         setData({
             ...data,
-            [e.target.name]: e.target.value,
+            [e.target.name]: valEnd
         });
     };
-    const handleCreate = (data) => {
+    const handleEdit = (data) => {
+        // console.log(data)
         let typeToast = "error";
         let msg = "";
         if (data.name == "") {
@@ -108,8 +120,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
             setMsgdescrip("");
         }
 
-
-        if (LineImg == null) {
+        if (DesingImg == null) {
             msg = "Debe seleccionar la imagen";
             setErrorimg(true);
             setMsgimg(msg);
@@ -119,29 +130,40 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
             setMsgimg("");
         }
         if (msg == "") {
-            //stateitem
             const dataFinal = new FormData();
-
+            dataFinal.append("id", id);
             dataFinal.append("name", data.name);
             dataFinal.append("descrip", data.descrip);
-            dataFinal.append("image", LineImg);
-            dataFinal.append("stateitem", 1);
-
-            // console.log(dataFinal)
-            // console.log(data.imageView)
-            postRequestFile("/line/create", dataFinal, async (result) => {
-                //console.log(result)
+            dataFinal.append("image", DesingImg);                
+            dataFinal.append("stateitem", data.stateitem);
+            dataFinal.append("imgold", imgold);
+            
+            postRequestFile("/desing/update", dataFinal, async (result) => {
                 //console.log(result)
                 if (result.success) {
-                    ToastType("success", "Creado Exitosamente");
+                    ToastType("success", result.msg);
                 } else {
                     ToastType("error", result.msg);
                 }
             });
-            handleClose()
+            handleClose();
         }
         return;
     };
+
+    useEffect(() => {
+        setData({
+            name: namePrev,
+            descrip: descripPrev,
+            image: imgold,
+            stateitem: statePrev,
+            imageView: imageView,
+        })
+        setDesingimg(imgold)
+    }, [])
+
+
+
 
     return (
         <Modal
@@ -174,11 +196,24 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                         <Grid item xs={8}>
                             <Box
                                 component="form"
-                                onSubmit={handleCreate}
+                                onSubmit={handleEdit}
                                 autoComplete="off"
                                 noValidate
                                 sx={{ mt: 1 }}
                             >
+                                <FormControlLabel
+                                    labelPlacement="start"
+                                    onChange={handleChange}
+                                    control={
+                                        <Switch
+                                            name="stateitem"                                            
+                                            defaultChecked={
+                                                statePrev == 1 ? true : false
+                                            }
+                                        />
+                                    }
+                                    label="Estado"
+                                />
                                 <TextField
                                     error={errorName}
                                     helperText={msgName}
@@ -190,6 +225,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                                     type="text"
                                     id="name"
                                     onChange={handleChange}
+                                    defaultValue={namePrev}
                                 />
                                 <TextField
                                     error={errorDescrip}
@@ -202,6 +238,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                                     type="text"
                                     id="descrip"
                                     onChange={handleChange}
+                                    defaultValue={descripPrev}
                                 />
 
                                 <TextField
@@ -214,9 +251,7 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                                     //label="Imagen"
                                     type="file"
                                     id="image"
-                                    onChange={(e) =>
-                                        uploadFile(e)
-                                    }
+                                    onChange={(e) => uploadFile(e)}
                                     inputProps={{
                                         accept: "image/*",
                                     }}
@@ -233,12 +268,12 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                             sx={{ padding: 2 }}
                         >
                             <Grid item>
-                                {LineImg == null ? (
+                                {data.imageView == null ? (
                                     <CircularProgress />
                                 ) : (
                                     <img
                                         src={data.imageView}
-                                        alt="ImgLine"
+                                        alt="ImgDesing"
                                         width={200}
                                     />
                                 )}
@@ -250,9 +285,9 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
                             color="success"
                             variant="contained"
                             size="large"
-                            onClick={() => handleCreate(data)}
+                            onClick={() => handleEdit(data)}
                         >
-                            Crear
+                            Modificar
                         </Button>
 
                         <Button
@@ -273,4 +308,4 @@ const ModalCreate = ({ open, setOpen, titleModal }) => {
     );
 };
 
-export default ModalCreate;
+export default ModalEdit;

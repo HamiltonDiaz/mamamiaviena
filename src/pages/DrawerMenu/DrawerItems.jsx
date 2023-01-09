@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import LineStyleIcon from '@mui/icons-material/LineStyle';
+import PaletteIcon from "@mui/icons-material/Palette";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
@@ -22,6 +23,7 @@ import {
     adminSublines,
     adminProducts,
     adminUser,
+    adminDesing
 } from "../../utils/Routes";
 
 const DrawerItems = () => {
@@ -98,12 +100,26 @@ const DrawerItems = () => {
                     >
                         <ListItemButton sx={{ pl: 4 }}>
                             <ListItemIcon>
-                                <FormatListBulletedIcon />
+                                <LineStyleIcon />
                             </ListItemIcon>
                             <ListItemText primary="Sublineas" />
                         </ListItemButton>
                     </RouterLink>
 
+                    <RouterLink
+                        to={adminDesing}
+                        style={{
+                            textDecoration: "none",
+                            color: "inherit",
+                        }}
+                    >
+                        <ListItemButton sx={{ pl: 4 }}>
+                            <ListItemIcon>                            
+                                <PaletteIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Diseños" />
+                        </ListItemButton>
+                    </RouterLink>
 
                     <RouterLink
                         to={adminProducts}

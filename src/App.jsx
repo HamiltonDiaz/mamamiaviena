@@ -21,6 +21,7 @@ import UserAdminPage from "./pages/Admin/UserAdminPage";
 import Login from "./components/Users/Login";
 import LineAdminPage from "./pages/Admin/LineAdminPage";
 import SubLineAdminPage from "./pages/Admin/SubLineAdminPage";
+import DesingAdminPage from "./pages/Admin/DesingAdminPage"
 import ProductAdminPage from "./pages/Admin/ProductAdminPage";
 import SingleProductPage from "./pages/SingleProductPage";
 import ProductsClientsPage from "./pages/ProductsClientsPage";
@@ -37,6 +38,7 @@ import {
     adminUser,
     adminLines,
     adminSublines,
+    adminDesing,
     adminProducts,
     adminItemProduct,
     productClient
@@ -79,6 +81,11 @@ const App = () => {
                     <Route
                         path={protectAdmin(adminProducts)}
                         element={<ProductAdminPage />}
+                    />
+
+                    <Route
+                        path={protectAdmin(adminDesing)}
+                        element={<DesingAdminPage />}
                     />
 
                     <Route

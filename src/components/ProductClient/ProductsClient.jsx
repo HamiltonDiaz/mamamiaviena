@@ -37,9 +37,9 @@ const ProductClient =()=> {
 
         const findLineId= linesId.filter((item)=>item==e.target.value)
         
-        console.log("Filter: ", findLineId)
-        console.log(e.target.value)
-        console.log(e.target.checked)
+        //console.log("Filter: ", findLineId)
+        //console.log(e.target.value)
+        //console.log(e.target.checked)
         setLinesId([...linesId, parseInt(e.target.value)]);
     };
 
@@ -49,7 +49,7 @@ const ProductClient =()=> {
     const handleFilter = (linesFilter) => {
         // setLinesId(linesFilter);
         // setSelectpage(1);
-        console.log(linesFilter);
+        //console.log(linesFilter);
     };
 
     return (

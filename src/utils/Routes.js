@@ -1,6 +1,7 @@
 export const admin ="/admin"
 export const adminUser ="/admin/users"
 export const adminLines ="/admin/lines"
+export const adminDesing ="/admin/designs"
 export const adminSublines ="/admin/sublines"
 export const adminProducts ="/admin/products"
 export const adminItemProduct ="/admin/:id"
