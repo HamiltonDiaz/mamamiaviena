@@ -7,9 +7,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import { BotonPrimario } from "../../utils/ButtonsCustom";
-import { convertNumber } from "../../utils/Functions";
+import { convertNumber , routeImg} from "../../utils/Functions";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import img1 from "../../assets/picture/sois_toi_meme.jpeg";
+
+
 
 // import Card from "react-bootstrap/Card";
 // import Button from 'react-bootstrap/Button';
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Product = ({ product }) => {
+const Product = ({ product, linkProduct }) => {
     const classes = useStyles();
     const matches = useMediaQuery("(min-width:800px)");
 
@@ -46,7 +47,7 @@ const Product = ({ product }) => {
             <CardMedia
                 className={classes.img}
                 component="img"
-                image={process.env.PUBLIC_URL + product.routeimg}
+                image={routeImg(product.image)}
                 alt="img camiseta"
             />
 
@@ -56,28 +57,16 @@ const Product = ({ product }) => {
                     {product.name}
                 </Typography>
 
-                <Typography variant="subtitle2" color="textSecondary" >
+                {/* <Typography variant="subtitle2" color="textSecondary" >
                     {convertNumber(product.price)}
-                </Typography>
+                </Typography> */}
                 <CardActions className={classes.btnvermas}>
-                    <BotonPrimario variant="outlined" size={matches? "small" : "large"} >
-                        Ver más {product.id}
+                    <BotonPrimario variant="outlined" size={matches? "small" : "large"} target="_blank" href={linkProduct} >
+                        Ver más
                     </BotonPrimario>
                 </CardActions>
             </CardContent>
-        </Card>
-
-        // <Card style={{ width: "18rem" }}>
-        //     <Card.Img variant="top" src={img1} />
-        //     <Card.Body>
-        //         <Card.Title>Card Title</Card.Title>
-        //         <Card.Text>
-        //             Some quick example text to build on the card title and make
-        //             up the bulk of the card's content.
-        //         </Card.Text>
-        //         <Button variant="primary">Go somewhere</Button>
-        //     </Card.Body>
-        // </Card>
+        </Card>    
     );
 };
 

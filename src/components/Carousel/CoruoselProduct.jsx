@@ -2,6 +2,7 @@ import React from "react";
 import Product from "../Product/Product";
 import Grid from "@mui/material/Grid";
 
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,14 +10,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import "./styles.css";
-
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Container } from "@mui/material";
+import {productClient} from "../../utils/Routes"
+
 
 const CoruoselProduct = ({ data }) => {
+    const itemFinal={
+        id:10000,
+        name:"Ver Todos",
+        image: "vermas.jpeg"
+    }
+
     return (
         <Container>
             <Grid
@@ -57,14 +64,23 @@ const CoruoselProduct = ({ data }) => {
                         modules={[Autoplay, Pagination, Navigation]}
                         className="mySwiper"
                     >
-                        {data.map((item) => (
-                            <SwiperSlide key={item.id}>
-                                <Product
-                                    product={item}
-                                />
-                            </SwiperSlide>
-                        ))}
-
+                        {
+                            data && data.map((item) => (
+                                <SwiperSlide key={item.id}>
+                                    <Product
+                                        product={item}
+                                        linkProduct={productClient+"/filter/" + item.id}
+                                    />
+                                </SwiperSlide>
+                            )
+                            )
+                        }
+                                <SwiperSlide key={"itemfinal"}>
+                                    <Product
+                                        product={itemFinal}
+                                        linkProduct={productClient}
+                                    />
+                                </SwiperSlide>
 
                     </Swiper>
                 </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AppFrame from "./AppFrame";
 import imgHome from "../assets/ImgHome2.png";
 import imgHomeBig from "../assets/ImgHome3.png";
@@ -8,8 +8,10 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import CoruoselProduct from "../components/Carousel/CoruoselProduct";
 import Container from "@mui/material/Container";
-import dataProducts from "../product-data";
 import CoruoselDesing from "../components/Carousel/CoruoselDesing";
+
+import { getRequest } from "../utils/api";
+
 
 const useStyles = makeStyles((theme) => ({
     titulos: {
@@ -20,6 +22,26 @@ const useStyles = makeStyles((theme) => ({
 
 const WelcomePage = () => {
     const classes = useStyles();
+    
+    const [dataProduct, setDataProduct] = useState([])
+    const [dataDesing, setDataDesing] = useState([])
+
+    useEffect(() => {
+        getRequest("/line/home", async (result) => {
+            if (result.success) {
+                //console.log(result.data);
+                setDataProduct(result.data);
+            }
+        });
+        getRequest("/line/home", async (result) => {
+            if (result.success) {
+                setDataDesing(result.data);
+                // console.log(result.data);
+            }
+        });
+
+    }, []);
+
     return (
         <AppFrame>
             <Grid container direction="column" spacing={3}>
@@ -83,7 +105,7 @@ const WelcomePage = () => {
 
                 <Container sx={{marginY:2}}>
                     <Grid item >
-                        <CoruoselProduct data={dataProducts} />
+                        <CoruoselProduct data={dataProduct} />
                     </Grid>
                 </Container>
 
@@ -98,7 +120,7 @@ const WelcomePage = () => {
                 </Grid>
                 <Container>
                     <Grid item>
-                        <CoruoselDesing data={dataProducts} />
+                        <CoruoselDesing data={dataDesing} />
                     </Grid>
                 </Container>
             </Grid>

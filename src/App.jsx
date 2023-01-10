@@ -60,6 +60,7 @@ const App = () => {
                     <Route path={zonaOutlet} element={<OutletPage />} />
                     <Route path={muroFama} element={<WallPage />} />
                     <Route path={productClient} element={<ProductsClientsPage />} />
+                    <Route path={productClient + "/filter/:prlineid"} element={<ProductsClientsPage />} />
                     <Route path={ productClient + "/:id" } element={<SingleProductPage />} />
 
                     <Route

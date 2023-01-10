@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useParams } from "react-router-dom"
 import {
     FormControlLabel,
     FormGroup,
@@ -12,15 +13,24 @@ import CardProduct from "./CardProduct"
 import { getRequest } from "../../utils/api";
 
 const ProductClient =()=> {
+    let {prlineid}=  useParams()
     const [lines, setLines] = useState([]);
     const [selectPage, setSelectpage] = useState(1);
     const [totalPage, setTotalpage] = useState();
     const [linesId, setLinesId] = useState([0]);
     const [products, setProducts] = useState([]);
+    
 
     useEffect(() => {
-        let ruta =
-            "/products-client/listall/" + linesId + "?page=" + selectPage;
+        console.log(prlineid)
+        console.log(linesId)
+
+        let ruta ="/products-client/listall/" + linesId + "?page=" + selectPage;
+        if (prlineid && linesId!=[0] ){
+            setLinesId([...linesId, prlineid]);
+            ruta ="/products-client/listall/" + prlineid + "?page=" + selectPage;
+        }
+        
         getRequest(ruta, async (result) => {
             if (result.success) {
                 setLines(result.data.lines);
