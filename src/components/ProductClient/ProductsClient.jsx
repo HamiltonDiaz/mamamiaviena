@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import {
     FormControlLabel,
     FormGroup,
@@ -7,58 +7,84 @@ import {
     Button,
     Pagination,
     Grid,
-    Checkbox,    
+    Checkbox,
 } from "@mui/material";
 import CardProduct from "./CardProduct"
 import { getRequest } from "../../utils/api";
 
-const ProductClient =()=> {
-    let {prlineid}=  useParams()
+const ProductClient = () => {
+    let { prlineid } = useParams()
     const [lines, setLines] = useState([]);
+    const [checkedState, setCheckedState] = useState(null);
+
+
     const [selectPage, setSelectpage] = useState(1);
     const [totalPage, setTotalpage] = useState();
     const [linesId, setLinesId] = useState([0]);
     const [products, setProducts] = useState([]);
-    
+
 
     useEffect(() => {
-        console.log(prlineid)
-        console.log(linesId)
 
-        let ruta ="/products-client/listall/" + linesId + "?page=" + selectPage;
-        if (prlineid && linesId!=[0] ){
+        let ruta = "/products-client/listall/" + linesId + "?page=" + selectPage;
+        if (prlineid && linesId != [0]) {
             setLinesId([...linesId, prlineid]);
-            ruta ="/products-client/listall/" + prlineid + "?page=" + selectPage;
+            ruta = "/products-client/listall/" + prlineid + "?page=" + selectPage;
         }
-        
+
+        let updatedCheckedState= new Array();
         getRequest(ruta, async (result) => {
             if (result.success) {
                 setLines(result.data.lines);
+                result.data.lines.map((item, index) =>
+                    item.id == prlineid ? updatedCheckedState.push(true) : updatedCheckedState.push(false)
+                );
+
                 setSelectpage(result.data.products.current_page); //pagina actual
                 setTotalpage(result.data.products.last_page); //total de paginas
                 setProducts(result.data.products.data);
-                // console.log("Data:", result.data.products.data);
+                //console.log("Data:", result.data.lines);
             }
         });
+
+  
+        setCheckedState(updatedCheckedState)
+
+
     }, [selectPage]);
 
-    const handleChange = (e) => {
-
-
-        const findLineId= linesId.filter((item)=>item==e.target.value)
+    const handleChange = (e,position) => {
+        const findLineId = linesId.filter((item) => item == e.target.value)
         
-        //console.log("Filter: ", findLineId)
+        
+        //console.log("Anterior:",checkedState)
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === position ? !item : item
+        );
+        //console.log("Actual:",updatedCheckedState)
+
+        setCheckedState(updatedCheckedState)
+
+        console.log("Filter: ", findLineId)
         //console.log(e.target.value)
         //console.log(e.target.checked)
-        setLinesId([...linesId, parseInt(e.target.value)]);
+
+
+        //falta EVITAR AGREGAR duplicados PENDIENTE!!!!!!!!
+        if (findLineId==[]){
+            console.log("entro")
+            setLinesId([...linesId, parseInt(e.target.value)]);
+        }
+        console.log("LIneas: ", linesId)
+
     };
 
     const handleChangePage = (event, value) => {
         setSelectpage(value);
     };
-    const handleFilter = (linesFilter) => {
-        // setLinesId(linesFilter);
-        // setSelectpage(1);
+    const handleFilter = () => {
+        alert(linesId)
+        setSelectpage(1);
         //console.log(linesFilter);
     };
 
@@ -79,12 +105,13 @@ const ProductClient =()=> {
                                 key={`${item}${id}`}
                                 control={
                                     <Checkbox
-                                        onChange={handleChange}
+                                        onChange={(e)=>handleChange(e, id)}
                                         inputProps={{
                                             "aria-label": "controlled",
                                         }}
                                         name="linesid"
                                         value={item.id}
+                                        checked={checkedState[id]}                                    
                                     />
                                 }
                                 label={item.name}
@@ -93,7 +120,7 @@ const ProductClient =()=> {
                     <Button
                         variant="outlined"
                         color="primary"
-                        onClick={() => handleFilter(linesId)}
+                        onClick={()=>handleFilter()}
                     >
                         Filtrar
                     </Button>
