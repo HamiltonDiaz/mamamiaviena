@@ -16,6 +16,7 @@ const ProductClient = () => {
     let { prlineid } = useParams()
     const [lines, setLines] = useState([]);
     const [checkedState, setCheckedState] = useState(null);
+    const [filter, setFilter] = useState(false)
 
 
     const [selectPage, setSelectpage] = useState(1);
@@ -25,10 +26,9 @@ const ProductClient = () => {
 
 
     useEffect(() => {
-
+        console.log(filter)
         let ruta = "/products-client/listall/" + linesId + "?page=" + selectPage;
-        if (prlineid && linesId != [0]) {
-            setLinesId([...linesId, prlineid]);
+        if (prlineid && filter==false) {            
             ruta = "/products-client/listall/" + prlineid + "?page=" + selectPage;
         }
 
@@ -36,56 +36,62 @@ const ProductClient = () => {
         getRequest(ruta, async (result) => {
             if (result.success) {
                 setLines(result.data.lines);
-                result.data.lines.map((item, index) =>
-                    item.id == prlineid ? updatedCheckedState.push(true) : updatedCheckedState.push(false)
-                );
-
+                result.data.lines.map((item, index) => {
+                    if (item.id == prlineid && filter==false) {
+                        updatedCheckedState.push(true)
+                        setLinesId([...linesId, parseInt(prlineid)]);
+                    } else {
+                        updatedCheckedState.push(false)
+                    }
+                });
                 setSelectpage(result.data.products.current_page); //pagina actual
                 setTotalpage(result.data.products.last_page); //total de paginas
                 setProducts(result.data.products.data);
                 //console.log("Data:", result.data.lines);
             }
-        });
-
-  
+        });  
         setCheckedState(updatedCheckedState)
-
-
     }, [selectPage]);
 
     const handleChange = (e,position) => {
-        const findLineId = linesId.filter((item) => item == e.target.value)
-        
-        
-        //console.log("Anterior:",checkedState)
+        setFilter(true)
+        //Marcar/desmarca check
         const updatedCheckedState = checkedState.map((item, index) =>
             index === position ? !item : item
         );
-        //console.log("Actual:",updatedCheckedState)
-
         setCheckedState(updatedCheckedState)
-
-        console.log("Filter: ", findLineId)
-        //console.log(e.target.value)
-        //console.log(e.target.checked)
-
-
-        //falta EVITAR AGREGAR duplicados PENDIENTE!!!!!!!!
-        if (findLineId==[]){
-            console.log("entro")
-            setLinesId([...linesId, parseInt(e.target.value)]);
+        //Valida si ya esta agregado en el filtro
+        const findLineId = linesId.filter((item) => item == e.target.value)        
+        if (findLineId.length==0){
+            //No esta en el array y se agrega
+            if (e.target.checked==true){
+                setLinesId([...linesId, parseInt(e.target.value)]);
+            }
+        }else{
+            //Si esta en el array y se elimina
+            if (e.target.checked==false){
+                let newLines= linesId.filter((item) => item != e.target.value)
+                setLinesId(newLines);
+            }
         }
-        console.log("LIneas: ", linesId)
-
     };
 
     const handleChangePage = (event, value) => {
         setSelectpage(value);
     };
+    
     const handleFilter = () => {
-        alert(linesId)
-        setSelectpage(1);
-        //console.log(linesFilter);
+        console.log(filter)
+        if (filter){
+            let ruta = "/products-client/listall/" + linesId + "?page=" + selectPage;
+            getRequest(ruta, async (result) => {
+                if (result.success) {
+                    setSelectpage(result.data.products.current_page); //pagina actual
+                    setTotalpage(result.data.products.last_page); //total de paginas
+                    setProducts(result.data.products.data);
+                }
+            });
+        }
     };
 
     return (
@@ -104,10 +110,10 @@ const ProductClient = () => {
                             <FormControlLabel
                                 key={`${item}${id}`}
                                 control={
-                                    <Checkbox
+                                    <Checkbox                                    
                                         onChange={(e)=>handleChange(e, id)}
                                         inputProps={{
-                                            "aria-label": "controlled",
+                                            'aria-label': 'controlled'
                                         }}
                                         name="linesid"
                                         value={item.id}
