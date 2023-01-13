@@ -27,13 +27,13 @@ const WelcomePage = () => {
     const [dataDesing, setDataDesing] = useState([])
 
     useEffect(() => {
-        getRequest("/line/home", async (result) => {
+        getRequest("/products-client/line/home", async (result) => {
             if (result.success) {
                 //console.log(result.data);
                 setDataProduct(result.data);
             }
         });
-        getRequest("/line/home", async (result) => {
+        getRequest("/products-client/line/home", async (result) => {
             if (result.success) {
                 setDataDesing(result.data);
                 // console.log(result.data);
