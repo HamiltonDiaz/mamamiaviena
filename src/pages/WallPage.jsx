@@ -1,35 +1,77 @@
 import React from "react";
 import AppFrame from "./AppFrame";
-import { Grid, Link } from "@mui/material";
+import { Grid, Link, ImageList, ImageListItem, Box } from "@mui/material";
 import instagram from "../assets/instagram.png";
 import facebook from "../assets/facebook.png";
 import Typography from "@mui/material/Typography";
 import { routeFacebook } from "../utils/Routes";
 import { routeInstagram } from "../utils/Routes";
 
-const IframeInstagram = () => {
-    return (
-        <div>
-            <iframe
-                src="https://snapwidget.com/embed/1016766"
-                // class="snapwidget-widget"
-                allowTransparency="true"
-                frameBorder="0"
-                scrolling="yes"
-                style={{
-                    width: "100%",
-                    height: "600px",
-                    border: "none",
-                    margin:5
-                }}
-            ></iframe>
-        </div>
-    );
-};
+const itemData = [
+    {
+        img: require("../assets/wallPage/MFInstagram1.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram2.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram3.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram4.jpeg"),
+        title: 'Coffee',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram5.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram6.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram7.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram8.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram9.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram10.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram11.jpeg"),
+        title: '',
+    },
+    {
+        img: require("../assets/wallPage/MFInstagram12.jpeg"),
+        title: '',
+    },
+];
 
 
 
 const WallPage = () => {
+
+
+    const srcset = (image, size, rows = 1, cols = 1) => {
+        return {
+            src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+            srcSet: `${image}?w=${size * cols}&h=${size * rows
+                }&fit=crop&auto=format&dpr=2 2x`,
+        };
+    }
+
+
     return (
         <AppFrame>
             {/* <Wall/> */}
@@ -83,7 +125,20 @@ const WallPage = () => {
 
                 <Grid item xs={12} md={8} >
                     {/* publicaciones instagram */}
-                    <IframeInstagram />
+                    <Box sx={{ width: "auto", height:{xs:450, xl:700}, overflowY: 'scroll' }}>
+                        <ImageList variant="masonry" cols={3} gap={8}>
+                            {itemData.map((item) => (
+                                <ImageListItem key={item.img}>
+                                    <img
+                                        src={`${item.img}?w=248&fit=crop&auto=format`}
+                                        srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        alt={item.title}
+                                        loading="lazy"
+                                    />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+                    </Box>
                 </Grid>
             </Grid>
         </AppFrame>

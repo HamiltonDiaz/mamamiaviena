@@ -16,6 +16,7 @@ const ListImg = () => {
     const matches = useMediaQuery("(min-width:811px)");
     const [imgModal, setImgModal] = useState("")
     const [titleModal, setTitleModal] = useState("")
+    const [idModal, setIdmodal] = useState("")
 
     const [dataDesing, setDatadesing] = useState([])
     useEffect(() => {
@@ -32,17 +33,17 @@ const ListImg = () => {
 
     //Values for modal
     const [open, setOpen] = useState(false)
-    const handleOpen = (imgModal, titlemodal) => {
+    const handleOpen = (imgModal, titlemodal, id) => {
         setImgModal(imgModal)
         setTitleModal(titlemodal)
+        setIdmodal(id)
         setOpen(true)
     }
     const handleClose = () => setOpen(false)
 
     return (
         <Container>
-            <ModalImg handleClose={handleClose} open={open} imgModal={imgModal} titleModal={titleModal} handleOpen={handleOpen} />
-
+            <ModalImg handleClose={handleClose} open={open} imgModal={imgModal} titleModal={titleModal} handleOpen={handleOpen} id={idModal} />
             <Typography
                 variant="h5"
                 align="center"
@@ -67,31 +68,12 @@ const ListImg = () => {
                 sx={{ width: "100%", height: "100%" }}
                 cols={matches ? 5 : 2}
             >
-                {/* {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
-                        <img src={item.img} alt={item.title} loading="lazy" />
-                        <ImageListItemBar
-                            title={item.title}
-                            subtitle={item.author}
-                            actionIcon={
-                                <IconButton
-                                    // sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                                    sx={{ color: "rgba(242, 105, 104, 0.8)" }}
-                                    aria-label={`info about ${item.title}`}
-                                    onClick={()=>handleOpen(item.img,item.title)}
-                                >
-                                    <ImageSearchIcon fontSize="medium" />
-                                </IconButton>
-                            }
-                        />
-                    </ImageListItem>
-                ))} */}
-
-                {
+          
+                   {
                     dataDesing &&
                     dataDesing.map((item) => (
                         <ImageListItem key={item.image} sx={{width:"85% !important", borderColor:"#F2AD9F !important", border:1, borderStyle:"dashed" }}>
-                            <img src={routeImg(item.image)} alt={item.name} loading="lazy"  />
+                            <img src={routeImg(item.image)} alt={item.name} loading="lazy"/>
                             <ImageListItemBar
                                 title={item.name}
                                 //subtitle={item.author}
@@ -100,14 +82,12 @@ const ListImg = () => {
                                         sx={{ color: "rgba(169, 207, 85)" }}
                                         //sx={{ color: "rgba(242, 173, 159, 0.9)" }}
                                         aria-label={`info about ${item.title}`}
-                                        onClick={() => handleOpen(item.image, item.name, item.descrip)}
+                                        onClick={() => handleOpen(item.image, item.name, item.id)}
                                     >
                                         <ImageSearchIcon fontSize="large" />
                                     </IconButton>
                                 }
                             >
-
-
                             </ImageListItemBar>
                         </ImageListItem>
                     )

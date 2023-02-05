@@ -1,7 +1,10 @@
 import React from "react";
-import {Box, Typography, Modal, Grid,Button} from "@mui/material";
+import { Box, Typography, Modal, Grid, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { routeImg } from "../../utils/Functions";
+import { routeImg, msgWhatsapp } from "../../utils/Functions";
+import { global } from "../../utils/utils";
+import { nuestrosDisenios } from "../../utils/Routes"
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 
 const style = {
@@ -21,7 +24,7 @@ const style = {
     p: 4,
 };
 
-const ModalImg = ({ handleClose, open, imgModal, titleModal, description }) => {
+const ModalImg = ({ handleClose, open, imgModal, titleModal, description, id }) => {
     return (
         <Modal
             open={open}
@@ -61,20 +64,37 @@ const ModalImg = ({ handleClose, open, imgModal, titleModal, description }) => {
                             {description}
                         </Typography>
                     </Grid>
-                    <Grid item xs={12}  container justifyContent="flex-end">
-                        <Button
-                            onClick={handleClose}
-                            variant="contained"
-                            color="error"
-                            size="small"
-                            startIcon={<CloseIcon  />}
-                            sx={{"& .MuiButton-startIcon":{
-                                margin:0,
-                                padding:0
-                            }}}
-                        >
-                            Cerrar
-                        </Button>
+                    <Grid item xs={12} container justifyContent="flex-end" spacing={2}>
+
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                size="small"
+                                startIcon={<WhatsAppIcon />}
+                                target="_blank"
+                                href={msgWhatsapp(
+                                    "¡Hola!, me gustaría saber más acerca de este producto " +
+                                    `${global.urlHome}${nuestrosDisenios}/${id}`
+                                )}
+
+                            >
+                                ¡Lo quiero!
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                onClick={handleClose}
+                                variant="contained"
+                                color="error"
+                                size="small"
+                                startIcon={<CloseIcon />}                        
+                            >
+                                Cerrar
+                            </Button>
+                        </Grid>
+
+
                     </Grid>
                 </Grid>
             </Box>

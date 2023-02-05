@@ -6,28 +6,28 @@ import AppFrame from "./AppFrame";
 const HistoryPage = () => {
     const itemData = [
         {
-            img: require("../assets/pageHisto1.jpg")
+            img: require("../assets/historyPage/pageHisto1.jpg")
         },
         {
-            img: require("../assets/pageHisto2.jpg")
+            img: require("../assets/historyPage/pageHisto2.jpg")
         },
         {
-            img: require("../assets/pageHisto3.jpg")
+            img: require("../assets/historyPage/pageHisto3.jpg")
         },
         {
-            img: require("../assets/pageHisto4.jpg")
+            img: require("../assets/historyPage/pageHisto4.jpg")
         },
         {
-            img: require("../assets/pageHisto5.jpg")
+            img: require("../assets/historyPage/pageHisto5.jpg")
         },
         {
-            img: require("../assets/pageHisto6.jpg")
+            img: require("../assets/historyPage/pageHisto6.jpg")
         },
         {
-            img: require("../assets/pageHisto7.jpg")
+            img: require("../assets/historyPage/pageHisto7.jpg")
         },
         {
-            img: require("../assets/pageHisto8.jpg")
+            img: require("../assets/historyPage/pageHisto8.jpg")
         },
 
     ];

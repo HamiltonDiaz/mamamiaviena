@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Contenido = ({ productView, routeProduct }) => {
+const Contenido = ({ desingView, routeProduct }) => {
     const classes = useStyles();
     return (
         <Container maxWidth="md" sx={{ marginTop: { xs: 20, md: 2 } }}>
@@ -44,7 +44,7 @@ const Contenido = ({ productView, routeProduct }) => {
                         overflow: "hidden"
                     }}
                 >
-                     <img src={routeImg(productView.image)} width="90%" />
+                     <img src={routeImg(desingView.image)} width="90%" />
                 </Grid>
 
                 <Grid
@@ -54,16 +54,14 @@ const Contenido = ({ productView, routeProduct }) => {
                     sx={{ minHeight: "100%", marginTop: { xs: 3, md: 5 } }}
                 >
                     <Typography variant="h4" className={classes.titulos}>
-                        {productView.name}
+                        {desingView.name}
                     </Typography>
-                    <Typography variant="h6">Descripción:</Typography>
+                    <br/>
                     <Typography variant="subtitle1">
-                        {productView.descrip}
+                        {desingView.descrip}
                     </Typography>
 
-                    <Typography variant="h6">Precio:</Typography>
-                    <Typography variant="subtitle1">{convertNumber(productView.price)}</Typography>
-
+                   
                     <Typography
                         variant="subtitle1"
                         textAlign="center"
@@ -75,7 +73,7 @@ const Contenido = ({ productView, routeProduct }) => {
                             startIcon={<WhatsAppIcon />}
                             target="_blank"
                             href={msgWhatsapp(
-                                "¡Hola!, me gustaría saber más acerca de este producto " +
+                                "¡Hola!, quiero este diseño en uno de tus productos " +
                                 global.urlHome +
                                 routeProduct.pathname
                             )}
@@ -89,23 +87,23 @@ const Contenido = ({ productView, routeProduct }) => {
     );
 };
 
-const SingleProduct = () => {
-    const [product, setProduct] = useState({});
+const SingleDesing = () => {
+    const [desing, setDesing] = useState({});
     const { id } = useParams();
     const routeProduct = useLocation();
 
     useEffect(() => {
-        getRequest("/products-client/" + id, async (result) => {
+        getRequest("/products-client/desing/" + id, async (result) => {
             if (result.success) {
-                setProduct(result.data);
+                setDesing(result.data);
                 ///console.log(result.data);
             }
         });
     }, [id]);
 
-    return product ? (
+    return desing ? (
         <Contenido
-            productView={product}
+            desingView={desing}
             routeProduct={routeProduct}
         />
     ) : (
@@ -113,5 +111,5 @@ const SingleProduct = () => {
     );
 };
 
-export default SingleProduct;
+export default SingleDesing;
 

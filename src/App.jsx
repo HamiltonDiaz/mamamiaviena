@@ -24,7 +24,9 @@ import SubLineAdminPage from "./pages/Admin/SubLineAdminPage";
 import DesingAdminPage from "./pages/Admin/DesingAdminPage"
 import ProductAdminPage from "./pages/Admin/ProductAdminPage";
 import SingleProductPage from "./pages/SingleProductPage";
+import SingleDesingPage from "./pages/SingleDesingPage";
 import ProductsClientsPage from "./pages/ProductsClientsPage";
+
 
 import { getCookie } from "./utils/CookiesUtil";
 import { protectAdmin } from "./utils/Functions";
@@ -47,6 +49,7 @@ import {
 
 
 
+
 const App = () => {
     let isLogin= getCookie("TOKENAUTH")
     return (
@@ -62,6 +65,7 @@ const App = () => {
                     <Route path={productClient} element={<ProductsClientsPage />} />
                     <Route path={productClient + "/filter/:prlineid"} element={<ProductsClientsPage />} />
                     <Route path={ productClient + "/:id" } element={<SingleProductPage />} />
+                    <Route path={ nuestrosDisenios + "/:id" } element={<SingleDesingPage />} />
 
                     <Route
                         path={protectAdmin(admin)}
