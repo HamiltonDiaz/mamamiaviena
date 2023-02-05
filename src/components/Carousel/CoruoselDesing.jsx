@@ -18,6 +18,12 @@ import { Container } from "@mui/material";
 import Desing from "../Product/Desing";
 
 const CoruoselDesing = ({ data }) => {
+    const itemFinal={
+        id:1000000,
+        name:"Ver Todos",
+        image: "vermas.jpeg"
+    }
+
     return (
         <Container>
             <Grid
@@ -61,10 +67,16 @@ const CoruoselDesing = ({ data }) => {
                         {data.map((item) => (
                             <SwiperSlide key={item.id}>
                                 <Desing
-                                    urlImg={item.routeimg}
+                                    data={item}
                                 />
                             </SwiperSlide>
                         ))}
+
+                        <SwiperSlide key={"itemfinal"}>
+                            <Desing
+                                data={itemFinal}
+                            />
+                        </SwiperSlide>
 
 
                     </Swiper>

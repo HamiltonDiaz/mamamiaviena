@@ -48,7 +48,7 @@ const Product = ({ product, linkProduct }) => {
                 className={classes.img}
                 component="img"
                 image={routeImg(product.image)}
-                alt="img camiseta"
+                alt={"img" + product.name}
             />
 
             <CardContent className={classes.contenido} >

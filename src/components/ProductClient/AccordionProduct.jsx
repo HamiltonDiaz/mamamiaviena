@@ -66,7 +66,8 @@ const AccordionProduct = ({ sublines, line, handleChange, selecteditem }) => {
                                         checked={selecteditem[itemSelected(item.id)]}
                                     />
                                 }
-                                label={item.id + item.name + itemSelected(item.id)}
+                                //label={item.id + item.name + itemSelected(item.id)}
+                                label={item.name}
                             />
                             :
                             ""

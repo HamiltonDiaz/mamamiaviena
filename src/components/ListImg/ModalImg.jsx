@@ -1,6 +1,7 @@
 import React from "react";
 import {Box, Typography, Modal, Grid,Button} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { routeImg } from "../../utils/Functions";
 
 
 const style = {
@@ -20,7 +21,7 @@ const style = {
     p: 4,
 };
 
-const ModalImg = ({ handleClose, open, imgModal, titleModal }) => {
+const ModalImg = ({ handleClose, open, imgModal, titleModal, description }) => {
     return (
         <Modal
             open={open}
@@ -48,7 +49,7 @@ const ModalImg = ({ handleClose, open, imgModal, titleModal }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <img
-                            src={imgModal}
+                            src={routeImg(imgModal)}
                             alt={titleModal}
                             loading="lazy"
                             width={"100%"}
@@ -57,8 +58,7 @@ const ModalImg = ({ handleClose, open, imgModal, titleModal }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography id="modal-modal-description">
-                            Duis mollis, est non commodo luctus, nisi erat
-                            porttitor ligula.
+                            {description}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}  container justifyContent="flex-end">
