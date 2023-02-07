@@ -11,7 +11,7 @@ export const actionTypes = {
 };
 
 const reducer = (state, action) => {
-    console.log(action);
+    //console.log(action);
     switch (action.type) {
         case "ADD_TO_BASKET":
             return {

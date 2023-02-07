@@ -52,7 +52,7 @@ const CardProduct = ({
                     <Typography variant="body2" align="left">
                         {`Precio: ${price}`}
                     </Typography>
-                    <Typography variant="caption">
+                    <Typography variant="caption" noWrap>
                         {`${line}/${subline}`}
                     </Typography>
                 </Grid>

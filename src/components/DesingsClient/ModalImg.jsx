@@ -74,7 +74,7 @@ const ModalImg = ({ handleClose, open, imgModal, titleModal, description, id }) 
                                 startIcon={<WhatsAppIcon />}
                                 target="_blank"
                                 href={msgWhatsapp(
-                                    "¡Hola!, me gustaría saber más acerca de este producto " +
+                                    "¡Hola!, me gustaría este diseño en uno de tus productos " +
                                     `${global.urlHome}${nuestrosDisenios}/${id}`
                                 )}
 

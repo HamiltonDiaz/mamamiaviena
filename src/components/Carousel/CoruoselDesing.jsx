@@ -16,6 +16,7 @@ import "./styles.css";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import { Container } from "@mui/material";
 import Desing from "../Product/Desing";
+import { nuestrosDisenios } from "../../utils/Routes";
 
 const CoruoselDesing = ({ data }) => {
     const itemFinal={
@@ -68,6 +69,7 @@ const CoruoselDesing = ({ data }) => {
                             <SwiperSlide key={item.id}>
                                 <Desing
                                     data={item}
+                                    linkItem={nuestrosDisenios +"/" +item.id}
                                 />
                             </SwiperSlide>
                         ))}
@@ -75,6 +77,7 @@ const CoruoselDesing = ({ data }) => {
                         <SwiperSlide key={"itemfinal"}>
                             <Desing
                                 data={itemFinal}
+                                linkItem={nuestrosDisenios}
                             />
                         </SwiperSlide>
 

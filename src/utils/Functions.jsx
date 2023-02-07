@@ -29,7 +29,11 @@ const replaceWhatsApp=(msg, number)=>{
 }
 
 export const msgWhatsapp = (msg)=>{    
-    return replaceWhatsApp(msg,"573144181911")
+    let telNumber="573144181911"
+    if (msg=="Hola, vi el sitio www.mamamiaviena.com y me interesa tu trabajo."){
+        telNumber="573212479078"
+    }
+    return replaceWhatsApp(msg,telNumber)
 }
 const isLogin= getCookie("TOKENAUTH")
 export const protectAdmin=(routeName)=>{

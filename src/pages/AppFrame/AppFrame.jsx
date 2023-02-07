@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 //import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Container from "@mui/material/Container";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -112,7 +113,8 @@ const ScrollTop = (props) => {
 
 const pages = [
     ["Inicio", "/"],
-    ["¿Quienes somos?", ""],
+    //["¿Quienes somos?", ""],
+    ["Nuestra Historia", "/nuestra-historia"],
     ["Nuestros Diseños", "/nuestros-disenios"],
     ["Productos", "/products"],
     ["Muro de la fama", "/muro-fama"],
@@ -122,7 +124,7 @@ const pages = [
 const pagesCelu = [
     ["Inicio", "/"],
     ["Nuestra Historia", "/nuestra-historia"],
-    ["La Creadora", "/nuestra-creadora"],
+    //["La Creadora", "/nuestra-creadora"],
     ["Nuestros Diseños", "/nuestros-disenios"],
     ["Productos", "/products"],
     ["Muro de la fama", "/muro-fama"],
@@ -192,6 +194,9 @@ const AppFrame = (props) => {
             case "Zona Outlet":
                 icon = <StoreIcon />;
                 break;
+            case "Nuestra Historia":
+                    icon = <FavoriteIcon />;
+                    break;
             default:
                 icon = <HomeIcon />;
                 break;

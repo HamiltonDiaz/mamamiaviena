@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import {
     FormControlLabel,
     FormGroup,
@@ -12,9 +12,12 @@ import {
 import CardProduct from "./CardProduct"
 import { getRequest } from "../../utils/api";
 import AccordionProduct from "./AccordionProduct";
+import { productClient } from "../../utils/Routes";
 
 const ProductClient = () => {
     let { prlineid } = useParams()
+    const routeProduct = useLocation();
+    const navigate = useNavigate();
     const [lines, setLines] = useState([]);
     const [sublines, setSublines] = useState([])
     const [checkedState, setCheckedState] = useState(null);
@@ -87,7 +90,13 @@ const ProductClient = () => {
     };
     
     const handleFilter = () => {
-        console.log(filterProduct)
+
+        const valChecks=checkedState.filter((item)=>item===true)
+        if (valChecks.length==0 && routeProduct.pathname!=productClient ) {
+            navigate(productClient)
+        }
+
+        //console.log(filterProduct)
         if (filterProduct){
             let ruta = "/products-client/listall/" + sublinesId + "?page=" + selectPage;
             getRequest(ruta, async (result) => {

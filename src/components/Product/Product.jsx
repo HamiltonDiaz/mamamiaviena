@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     btnvermas: {
         alignContent: "center",
         justifyContent: "center",
-        marginBottom: 5,
+        marginBottom: 15,
     },
 }));
 

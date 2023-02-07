@@ -1,15 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { makeStyles } from "@mui/styles";
 import { BotonPrimario } from "../../utils/ButtonsCustom";
-import { convertNumber , routeImg} from "../../utils/Functions";
-import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { routeImg} from "../../utils/Functions";
 
 
 
@@ -20,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         padding: 5,
     },
     img: {
-        maxHeight: 200,
+        maxHeight: 180,
         minWidth:180,
         // objectFit: {lg:"fill !important", xs:"scale-down !important"},
         objectFit:"fill !important",
@@ -32,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
     btnvermas: {
         alignContent: "center",
         justifyContent: "center",
-        marginBottom: 5,
+        marginBottom: 15,
     },
 }));
 
-const Desing = ({ data }) => {
+const Desing = ({ data, linkItem }) => {
     const classes = useStyles();
     const matches = useMediaQuery("(min-width:800px)");
 
@@ -56,7 +54,7 @@ const Desing = ({ data }) => {
                </Typography>
 
                 <CardActions className={classes.btnvermas}>
-                    <BotonPrimario variant="outlined" size={matches? "small" : "large"} target="_blank" href={""} >
+                    <BotonPrimario variant="outlined" size={matches? "small" : "large"} target="_blank" href={linkItem} >
                         Ver más
                     </BotonPrimario>
                 </CardActions>
